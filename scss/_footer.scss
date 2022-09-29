@@ -1,0 +1,41 @@
+.footer_box{
+    color: $blanco;
+    padding: 0.5rem;
+    background-color: $color-nav;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer_box span{
+    color: $blanco;
+    margin-left: 22px;
+}
+
+.footer_box a{
+    color: $color-fondo-formulario;
+}
+
+.btn-mail{
+    text-decoration: none;
+}
+.bi-facebook, .bi-instagram, .bi-whatsapp {
+    padding-left: 1rem;
+    text-decoration: none;
+    color:$violeta5asec;
+}
+
+.bi-facebook{
+        &:hover{
+            color:$color-fb;
+        }
+    }   
+.bi-instagram{
+        &:hover{
+            color:$naranja;
+        }
+    }
+.bi-whatsapp{
+        &:hover{
+            color: $color-wp;
+        }
+}

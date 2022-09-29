@@ -1,0 +1,52 @@
+.btn-ok{
+    padding: 0.5rem;
+    width: 8rem;
+    background-color:$violeta5asec;
+    border-radius: 20px;
+    border: none;
+    color:$blanco;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+}
+
+.btn-ok:hover{
+    background-color: $naranja;
+    border-color: none;
+    color:$negro;
+}
+
+.btn-contacto{
+    width: 7rem;
+    background-color:$violeta5asec;
+    border-radius: 20px;
+    border: none;
+    color:$blanco;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+    position: fixed;
+    top:map-get($map: $mapa, $key:M)*2;
+    right: 3.75rem;
+    padding:map-get($map: $mapa, $key:S);
+    font-size: map-get($map: $mapa, $key:S);
+    cursor: pointer;
+    box-shadow: 5px 5px 3px 0px $negro-sombra;
+    animation-name: contacto-animado;
+    animation-duration: 2s;
+    animation-delay: 0;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    z-index: 100;
+    &:hover{
+        background-color: $naranja;
+        border-color: none;
+    }
+    a{
+        color:$blanco;
+        text-decoration: none;
+    }    
+}
+    

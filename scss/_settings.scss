@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&display=swap');
+
+$font-rob:'Roboto', sans-serif;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $font-rob;
+    min-height: 100v;
+
+
+    &.navbar-nav a:last-child{
+    margin-right: 1rem;
+    }
+
+    &.footer_box :nth-child(2){
+    margin-left: 15rem;
+    }
+
+}
