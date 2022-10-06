@@ -14,7 +14,7 @@
     <title>JS</title>
 </head>
 <body>
-    <!-- <nav class="navbar navbar-expand-lg bg-pink navbar-transparent fixed-top">
+    <nav class="navbar navbar-expand-lg bg-pink navbar-transparent fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="../index.html"><img src="../images/iconos/logo_largo.png" alt="Logo 5asec" class="img_logo"/></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,20 +33,35 @@
   </nav> 
   <main>
     <h1 class="centrar-h1 text-pop-up-top">DELIVERY</h1>
-    <div class="container">
-    <h2>Manejo de JS en Proyecto Final</h2>
-   <p>gestor de reservas delivery (para determinados productos)</p>
-    <ul>
-        <li>el usuario ve fechas disponibles para solicitar el delivery(buscar por rango de fecha)</li>
-        <li>Servicios asociados al delivery con filtros asociados (precio - categoría - nombre)</li>
-        <li>antes de finalizar la reserva pueden agregar ofrecerle algún otro servicio al usuario (como sanitizante, plancha plus, comentarios.) </li>
-        <li>Confirmacion de la reserva</li>
-        <li>Se puede modificar mis reservas (ABM)</li>
-        <li>una vez reservada el servicio no estará disponible para que otro "usuario" pueda utilizar esa fecha en esa hora</li>
-        <li>para reservar ingreso mis datos y confirmo la reserva.</li>
-    </ul>
+    <div class="container-tips">
+      <h2>Gestion Online Tintoreria</h2>
+      <div id="combos">
+        <h5 id="tituloFiltro">Ingrese una opcion del Servicio Deseado...</h5>
+        <select id="comboFliaServicios">
+          <!--  onclick="menuImprimir(event)" onclick="menuImprimir(evento)" -->
+          <option value="" disabled="" selected=""> Filtrar por tipo de Grupo de Servicios</option>
+          <option value="tintoreria">Tintoreria</option>
+          <option value="lavado">Lavado y Secado</option>
+          <option value="plancha">Solo Planchado</option>
+        </select>
+        <select id="comboServicios">
+          <option value="" disabled="" selected=""> Filtrar por tipo de Servicio</option>
+          <option value="Camisa">Camisa</option>
+          <option value="Remera">Remera</option>
+          <option value="Traje">Traje de Hombre</option>
+          <option value="Blusa">Blusa</option>
+        </select>
+        <select id="comboEntrega">
+          <option value="" disabled="" selected=""> Filtrar por Tipo de Entrega</option>
+          <option value="1">Entrega en el Local</option>
+          <option value="2">Delivery a Domicilio</option>
+        </select>
+        <div>
+          <button type="submit" class="btn-ok centrar-boton">Solicitar</button>
+        </div>
+      </div>
     </div>
-  </main> -->
+  </main> 
   <script src="../JS/script.js"></script>
 </body>
 </html>
