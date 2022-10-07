@@ -156,7 +156,7 @@ main {
   transition: 0.5s;
   transform: scale(1.2); }
 
-.container-contact, .container-mapa {
+.container-contact, .container-mapa, .container-delivery {
   background-color: rgba(255, 255, 255, 0.852);
   font-weight: bold;
   padding: 1rem;
@@ -166,6 +166,9 @@ main {
   margin: 0 auto;
   width: 90%;
   height: auto; }
+
+.container-delivery {
+  text-align: center; }
 
 .navbar {
   height: 63px; }
@@ -219,6 +222,13 @@ h3 {
   font-weight: bold;
   font-size: 1rem; }
 
+h4 {
+  color: #4e2158;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 100%;
+  height: auto; }
+
 .a-404 {
   background-color: rgba(0, 0, 0, 0.2);
   color: white;
@@ -236,12 +246,19 @@ h3 {
   background-size: cover;
   background-position: center; }
 
+.centrar-boton {
+  margin: 0 auto;
+  margin-top: 2rem;
+  text-align: center; }
+
 .centrar-h2 {
   padding: 0;
   margin: 0;
   padding-top: 0.5rem;
   font-size: 1.5rem;
-  color: #4b4747; }
+  color: #4b4747;
+  /*******/
+  text-align: center; }
 
 .form-control {
   color: #5b1257;
@@ -329,42 +346,6 @@ h3 {
   font-weight: bold;
   letter-spacing: 2px; }
 
-.burbuja {
-  background-image: url(../images/iconos/logo-burbuja.png);
-  border-radius: 50%;
-  opacity: .2;
-  position: absolute;
-  bottom: 0;
-  animation: burbujas 3s linear infinite; }
-
-.burbuja:nth-child(1) {
-  width: 80px;
-  height: 80px;
-  left: 5%;
-  animation-duration: 3s;
-  animation-delay: 3s; }
-
-.burbuja:nth-child(2) {
-  width: 30px;
-  height: 30px;
-  left: 15%;
-  animation-duration: 3s;
-  animation-delay: 5s; }
-
-.burbuja:nth-child(3) {
-  width: 40px;
-  height: 40px;
-  left: 70%;
-  animation-duration: 4s;
-  animation-delay: 5s; }
-
-.burbuja:nth-child(4) {
-  width: 60px;
-  height: 60px;
-  left: 80%;
-  animation-duration: 4s;
-  animation-delay: 3s; }
-
 .slide-in-elliptic-top-fwd {
   -webkit-animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
@@ -377,19 +358,6 @@ h3 {
 @keyframes contacto-animado {
   100% {
     width: 20%; } }
-
-/*****************  ANIMACION BURBUJAS ********************************/
-@keyframes burbujas {
-  0% {
-    bottom: 0;
-    opacity: 0; }
-  30% {
-    transform: translateX(10px); }
-  60% {
-    opacity: .4; }
-  100% {
-    bottom: 100vh;
-    opacity: .8; } }
 
 /*****************  ANIMACION slide-in-elliptic-top-fwd *****************/
 @-webkit-keyframes slide-in-elliptic-top-fwd {

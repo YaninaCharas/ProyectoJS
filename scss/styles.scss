@@ -48,7 +48,7 @@
         transform:scale(1.2)
     }
 }
-.container-contact , .container-mapa{
+.container-contact , .container-mapa, .container-delivery{
     background-color: $fondo-formulario-contacto;
     font-weight: bold;
     padding: map-get($map: $mapa, $key:S);
@@ -58,6 +58,9 @@
     margin:0 auto;
     width: 90%;
     height: auto;
+}
+.container-delivery{
+    text-align: center;
 }
 .navbar{
     height: 63px; 
@@ -113,6 +116,15 @@ h3{
     font-weight: bold;
     font-size: map-get($map: $mapa, $key:S);
 }
+h4{
+    color: $color-nav;
+    font-size: map-get($map: $mapa, $key:SM);
+    text-align:center;
+    width: 100%;
+    height: auto;
+    // padding: map-get($map: $mapa, $key:M);
+    // font-size: map-get($map: $mapa, $key:L)+1;
+}
 .a-404{
     background-color: $negro-sombra;
     color:$blanco;
@@ -131,8 +143,10 @@ h3{
     background-size: cover;
     background-position: center;
 }
-.btn-ok.centrar-boton{
+.centrar-boton{
     margin: 0 auto;
+    margin-top: 2rem;
+    text-align: center;
 }
 .centrar-h2{
     padding: 0;
@@ -140,6 +154,8 @@ h3{
     padding-top: map-get($map: $mapa, $key:XS);
     font-size: map-get($map: $mapa, $key:XL)/2;
     color: $gris;
+    /*******/
+    text-align: center;
 }
 .form-control{
     color: $violeta5asec;

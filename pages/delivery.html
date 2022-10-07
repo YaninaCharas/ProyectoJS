@@ -33,16 +33,16 @@
   </nav> 
   <main>
     <h1 class="centrar-h1 text-pop-up-top">DELIVERY</h1>
-    <div class="container-tips">
-      <h2>Gestion Online Tintoreria</h2>
-      <div id="combos">
-        <h5 id="tituloFiltro">Ingrese una opcion del Servicio Deseado...</h5>
-        <select id="comboFliaServicios">
-          <!--  onclick="menuImprimir(event)" onclick="menuImprimir(evento)" -->
+      <form class="container-delivery">
+        <h4>Gestion Online Tintoreria</h4>
+        <h5>Ingrese una opcion del Servicio Deseado...</h5>
+        <!-- <select id="comboFliaServicios"> -->
+        <select>
           <option value="" disabled="" selected=""> Filtrar por tipo de Grupo de Servicios</option>
           <option value="tintoreria">Tintoreria</option>
           <option value="lavado">Lavado y Secado</option>
           <option value="plancha">Solo Planchado</option>
+          <option value="productos">Productos</option>
         </select>
         <select id="comboServicios">
           <option value="" disabled="" selected=""> Filtrar por tipo de Servicio</option>
@@ -56,11 +56,11 @@
           <option value="1">Entrega en el Local</option>
           <option value="2">Delivery a Domicilio</option>
         </select>
-        <div>
-          <button type="submit" class="btn-ok centrar-boton">Solicitar</button>
+        <div class="centrar-boton">
+          <button type="submit" class="btn-ok">Solicitar</button>
         </div>
-      </div>
-    </div>
+      </form>
+    <!-- </div> -->
   </main> 
   <script src="../JS/script.js"></script>
 </body>

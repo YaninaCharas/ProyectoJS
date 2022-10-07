@@ -1,3 +1,4 @@
+/********************DEFINICION DE OBJETOS */
 function calcularCostoDelivery(codigoPostal){
     if ((codigoPostal>1000)&&(codigoPostal<=1400)){
         costo = 600;
@@ -8,9 +9,9 @@ function calcularCostoDelivery(codigoPostal){
     return(costo)
 }
 
-const nombre = prompt("Ingrese su Nombre");
-const apellido = prompt("Ingrese su Apellido");
-const telefono = prompt("Ingrese su Telefono");
+// const nombre = prompt("Ingrese su Nombre");
+// const apellido = prompt("Ingrese su Apellido");
+// const telefono = prompt("Ingrese su Telefono");
 let iterar = "SI";
 while (iterar==="SI"){
     let codigoPostal = parseInt(prompt("Ingrese su Codigo Postal"));
