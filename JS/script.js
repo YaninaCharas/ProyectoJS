@@ -164,9 +164,9 @@ while (iterar==="SI"){
         //Aca deberia dar de alta el cliente
     }
     else{
-        iterar = prompt(nombre+" Lo lamentamos pero No llega el Delivery a tu Zona,escribi Seguir si queres ingresar otro Codigo Postal o escribi Salir ");
-        while ((iterar == "")||((iterar!="Seguir")&&(iterar!="Salir"))){
-            iterar = prompt(" Lo lamentamos pero No llega el Delivery a tu Zona,escribi Seguir si queres ingresar otro Codigo Postal o escribi Salir ");
+        iterar = prompt(" Lo lamentamos pero No llega el Delivery a tu Zona,escribi Seguir si queres ingresar otro Codigo Postal o escribi Salir ");
+            while ((iterar === "")||((iterar!="Seguir")&&(iterar!="Salir"))){
+            iterar = prompt('Lo lamentamos pero No llega el Delivery a tu Zona,escribi Seguir si queres ingresar otro Codigo Postal o escribi Salir ');
         }
         if (iterar == "Seguir"){
             iterar ="SI"
