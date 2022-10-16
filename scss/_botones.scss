@@ -11,9 +11,9 @@
 }
 
 .btn-ok:hover{
+    transition: 1s ease-in-out;
     background-color: $naranja;
     border-color: none;
-    color:$negro;
 }
 
 .btn-contacto{

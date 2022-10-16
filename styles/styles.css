@@ -22,9 +22,9 @@
   text-decoration: none; }
 
 .btn-ok:hover {
+  transition: 1s ease-in-out;
   background-color: #ed6c06;
-  border-color: none;
-  color: black; }
+  border-color: none; }
 
 .btn-contacto {
   width: 7rem;
@@ -122,6 +122,37 @@ main {
   width: 35%;
   height: auto; }
 
+.row-dely {
+  background-color: rgba(255, 255, 255, 0.852);
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 20px;
+  border: 1px solid #5b1257;
+  color: #5b1257;
+  justify-content: space-around;
+  display: flex;
+  margin: 0.2rem;
+  flex-wrap: wrap; }
+
+.column-dely {
+  padding: 0.1rem;
+  border-radius: 20px;
+  border: 1px solid #5b1257;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.img-dely {
+  margin-top: 0.2rem;
+  border-radius: 2px;
+  width: 90%;
+  height: auto; }
+
+.p-dely {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400; }
+
 .container-proceso, .container-tips {
   background-color: rgba(255, 255, 255, 0.493);
   border-radius: 20px;
@@ -168,12 +199,22 @@ main {
   height: auto; }
 
 .container-delivery {
+  width: 100%;
+  margin-top: 0.2rem;
   text-align: center; }
 
 .navbar {
   height: 63px; }
 
 .navbar-nav .nav-link.active {
+  color: #adb5bd; }
+
+.nav-link:hover {
+  transform: scale(1);
+  background: linear-gradient(90deg, #4e2158 0%, #863681 50%, #4e2158 100%);
+  text-decoration: none; }
+
+.nav-item:active {
   color: #adb5bd; }
 
 .navbar-nav a {
@@ -191,11 +232,6 @@ main {
   border: 1px solid #ed6c06; }
   .navbar-toggler:hover {
     border: 2px solid #ed6c06; }
-
-.item-elegido {
-  transform: scale(1);
-  background: linear-gradient(90deg, #4e2158 0%, #863681 50%, #4e2158 100%);
-  text-decoration: none; }
 
 /* estilos de titulos h1---h3*/
 h1 {
@@ -452,7 +488,7 @@ h4 {
 
 /*********  MEDIA QUERY  610- Surface Duo******/
 @media screen and (max-width: 610px) {
-  .item-elegido {
+  .nav-link:hover {
     color: #5b1257; }
   .footer_box {
     font-size: 0.5rem;

@@ -1,3 +1,25 @@
+class tipoDeServicio {
+    constructor (tipo,fliaProducto) {
+        this.tipo = tipo;
+        this.fliaProducto = fliaProducto;
+        this.activo = true;
+    }
+}
+const listaTipoDeServicio = [];
+listaTipoDeServicio.push(new tipoDeServicio("Premium","Tintoreria", true));
+listaTipoDeServicio.push(new tipoDeServicio("Plus","Tintoreria", true));
+listaTipoDeServicio.push(new tipoDeServicio("Normal","Tintoreria", true));
+
+listaTipoDeServicio.push(new tipoDeServicio("Premium","Lavado y Secado", true));
+listaTipoDeServicio.push(new tipoDeServicio("Plus","Lavado y Secado", true));
+listaTipoDeServicio.push(new tipoDeServicio("Normal","Lavado y Secado", true));
+
+listaTipoDeServicio.push(new tipoDeServicio("Premium","Prendas de Casa", true));
+listaTipoDeServicio.push(new tipoDeServicio("Plus","Prendas de Casa", true));
+listaTipoDeServicio.push(new tipoDeServicio("Normal","Prendas de Casa", true));
+
+
+
 class FliaProductos {
     constructor (fliaProducto, producto, activo) {
 
@@ -22,8 +44,14 @@ class Productos {
 }
 const listaProductos = [];
 listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Camisa", 420));
+listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Traje", 1850));
 listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Remera", 420));
+listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Corbata", 420));
 listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Pantalon", 850));
+listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Campera", 1950));
+listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Camperon", 2300));
+listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Campera de Plumas", 3300));
+listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Tapado", 3300));
 listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Vestido", 850));
 listaProductos.push(new Productos("Prendas de Casa","Valet", 990));
 listaProductos.push(new Productos("Prendas de Casa","Acolchado 1 Plaza",1350));
@@ -42,7 +70,8 @@ listaProductos.push(new Productos("Adicionales", "Blanqueador", 520));
 listaProductos.push(new Productos("Adicionales", "Perfumina", 1200));
 
 class Pedidos {
-    constructor (celular, producto, cantidad, precio, tipoEntrega) {
+    constructor (numero,celular, producto, cantidad, precio, tipoEntrega) {
+        this.idPedido = numero;
         this.celular = celular;
         this.producto = producto;
         this.cantidad = cantidad;
@@ -69,10 +98,13 @@ class Pedidos {
 
 }
 const listaPedidos = [];
-listaPedidos.push(new Pedidos(1134317751,"Vestido",1, 650, "D"));
-listaPedidos.push(new Pedidos(1147761102,"Camisa",1, 420, "L"));
-listaPedidos.push(new Pedidos(1144445555,"Plumon 1 Plaza",1, 2350, "D"));
-listaPedidos.push(new Pedidos(1148551234,"Perfumina",2, 2400, "L"));
+listaPedidos.push(new Pedidos(1,1134317751,"Camisa",1, 450, "D"));
+listaPedidos.push(new Pedidos(1,1134317751,"Remera",1, 420, "D"));
+listaPedidos.push(new Pedidos(1,1134317751,"Campera",1, 1850, "D"));
+listaPedidos.push(new Pedidos(1,1134317751,"Vestido",2, 1300, "D"));
+listaPedidos.push(new Pedidos(2,1147761102,"Camisa",1, 420, "L"));
+listaPedidos.push(new Pedidos(3,1144445555,"Plumon 1 Plaza",1, 2350, "D"));
+listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
 
 listaPedidos[0].verificar(1134317751);
 listaPedidos[1].verificar(1147761102);
@@ -120,15 +152,32 @@ class Clientes {
 }
 
 function registrar(codigoPostal){
+    let ingreso=true;
+    nombre ="";
+    apellido ="";
+    celular =0;
+    email = "";
     const listaClientes = [];
-    listaClientes.push(new Clientes
-        (prompt("Ingrese su nombre: "),
-        prompt("Ingrese su apellido: "),
-        parseInt(prompt("Ingrese su telefono o Celular: ")),
+    while (ingreso)
+    {
+        nombre = prompt("Ingrese su nombre: ");
+        apellido = prompt("Ingrese su apellido: ");
+        celular = parseInt(prompt("Ingrese su telefono o Celular: "));
+        email = prompt("Ingrese su email: ");
+        if ((nombre !=="")&&(apellido !=="")&&(celular !=="")&&(email!=="")){
+            ingreso=false
+        }
+        else{
+            alert("Debe ingresar toda la informacion solicitada")
+        }
+    }
+    listaClientes.push(new Clientes(
+        nombre,
+        apellido,
+        celular,
         codigoPostal,
-        prompt("Ingrese su email: "))
+        email)
         );
-
         listaClientes.forEach( (cliente) => {
     
             console.log(
@@ -137,7 +186,7 @@ function registrar(codigoPostal){
                 Nombre y Apellido: ${cliente.nombre} ${cliente.apellido}
                 Email: ${cliente.email}
                 Codigo Postal: ${cliente.codigoPostal}
-                \n----------------------------------`);               
+                \n------------------------------------------------------`);               
         });
 }
 
@@ -187,20 +236,47 @@ listaProductos.forEach((producto) => {
         Nombre: ${producto.producto}
         Descripcion: ${producto.descripcion}
         Precio: $${producto.precio}
-        \n----------------------------------`);
+        \n------------------------------------------------------`);
 });
+
+console.log("Array Nuevo de Productos seleccionados\n ")
+const newProducts = listaProductos.filter( (producto) => {
+    if (producto.producto === "Desmanchado, Lavado y Planchado")
+    {
+        return(producto);
+    }
+});
+console.log(newProducts);
+console.log("------------------------------------------------------");
 
 console.log("Lista de Pedidos:\n ");
-
 listaPedidos.forEach((pedidos) => {
-
-    console.log(
-        `
-        Celular Cliente: ${pedidos.celular}
-        Descripcion: ${pedidos.producto}
-        Cantidad: ${pedidos.cantidad}
-        Precio: $${pedidos.precio}
-        Entrega: ${pedidos.tipoEntrega}
-        \n----------------------------------`);
+            console.log(
+                `
+                IdPedido: ${pedidos.idPedido}
+                Celular Cliente: ${pedidos.celular}
+                Descripcion: ${pedidos.producto}
+                Cantidad: ${pedidos.cantidad}
+                Precio: $${pedidos.precio}
+                Entrega: ${pedidos.tipoEntrega}
+                \n------------------------------------------------------`);
 });
+const totalPedido = listaPedidos.reduce((acc,item) =>{
+return acc = acc+(item.precio*item.cantidad)},0);
+
+console.log(`El total a pagar de Todos los pedidos es: ${totalPedido}`);
+
+
+console.log("---------Nuevo Array con Importe Total-------------------")
+const pedidosConImporteTotal = listaPedidos.map( (pedido) => {
+    const importeTotal = pedido.precio*pedido.cantidad;
+    pedido.importeTotal = importeTotal;
+    return pedido;
+})
+
+console.log(pedidosConImporteTotal)
+;
+
+
+
 

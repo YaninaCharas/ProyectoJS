@@ -11,6 +11,37 @@
     width: 35%;
     height: auto;
 }
+.row-dely{
+    background-color: $fondo-formulario-contacto;
+    font-weight: bold;
+    padding: map-get($map: $mapa, $key:XS);
+    border-radius: 20px;
+    border: 1px solid $violeta5asec;
+    color: $violeta5asec;
+    justify-content: space-around;  
+    display: flex;
+    margin: 0.2rem;
+    flex-wrap: wrap;
+}
+.column-dely{
+    padding: 0.1rem;
+    border-radius: 20px;
+    border: 1px solid $violeta5asec;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img-dely{margin-top: 0.2rem;
+    border-radius: 2px;
+    width: 90%;
+    height: auto; 
+}
+.p-dely{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+}
 .container-proceso, .container-tips{
     background-color:$color-fondo-formulario;
     border-radius: 20px;
@@ -60,6 +91,8 @@
     height: auto;
 }
 .container-delivery{
+    width: 100%;
+    margin-top: 0.2rem;
     text-align: center;
 }
 .navbar{
@@ -68,6 +101,14 @@
 .navbar-nav .nav-link.active {
     color: #adb5bd;
 } 
+.nav-link:hover{
+    transform: scale(1);
+    background: $item-elegido;
+    text-decoration: none;
+}
+.nav-item:active{
+    color: #adb5bd;
+}
 .navbar-nav a{
     margin-left: map-get($map: $mapa, $key:S)*3;
     margin: 0;
@@ -85,11 +126,6 @@
     &:hover{
         border:2px solid $naranja;
     }
-}
-.item-elegido{
-    transform: scale(1);
-    background: $item-elegido;
-    text-decoration: none;
 }
 /* estilos de titulos h1---h3*/
 h1{
@@ -379,7 +415,7 @@ h4{
 }
 /*********  MEDIA QUERY  610- Surface Duo******/
 @media screen and (max-width: 610px) {
-    .item-elegido{
+    .nav-link:hover{
         color: $violeta5asec;
     }
     .footer_box{
