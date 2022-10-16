@@ -1,22 +1,24 @@
-class tipoDeServicio {
-    constructor (tipo,fliaProducto) {
-        this.tipo = tipo;
-        this.fliaProducto = fliaProducto;
-        this.activo = true;
-    }
-}
-const listaTipoDeServicio = [];
-listaTipoDeServicio.push(new tipoDeServicio("Premium","Tintoreria", true));
-listaTipoDeServicio.push(new tipoDeServicio("Plus","Tintoreria", true));
-listaTipoDeServicio.push(new tipoDeServicio("Normal","Tintoreria", true));
+// class categoriaServicio {
+//     constructor (tipo,fliaProducto) {
+//         this.tipo = tipo;
+//         this.activo = true;
+//     }
+// }
+// const listaCategServicio = [];
+// listaCategServicio.push(new categoriaServicio("Hombre", true));
+// listaCategServicio.push(new categoriaServicio("Mujer", true));
+// listaCategServicio.push(new categoriaServicio("Casa", true));
+// listaCategServicio.push(new categoriaServicio("Productos", true));
 
-listaTipoDeServicio.push(new tipoDeServicio("Premium","Lavado y Secado", true));
-listaTipoDeServicio.push(new tipoDeServicio("Plus","Lavado y Secado", true));
-listaTipoDeServicio.push(new tipoDeServicio("Normal","Lavado y Secado", true));
+// listaCategServicio.push(new categoriaServicio("Hombre","Lavado y Secado", true));
+// listaCategServicio.push(new categoriaServicio("Mujer","Lavado y Secado", true));
+// listaCategServicio.push(new categoriaServicio("Casa","Lavado y Secado", true));
+// listaCategServicio.push(new categoriaServicio("Productos","Lavado y Secado", true));
 
-listaTipoDeServicio.push(new tipoDeServicio("Premium","Prendas de Casa", true));
-listaTipoDeServicio.push(new tipoDeServicio("Plus","Prendas de Casa", true));
-listaTipoDeServicio.push(new tipoDeServicio("Normal","Prendas de Casa", true));
+// listaCategServicio.push(new categoriaServicio("Hombre","Prendas de Casa", true));
+// listaCategServicio.push(new categoriaServicio("Mujer","Prendas de Casa", true));
+// listaCategServicio.push(new categoriaServicio("Casa","Prendas de Casa", true));
+// listaCategServicio.push(new categoriaServicio("Productos","Prendas de Casa", true));
 
 
 
@@ -30,44 +32,64 @@ class FliaProductos {
 }
 const listaFliaProductos = [];
 listaFliaProductos.push(new FliaProductos("Tintoreria", "Desmanchado, lavado y Planchado", true));
-listaFliaProductos.push(new FliaProductos("Lavado y Secado", "Prendas de Casa", true));
-listaFliaProductos.push(new FliaProductos("Solo Planchado", "Prendas de vestir", true));
+listaFliaProductos.push(new FliaProductos("Casa", "Lavado y Secado", true));
+listaFliaProductos.push(new FliaProductos("Planchado", "Solo Plancha de Prendas", true));
 listaFliaProductos.push(new FliaProductos("Productos", "Adicionales", true));
 
 
 class Productos {
-    constructor (producto, descripcion, precio) {
+    constructor (categoria,producto, descripcion, precio) {
+        this.categoria = categoria;
         this.producto = producto;
         this.descripcion = descripcion;
         this.precio = precio;
     }
 }
 const listaProductos = [];
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Camisa", 420));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Traje", 1850));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Remera", 420));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Corbata", 420));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Pantalon", 850));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Campera", 1950));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Camperon", 2300));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Campera de Plumas", 3300));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Tapado", 3300));
-listaProductos.push(new Productos("Desmanchado, Lavado y Planchado","Vestido", 850));
-listaProductos.push(new Productos("Prendas de Casa","Valet", 990));
-listaProductos.push(new Productos("Prendas de Casa","Acolchado 1 Plaza",1350));
-listaProductos.push(new Productos("Prendas de Casa","Acolchado 2 Plazas", 1950));
-listaProductos.push(new Productos("Prendas de Casa","Acolchado King Size", 2450));
-listaProductos.push(new Productos("Prendas de Casa","Plumon 1 Plaza", 2350));
-listaProductos.push(new Productos("Prendas de Casa","Plumon 2 Plazas", 2950));
-listaProductos.push(new Productos("Prendas de Casa","Plumon King Size", 3450));
-listaProductos.push(new Productos("Prendas de vestir","Camisa", 320));
-listaProductos.push(new Productos("Prendas de vestir","Remera", 320));
-listaProductos.push(new Productos("Prendas de vestir","Pantalon", 650));
-listaProductos.push(new Productos("Prendas de vestir", "Vestido", 650));
-listaProductos.push(new Productos("Adicionales", "Sanitizante", 350));
-listaProductos.push(new Productos("Adicionales", "Plancha Plus", 450));
-listaProductos.push(new Productos("Adicionales", "Blanqueador", 520));
-listaProductos.push(new Productos("Adicionales", "Perfumina", 1200));
+listaProductos.push(new Productos("Tintoreria","Hombre","Camisa", 420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Traje", 1850));
+listaProductos.push(new Productos("Tintoreria","Hombre","Remera", 420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Corbata", 420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon", 850));
+listaProductos.push(new Productos("Tintoreria","Hombre","Campera", 1950));
+listaProductos.push(new Productos("Tintoreria","Hombre","Camperon", 2300));
+listaProductos.push(new Productos("Tintoreria","Hombre","Campera de Plumas", 3300));
+listaProductos.push(new Productos("Tintoreria","Hombre","Tapado", 3300));
+
+listaProductos.push(new Productos("Planchado","Hombre","Camisa", 420));
+listaProductos.push(new Productos("Planchado","Hombre","Traje", 1850));
+listaProductos.push(new Productos("Planchado","Hombre","Remera", 420));
+listaProductos.push(new Productos("Planchado","Hombre","Corbata", 420));
+listaProductos.push(new Productos("Planchado","Hombre","Pantalon", 850));
+listaProductos.push(new Productos("Planchado","Hombre","Campera", 1950));
+listaProductos.push(new Productos("Planchado","Hombre","Camperon", 2300));
+listaProductos.push(new Productos("Planchado","Hombre","Campera de Plumas", 3300));
+listaProductos.push(new Productos("Planchado","Hombre","Tapado", 3300));
+
+listaProductos.push(new Productos("Casa","Prendas de Casa","Valet", 990));
+listaProductos.push(new Productos("Casa","Prendas de Casa","Acolchado 1 Plaza",1350));
+listaProductos.push(new Productos("Casa","Prendas de Casa","Acolchado 2 Plazas", 1950));
+listaProductos.push(new Productos("Casa","Prendas de Casa","Acolchado King Size", 2450));
+listaProductos.push(new Productos("Casa","Prendas de Casa","Plumon 1 Plaza", 2350));
+listaProductos.push(new Productos("Casa","Prendas de Casa","Plumon 2 Plazas", 2950));
+listaProductos.push(new Productos("Casa","Prendas de Casa","Plumon King Size", 3450));
+
+listaProductos.push(new Productos("Tintoreria","Mujer","Camisa", 320));
+listaProductos.push(new Productos("Tintoreria","Mujer","Remera", 320));
+listaProductos.push(new Productos("Tintoreria","Mujer","Pantalon", 1650));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Vestido", 1650));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Pollera", 1050));
+
+listaProductos.push(new Productos("Planchado","Mujer","Camisa", 320));
+listaProductos.push(new Productos("Planchado","Mujer","Remera", 320));
+listaProductos.push(new Productos("Planchado","Mujer","Pantalon", 1650));
+listaProductos.push(new Productos("Planchado","Mujer","Vestido", 1650));
+listaProductos.push(new Productos("Planchado","Mujer","Pollera", 1150));
+
+listaProductos.push(new Productos("Productos","Adicionales", "Sanitizante", 350));
+listaProductos.push(new Productos("Productos","Adicionales", "Plancha Plus", 450));
+listaProductos.push(new Productos("Productos","Adicionales", "Blanqueador", 520));
+listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 1200));
 
 class Pedidos {
     constructor (numero,celular, producto, cantidad, precio, tipoEntrega) {
@@ -206,10 +228,11 @@ let iterar = "SI";
 while (iterar==="SI"){
     let codigoPostal = parseInt(prompt("Ingrese su Codigo Postal"));
     if ((codigoPostal>=1000)&&(codigoPostal<=1600)){
-        alert("Bienvenid@ podemos llegar a tu zona, el costo del delivery es de $"+calcularCostoDelivery(codigoPostal));
+ //       alert("Bienvenid@ podemos llegar a tu zona, el costo del delivery es de $"+calcularCostoDelivery(codigoPostal));
         const listaClientes = [];
         iterar="NO";
         registrar(codigoPostal)
+        alert(`Hola ${nombre}! el costo del delivery es de $`+calcularCostoDelivery(codigoPostal));
         //Aca deberia dar de alta el cliente
     }
     else{
