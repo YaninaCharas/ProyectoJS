@@ -1,27 +1,3 @@
-// class categoriaServicio {
-//     constructor (tipo,fliaProducto) {
-//         this.tipo = tipo;
-//         this.activo = true;
-//     }
-// }
-// const listaCategServicio = [];
-// listaCategServicio.push(new categoriaServicio("Hombre", true));
-// listaCategServicio.push(new categoriaServicio("Mujer", true));
-// listaCategServicio.push(new categoriaServicio("Casa", true));
-// listaCategServicio.push(new categoriaServicio("Productos", true));
-
-// listaCategServicio.push(new categoriaServicio("Hombre","Lavado y Secado", true));
-// listaCategServicio.push(new categoriaServicio("Mujer","Lavado y Secado", true));
-// listaCategServicio.push(new categoriaServicio("Casa","Lavado y Secado", true));
-// listaCategServicio.push(new categoriaServicio("Productos","Lavado y Secado", true));
-
-// listaCategServicio.push(new categoriaServicio("Hombre","Prendas de Casa", true));
-// listaCategServicio.push(new categoriaServicio("Mujer","Prendas de Casa", true));
-// listaCategServicio.push(new categoriaServicio("Casa","Prendas de Casa", true));
-// listaCategServicio.push(new categoriaServicio("Productos","Prendas de Casa", true));
-
-
-
 class FliaProductos {
     constructor (fliaProducto, producto, activo) {
 
@@ -66,30 +42,118 @@ listaProductos.push(new Productos("Planchado","Hombre","Camperon", 2300));
 listaProductos.push(new Productos("Planchado","Hombre","Campera de Plumas", 3300));
 listaProductos.push(new Productos("Planchado","Hombre","Tapado", 3300));
 
-listaProductos.push(new Productos("Casa","Prendas de Casa","Valet", 990));
-listaProductos.push(new Productos("Casa","Prendas de Casa","Acolchado 1 Plaza",1350));
-listaProductos.push(new Productos("Casa","Prendas de Casa","Acolchado 2 Plazas", 1950));
-listaProductos.push(new Productos("Casa","Prendas de Casa","Acolchado King Size", 2450));
-listaProductos.push(new Productos("Casa","Prendas de Casa","Plumon 1 Plaza", 2350));
-listaProductos.push(new Productos("Casa","Prendas de Casa","Plumon 2 Plazas", 2950));
-listaProductos.push(new Productos("Casa","Prendas de Casa","Plumon King Size", 3450));
+listaProductos.push(new Productos("Lavado","Hombre","Camisa", 220));
+listaProductos.push(new Productos("Lavado","Hombre","Remera", 220));
+listaProductos.push(new Productos("Lavado","Hombre","Pantalon", 550));
+
+listaProductos.push(new Productos("Productos","Hombre", "Sanitizante", 350));
+listaProductos.push(new Productos("Productos","Hombre", "Plancha Plus", 450));
+listaProductos.push(new Productos("Productos","Hombre", "Blanqueador", 520));
+listaProductos.push(new Productos("Productos","Hombre", "Perfumina", 1200));
+
+
+listaProductos.push(new Productos("Lavado","Casa","Valet", 990));
+listaProductos.push(new Productos("Lavado","Casa","Acolchado 1 Plaza",1350));
+listaProductos.push(new Productos("Lavado","Casa","Acolchado 2 Plazas", 1950));
+listaProductos.push(new Productos("Lavado","Casa","Acolchado King Size", 2450));
+listaProductos.push(new Productos("Lavado","Casa","Plumon 1 Plaza", 2350));
+listaProductos.push(new Productos("Lavado","Casa","Plumon 2 Plazas", 2950));
+listaProductos.push(new Productos("Lavado","Casa","Plumon King Size", 3450));
 
 listaProductos.push(new Productos("Tintoreria","Mujer","Camisa", 320));
 listaProductos.push(new Productos("Tintoreria","Mujer","Remera", 320));
 listaProductos.push(new Productos("Tintoreria","Mujer","Pantalon", 1650));
 listaProductos.push(new Productos("Tintoreria","Mujer", "Vestido", 1650));
 listaProductos.push(new Productos("Tintoreria","Mujer", "Pollera", 1050));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Blusa", 1050));
 
 listaProductos.push(new Productos("Planchado","Mujer","Camisa", 320));
 listaProductos.push(new Productos("Planchado","Mujer","Remera", 320));
 listaProductos.push(new Productos("Planchado","Mujer","Pantalon", 1650));
 listaProductos.push(new Productos("Planchado","Mujer","Vestido", 1650));
 listaProductos.push(new Productos("Planchado","Mujer","Pollera", 1150));
+listaProductos.push(new Productos("Planchado","Mujer","Blusa", 1150));
+
+listaProductos.push(new Productos("Lavado","Mujer","Camisa", 320));
+listaProductos.push(new Productos("Lavado","Mujer","Remera", 320));
+listaProductos.push(new Productos("Lavado","Mujer","Pantalon", 1650));
+listaProductos.push(new Productos("Lavado","Mujer","Vestido", 1650));
+listaProductos.push(new Productos("Lavado","Mujer","Pollera", 1150));
+listaProductos.push(new Productos("Lavado","Mujer","Blusa", 1150));
 
 listaProductos.push(new Productos("Productos","Adicionales", "Sanitizante", 350));
 listaProductos.push(new Productos("Productos","Adicionales", "Plancha Plus", 450));
 listaProductos.push(new Productos("Productos","Adicionales", "Blanqueador", 520));
 listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 1200));
+
+function seleccionarFliaProductos(){
+    let comboFliaProductos = document.getElementById(`comboFliaProductos`);
+    let fliaProducto = comboFliaProductos.value;
+    console.log("*********************************************************")
+    console.log(`Se selecciono la familia de Productos ${fliaProducto}`)
+
+    const fliaProductoSeleccionado = listaProductos.filter( (producto) => {
+        if (producto.categoria === fliaProducto)
+        {
+            return(producto);
+        }
+        });
+    console.log(fliaProductoSeleccionado);
+    console.log("------------------------------------------------------");
+
+}
+
+function seleccionarProductos(){
+    let comboProductos = document.getElementById(`comboProductos`);
+    let selectProducto = comboProductos.value;
+    console.log("*********************************************************")
+    console.log(`Se selecciono el Productos ${selectProducto}`)
+
+    console.log("****************Array Nuevo de Productos seleccionados*****************\n ")
+
+    const productoSeleccionado = listaProductos.filter( (producto) => {
+    if (producto.producto === selectProducto)
+    {
+        return(producto);
+    }
+    });
+//console.log(productoSeleccionado);
+    let cad = ""
+    for (let i=0; i< productoSeleccionado.length; i++){
+        if (i===0){
+        cad = `
+            <section id="seleccion-dely" class="row-dely">
+            <div class="column-dely">
+              <img alt="Honey" class="img-dely" src="../images/${selectProducto}${i+1}.jpg">
+              <p class="p-dely">Ingrese la Cantidad</p>
+              <input class="p-dely" type="number"id=idnumber${i+1}>
+              <button class="btn-ok">Agregar</button>
+            </div>
+            `;     
+        }
+        else{
+        cad += `
+        <div class="column-dely">
+          <img alt="Honey" class="img-dely" src="../images/${selectProducto}${i+1}.jpg">
+          <p class="p-dely">Ingrese la Cantidad</p>
+          <input class="p-dely" type="number" id=idnumber${i+1}>
+          <button class="btn-ok">Agregar</button>
+        </div>
+        `;  
+        }
+
+
+      document.getElementById("Idseleccion").innerHTML=cad;     
+}
+console.log("------------------------------------------------------");
+}
+
+function seleccionarEntrega(){
+    let comboEntrega = document.getElementById(`comboEntrega`);
+    let entrega = comboEntrega.value;
+    console.log("*********************************************************")
+    console.log(`Se selecciono el tipo de Entrega ${entrega}`)
+}
 
 class Pedidos {
     constructor (numero,celular, producto, cantidad, precio, tipoEntrega) {
@@ -144,6 +208,52 @@ class TipoEntregas {
 const listaTipoEntrega = [];
 listaTipoEntrega.push(new TipoEntregas("D","Delivery"));
 listaTipoEntrega.push(new TipoEntregas("L","Local"));
+
+//Prueba
+// class Usuario {
+//     constructor (ID, nombre, apellido, celular, email, codigoPostal)
+//     {
+//     this.ID = ID;
+//     this.nombre = nombre;
+//     this.apellido = apellido;
+//     this.celular = celular;
+//     this.email = email;
+//     this.codigoPostal = codigoPostal;
+//     }
+// }
+    
+//     const listadoDeUsuario = []
+//     const clientID = 0
+    
+//     const formularioRegistro = document.getElementById("formulario_registro")
+    
+//     formularioRegistro.addEventListener("submit", (event) => {
+    
+//     event.preventdefault();
+    
+//     const inputNombre = document.getElementById("nombre");
+//     const inputApellido = document.getElementById("apellido");
+//     const inputTelefono = document.getElementById("celular");
+//     const inputEmail = document.getElementById("email");
+//     const inputDNI = document.getElementById("codigoPostal");
+//     clientID++
+
+//     listadoDeCliente.push( new Cliente (parseInt(clientID), inputNombre, inputApellido, parseInt(inputCelular), inputEmail, parseInt(inputCodigoPostal)))
+    
+//     inputNombre.value = "";
+//     inputApellido.value = "";
+//     inputCelular.value = 0;
+//     inputEmail.value = "";
+//     inputCodigoPostal.value = 0;
+//     })
+//     console.log("Entro al formulario")
+//     console.log(listadoDeUsuario)
+//     console.log("Salio del Formulario")
+ ////Cierre Prueba
+
+
+
+
 
 //La Clave unica es el celular
 class Clientes {
@@ -228,7 +338,6 @@ let iterar = "SI";
 while (iterar==="SI"){
     let codigoPostal = parseInt(prompt("Ingrese su Codigo Postal"));
     if ((codigoPostal>=1000)&&(codigoPostal<=1600)){
- //       alert("Bienvenid@ podemos llegar a tu zona, el costo del delivery es de $"+calcularCostoDelivery(codigoPostal));
         const listaClientes = [];
         iterar="NO";
         registrar(codigoPostal)
@@ -249,6 +358,7 @@ while (iterar==="SI"){
         
     }
 }
+
 /******** Listado de Datos */
 console.log("Lista de Productos:\n ");
 

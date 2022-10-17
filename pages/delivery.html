@@ -22,74 +22,31 @@
       <form class="container-delivery">
         <h4>Gestion Online Tintoreria</h4>
         <h5>Ingrese una opcion del Servicio Deseado...</h5>
-        <select id="comboFliaServicios">
+        <select id="comboFliaProductos" onchange="seleccionarFliaProductos();">
           <option value="" disabled="" selected="">Servicio</option>
           <option value="tintoreria">Tintoreria</option>
           <option value="lavado">Lavado y Secado</option>
           <option value="planchado">Solo Planchado</option>
           <option value="productos">Productos</option>
         </select>
-        <select id="comboServicios">
+        <select id="comboProductos" onchange="seleccionarProductos();">
           <option value="" disabled="" selected="">Categoria</option>
           <option value="Hombre">Hombre</option>
           <option value="Mujer">Mujer</option>
           <option value="Casa">Casa</option>
-          <option value="Productos">Productos</option>
+          <option value="Adicionales">Adicionales</option>
         </select>
-        <select id="comboEntrega">
+        <select id="comboEntrega" onchange="seleccionarEntrega();">
           <option value="" disabled="" selected="">Tipo de Entrega</option>
-          <option value="1">Entrega en el Local</option>
-          <option value="2">Delivery a Domicilio</option>
+          <option value="Local">Entrega en el Local</option>
+          <option value="Delivery">Delivery a Domicilio</option>
         </select>
         <!-- Esto es lo que se va a repetir de acuerdo a la seleccion -->
-        <section id="seleccion-dely" class="row-dely">
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/ambo.jpg">
-            <p class="p-dely">Traje</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/camisa.jpeg">
-            <p class="p-dely">Camisa</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/corbata.jpg">
-            <p class="p-dely">Corbata</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/pantalon-comun.jpg">
-            <p class="p-dely">Pantalon</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/camperon.jpg">
-            <p class="p-dely">Camperon</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/campera-larga.jpg">
-            <p class="p-dely">Campera Larga</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/campera-plumas.jpg">
-            <p class="p-dely">Campera Plumas</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/tapado.jpg">
-            <p class="p-dely">Tapado</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
-          <div class="column-dely">
-            <img alt="Honey" class="img-dely" src="../images/piloto.jpg">
-            <p class="p-dely">Piloto</p>
-            <button class="btn-ok">Elegir...</button>
-          </div>
+        <section id="IdSeleccionImagen">
+          <span id="Idseleccion">
+
+          </span>
         </section>
-        <!-- Hasta aca es la seleccion -->
         <div class="centrar-boton">
           <button type="submit" class="btn-ok">Confirmar</button>
         </div>
