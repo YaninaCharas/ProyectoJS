@@ -1,24 +1,42 @@
 /***************VARIABLES */
-const fechaDeHoy = new Date();
+
+// localStorage.clear();
+
 const listaFliaProductos = [];
 const listaProductos = [];
 const listaPedidos = [];
 const listaTipoEntrega = [];
 const reservas = obtenerReservas();
+const pedidos = obtenerPedidos();
+let productoSeleccionado = [];
+let productoPedido = "";
+let categoriaPedido = "";
+let precioPedido = 0;
+let precioTotalItemPedido = 0;
+let precioTotalPedido = 0;
+let descripcionPedido = "";
+let cantidadPedido = 0;
+let contador = 0;
+const dateHoy = new Date();
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
 const formDeReserva = document.getElementById("reserva");
+const formDePedido = document.getElementById("pedido");
 const inputNombre = document.getElementById("nombre");
 const inputApellido = document.getElementById("apellido");
 const inputCelular = document.getElementById("celular");
 const inputEmail = document.getElementById("email");
 const inputFecha = document.getElementById("fecha")
 const inputCodigoPostal = document.getElementById("codigoPostal");
+// const inputServicio = inputServicio.value;
+// const inputCantidad = inputCantidad.value;
+//const inputPrecio = parseInt(inputPrecio.value);
 let idPedido = 0;
 
 select1.addEventListener("change",validarSeleccion);
 select2.addEventListener("change",validarSeleccion);
+
 
 /****************FUNCIONES */
 function validarSeleccion(){
@@ -27,44 +45,36 @@ function validarSeleccion(){
     if(valorSelect1 && valorSelect2){
     
         console.log("****************Array Nuevo de seleccion*****************\n ")
-        let productoSeleccionado = listaProductos.filter( (producto) => {
+            productoSeleccionado = listaProductos.filter( (producto) => {
             if((producto.producto === valorSelect2)&&(producto.categoria === valorSelect1))
             { 
                 return ( producto )
             }
         });
         let cad = ""
-        console.log(productoSeleccionado.length)
+        console.log(productoSeleccionado)
+
         if (productoSeleccionado.length>0){
-            console.log(productoSeleccionado);
+
             for (let i=0; i< productoSeleccionado.length; i++){
                 if (i===0){
-                cad = `
-                    <section id="seleccion-dely" class="row-dely">
-                    <div class="column-dely">
-                      <img alt="Honey" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">
-                      <p class="p-dely">Ingrese la Cantidad</p>
-                      <input class="p-dely-input" type="number"id=idnumber${i+1} value=0>
-                      <div>
-                        <button class="btn-ok-dely">Agregar</button>
-                       </div>
-                    </div>
-                    `;     
+                    cad = `
+                    <section id="seleccion-dely" class="row-dely">`;
                 }
-                else{
                 cad += `
-                <div class="column-dely">
-                  <img alt="Honey" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">
-                  <p class="p-dely">Ingrese la Cantidad</p>
-                  <input class="p-dely-input" type="number" id=idnumber${i+1} value=0>
-                  <div>
-                    <button class="btn-ok-dely">Agregar</button>
-                   </div>
-                </div>
-                `;  
-                }
+                <div class="column-dely" id="idServicio">
+                  <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">`;
+                  cad += `<p class="p-dely">Ingrese la Cantidad</p>
+                  <input class="p-dely-input" type="number" id=idnumber${i+1} value=0>`
+                  cad +=`<div>`;
+                  cad += `Precio Unitario $${productoSeleccionado[i].precio}`;
+                  cad += `</div>
+                </div>`;  
+                //}
         
-        
+                //   <div>
+                //     <button class="btn-ok-dely">Agregar</button>
+                //    </div>        
               document.getElementById("IdSeleccion").innerHTML=cad;  
             }
         }
@@ -79,8 +89,6 @@ function validarSeleccion(){
                 document.getElementById("IdSeleccion").innerText="No Hay Productos Para La Seleccion Realizada";
         }   
     }
-
-    console.log("------------------------------------------------------");
 }
 
 function fechaDisponible(fecha){
@@ -97,6 +105,29 @@ function obtenerReservas(){
     }
     return [];
 }
+function obtenerPedidos(){
+    const pedidosLS = localStorage.getItem("idCarrito");
+
+    if (pedidosLS !== null){
+        return JSON.parse(pedidosLS);
+    }
+    return [];
+}
+
+function fechaSeaMayorAHoy(fecha){
+
+    const dateReserva = new Date( fecha);
+    alert(`La fecha es igual ${dateReserva} ${dateHoy}`)
+
+    /*************Validar si la fecha elegida es Mayor a Hoy */
+    if (dateReserva < dateHoy){
+        return false;
+    }
+    else if (dateReserva = dateHoy){
+            return true;
+        }
+    return true;
+}
 /**************INSTANCIAR ARRAYS */
 
 listaFliaProductos.push(new FliaProductos("Tintoreria", "Desmanchado, lavado y Planchado", true));
@@ -104,41 +135,52 @@ listaFliaProductos.push(new FliaProductos("Casa", "Lavado y Secado", true));
 listaFliaProductos.push(new FliaProductos("Planchado", "Solo Plancha de Prendas", true));
 listaFliaProductos.push(new FliaProductos("Productos", "Adicionales", true));
 
-listaProductos.push(new Productos("Tintoreria","Hombre","Camisa", 420));
 listaProductos.push(new Productos("Tintoreria","Hombre","Traje", 1850));
-listaProductos.push(new Productos("Tintoreria","Hombre","Remera", 420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Camisa", 420));
 listaProductos.push(new Productos("Tintoreria","Hombre","Corbata", 420));
-listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon", 850));
-listaProductos.push(new Productos("Tintoreria","Hombre","Campera", 1950));
+listaProductos.push(new Productos("Tintoreria","Hombre","Remera", 420));
 listaProductos.push(new Productos("Tintoreria","Hombre","Camperon", 2300));
 listaProductos.push(new Productos("Tintoreria","Hombre","Campera de Plumas", 3300));
+listaProductos.push(new Productos("Tintoreria","Hombre","Campera Con piel", 1950));
+listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon", 850));
+listaProductos.push(new Productos("Tintoreria","Hombre","Piloto", 1950));
 listaProductos.push(new Productos("Tintoreria","Hombre","Tapado", 3300));
 
-listaProductos.push(new Productos("Planchado","Hombre","Camisa", 420));
 listaProductos.push(new Productos("Planchado","Hombre","Traje", 1850));
-listaProductos.push(new Productos("Planchado","Hombre","Remera", 420));
+listaProductos.push(new Productos("Planchado","Hombre","Camisa", 420));
 listaProductos.push(new Productos("Planchado","Hombre","Corbata", 420));
-listaProductos.push(new Productos("Planchado","Hombre","Pantalon", 850));
-listaProductos.push(new Productos("Planchado","Hombre","Campera", 1950));
+listaProductos.push(new Productos("Planchado","Hombre","Remera", 420));
 listaProductos.push(new Productos("Planchado","Hombre","Camperon", 2300));
 listaProductos.push(new Productos("Planchado","Hombre","Campera de Plumas", 3300));
-listaProductos.push(new Productos("Planchado","Hombre","Tapado", 3300));
+listaProductos.push(new Productos("Planchado","Hombre","Campera Con piel", 1950));
+listaProductos.push(new Productos("Planchado","Hombre","Pantalon", 850));
+listaProductos.push(new Productos("Planchado","Hombre","Piloto", 1950));
+listaProductos.push(new Productos("Planchado","Hombre","Tapado", 3300));;
 
 listaProductos.push(new Productos("Lavado","Casa","Valet", 990));
 listaProductos.push(new Productos("Lavado","Casa","Acolchado 1 Plaza",1350));
-listaProductos.push(new Productos("Tintoreria","Mujer","Camisa", 320));
-listaProductos.push(new Productos("Tintoreria","Mujer","Remera", 320));
-listaProductos.push(new Productos("Tintoreria","Mujer","Pantalon", 1650));
-listaProductos.push(new Productos("Tintoreria","Mujer", "Vestido", 1650));
-listaProductos.push(new Productos("Tintoreria","Mujer", "Pollera", 1050));
-listaProductos.push(new Productos("Tintoreria","Mujer", "Blusa", 1050));
 
-listaProductos.push(new Productos("Planchado","Mujer","Camisa", 320));
-listaProductos.push(new Productos("Planchado","Mujer","Remera", 320));
-listaProductos.push(new Productos("Planchado","Mujer","Pantalon", 1650));
-listaProductos.push(new Productos("Planchado","Mujer","Vestido", 1650));
-listaProductos.push(new Productos("Planchado","Mujer","Pollera", 1150));
-listaProductos.push(new Productos("Planchado","Mujer","Blusa", 1150));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Vestido", 1650));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Ruana", 2650));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Sueter", 950));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Zapatillas", 1650));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Ambo Medico", 2250));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Blusa", 1050));
+listaProductos.push(new Productos("Tintoreria","Mujer","Campera Plumas", 3320));
+listaProductos.push(new Productos("Tintoreria","Mujer","Camperon", 3020));
+listaProductos.push(new Productos("Tintoreria","Mujer", "Campera con Piel", 1250));
+
+
+
+listaProductos.push(new Productos("Planchado","Mujer", "Vestido", 1650));
+listaProductos.push(new Productos("Planchado","Mujer", "Ruana", 2650));
+listaProductos.push(new Productos("Planchado","Mujer", "Sueter", 950));
+listaProductos.push(new Productos("Planchado","Mujer", "Zapatillas", 1650));
+listaProductos.push(new Productos("Planchado","Mujer", "Ambo Medico", 2250));
+listaProductos.push(new Productos("Planchado","Mujer", "Blusa", 1050));
+listaProductos.push(new Productos("Planchado","Mujer","Campera Plumas", 3320));
+listaProductos.push(new Productos("Planchado","Mujer","Camperon", 3020));
+listaProductos.push(new Productos("Planchado","Mujer", "Campera con Piel", 1250));
 
 listaProductos.push(new Productos("Lavado","Casa","Acolchado 2 Plazas", 1950));
 listaProductos.push(new Productos("Lavado","Casa","Acolchado King Size", 2450));
@@ -161,13 +203,6 @@ listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
 
 listaTipoEntrega.push(new TipoEntregas("D","Delivery"));
 listaTipoEntrega.push(new TipoEntregas("L","Local"));
-
-// listaPedidos[0].verificar(1134317751);
-// listaPedidos[1].verificar(1147761102);
-// listaPedidos[2].verificar(1148551238);
-// listaPedidos[2].desactivar(1147761102);
-// listaPedidos[0].desactivar(1134317751);
-
  
 /*******************RESERVA */
 formDeReserva.addEventListener("submit", (event) => {
@@ -184,43 +219,103 @@ formDeReserva.addEventListener("submit", (event) => {
     const codigoPostal = parseInt(inputCodigoPostal.value);
 
     if (fechaDisponible(fecha)){
-        if (fecha >= fechaDeHoy)
-        {
-        reservas.push({
-            idPedido : idPedido,
-            nombre : nombre,
-            apellido : apellido,
-            celular : parseInt(celular),
-            email : email,
-            codigoPostal : parseInt(codigoPostal),
-            fecha : fecha,
-        });
-        }
-        else
-        {
-            alert(`La Fecha debe ser mayor al dia de Hoy ${fecha}`)
-            inputFecha = fechaDeHoy;
-        }
-    
-        /***************Cargo la reserva al local Storage */
-    
-        localStorage.setItem("reservas", JSON.stringify(reservas));
-        alert("Se realizo la Confirmacion");
-        inputNombre.value = "";
-        inputApellido.value = "";
-        inputCelular.value = 0;
-        inputEmail.value= "";
-        inputFecha.value= "";
-        inputCodigoPostal.value= 0;
 
+        if (fechaSeaMayorAHoy(fecha)){
+            
+            reservas.push({
+                idPedido : idPedido,
+                nombre : nombre,
+                apellido : apellido,
+                celular : parseInt(celular),
+                email : email,
+                codigoPostal : parseInt(codigoPostal),
+                fecha : fecha,
+            });
+/***************Cargo la reserva al local Storage */    
+            localStorage.setItem("reservas", JSON.stringify(reservas));
+            alert("Se realizo la Confirmacion");
+            inputNombre.value = "";
+            inputApellido.value = "";
+            inputCelular.value = 0;
+            inputEmail.value= "";
+            inputFecha.value= "";
+            inputCodigoPostal.value= 0;
+    
+        }  
+        else{
+            alert(`Esta Fecha es Menor al dia de Hoy`)
+        }
     }
     else{
-        alert(`Fecha no disponible, Ingrese otra ${fecha}`)
-    }
-
-
-
+            
+            alert(`Fecha no disponible, Ingrese otra ${fecha}`)
+        }  
 });
+
+
+/******Cargar Items a Carrito */
+formDePedido.addEventListener("submit", (event) => {
+
+    event.preventDefault()
+    cad = "";
+    let clases = document.getElementsByClassName("p-dely-input");
+    console.log(productoSeleccionado);
+
+    for (const clase of clases ){
+            /***********Obetenemos los valores del Input */
+        cantidadPedido = clase.value;
+        if (cantidadPedido >0){
+            idPedido++;
+            categoriaPedido = productoSeleccionado[contador].categoria;
+            productoPedido = productoSeleccionado[contador].producto;
+            descripcionPedido = productoSeleccionado[contador].descripcion;
+            precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
+
+              /***Mostrar en Pantalla los solicitados dato */
+            cad=`
+            <div class="columnPedido">`;
+            cad +=`${productoSeleccionado[contador].descripcion}`;
+            cad+= `<img alt="Producto" class="imgPedido" src="../images/${productoPedido}${contador+1}.jpg">`;
+            cad +=`Cantidad   ${cantidadPedido}`;
+            cad +=`<div>`;
+            cad += `Precio $${precioPedido}`;
+            cad += `</div>
+            </div>`;    
+
+
+           /***************Cargo la reserva En el Carrito */    
+            pedidosItem.push({
+                idPedido : idPedido,
+                producto : productoPedido,
+                categoria : categoriaPedido,
+                descripcion : descripcionPedido,
+                cantidad : cantidadPedido,
+                precio : parseInt(productoSeleccionado[contador]),
+            });
+
+            document.getElementById("idCarrito").innerHTML=cad;  
+            console.log(`cad ${cad}`);
+            console.log(`contador ${contador}`);
+/***************Cargo la reserva al local Storage */    
+            localStorage.setItem("pedidos", JSON.stringify(pedidos));
+            alert("Se realizo la carga");
+            // inputNombre.value = "";
+            // inputApellido.value = "";
+            // inputCelular.value = 0;
+            // inputEmail.value= "";
+            // inputFecha.value= "";
+            // inputCodigoPostal.value= 0;
+        }
+        contador++;
+    }
+console.log(`idServicio[0] ${idServicio[0]}`); 
+localStorage.setItem("pedidos", JSON.stringify(idServicio));
+
+    
+});
+
+
+
 // function seleccionarEntrega(){
 //     let IdDelivery = document.getElementById("IdDelivery");
 //     let cad = ""
@@ -321,6 +416,5 @@ formDeReserva.addEventListener("submit", (event) => {
 
 // console.log(pedidosConImporteTotal)
 // ;
-
 
 

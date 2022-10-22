@@ -20,7 +20,7 @@
   <main>
     <h1 class="centrar-h1 text-pop-up-top">DELIVERY</h1>
     <div class="container-main">
-      <form class="container-delivery">
+      <form class="container-delivery" id="pedido">
         <h4>Gestion Online Tintoreria</h4>
         <h5>Ingrese una opcion del Servicio Deseado...</h5>
         <select id="comboFliaProductos" change="validarSeleccion();">
@@ -39,21 +39,17 @@
         </select>
         <section id="IdSeleccionImagen">
           <span id="IdSeleccion">
-
           </span>
         </section>
-        <!-- <div class="centrar-boton">
-          <button type="submit" class="btn-ok">Confirmar</button>
-        </div> -->
+        <!-- <div class="centrar-boton"> -->
+          <button type="submit">Confirmar</button>
+        <!-- </div> -->
       </form>
       <div class="container-carrito">
         <h4>Servicios Seleccionados</h4>
         <h5>Ingrese sus datos</h5>
-        <!-- <section id="IdSeleccionServicios">
-          <span id="IdSeleccionServicios">
-
-          </span>
-        </section> -->
+        <section id="idCarrito">
+        </section>
         <form id="reserva">
           <input type="text" id="nombre" autocomplete="off" placeholder="Nombre">
           <input type="text" id="apellido" autocomplete="off" placeholder="Apellido">
@@ -81,6 +77,7 @@
 
   <script src="../JS/productos.js"></script>
   <script src="../JS/clientes.js"></script>
+  <script src="../JS/pedidosItems.js"></script>
   <script src="../JS/pedidos.js"></script>
   <script src="../JS/reservas.js"></script>
   <script src="../JS/tipoEntregas.js"></script>
