@@ -14,7 +14,7 @@
 .row-dely{
     background-color: $fondo-formulario-contacto;
     font-weight: bold;
-    padding: map-get($map: $mapa, $key:XS);
+    // padding: map-get($map: $mapa, $key:XS);
     border-radius: 20px;
     border: 1px solid $violeta5asec;
     color: $violeta5asec;
@@ -27,15 +27,18 @@
     padding: 0.1rem;
     border-radius: 20px;
     border: 1px solid $violeta5asec;
-    margin: 0.5rem;
+    margin: 0.2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 15%;
+    height: auto;
 }
 
-.img-dely{margin-top: 0.2rem;
+.img-dely{
+    margin-top: 0.2rem;
     border-radius: 2px;
-    width: 30%;
+    width: 90%;
     height: auto; 
 }
 .p-dely{
@@ -43,6 +46,12 @@
     font-weight: 400;
     margin: 0;
     margin-bottom: 0.1rem;
+}
+.p-dely-input{
+    border-radius: 2px;
+    margin: 0;
+    margin-bottom: 0.1rem;
+    width: 3rem;
 }
 .container-proceso, .container-tips{
     background-color:$color-fondo-formulario;
@@ -81,7 +90,10 @@
         transform:scale(1.2)
     }
 }
-.container-contact , .container-mapa, .container-delivery{
+.container-main{
+    display: flex;
+}
+.container-contact , .container-mapa, .container-delivery, .container-carrito{
     background-color: $fondo-formulario-contacto;
     font-weight: bold;
     padding: map-get($map: $mapa, $key:S);
@@ -93,10 +105,18 @@
     height: auto;
 }
 .container-delivery{
-    width: 100%;
+    width: 70%;
     margin-top: 0.2rem;
     text-align: center;
+
 }
+.container-carrito{
+    width: 30%;
+    margin-top: 0.2rem;
+    text-align: center;
+
+}
+
 .navbar{
     height: 63px; 
 }

@@ -1,16 +1,24 @@
 /***************VARIABLES */
+const fechaDeHoy = new Date();
 const listaFliaProductos = [];
 const listaProductos = [];
 const listaPedidos = [];
 const listaTipoEntrega = [];
+const reservas = obtenerReservas();
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
-const selectDelivery = document.getElementById(`comboEntrega`)
+const formDeReserva = document.getElementById("reserva");
+const inputNombre = document.getElementById("nombre");
+const inputApellido = document.getElementById("apellido");
+const inputCelular = document.getElementById("celular");
+const inputEmail = document.getElementById("email");
+const inputFecha = document.getElementById("fecha")
+const inputCodigoPostal = document.getElementById("codigoPostal");
+let idPedido = 0;
 
 select1.addEventListener("change",validarSeleccion);
 select2.addEventListener("change",validarSeleccion);
-selectDelivery.addEventListener("change",seleccionarEntrega);
 
 /****************FUNCIONES */
 function validarSeleccion(){
@@ -36,11 +44,10 @@ function validarSeleccion(){
                     <div class="column-dely">
                       <img alt="Honey" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">
                       <p class="p-dely">Ingrese la Cantidad</p>
-                      <input class="p-dely" type="number"id=idnumber${i+1}>
+                      <input class="p-dely-input" type="number"id=idnumber${i+1} value=0>
                       <div>
-                        <button class="btn-ok">+</button>
-                        <button class="btn-ok">-</button>
-                      </div>
+                        <button class="btn-ok-dely">Agregar</button>
+                       </div>
                     </div>
                     `;     
                 }
@@ -49,11 +56,10 @@ function validarSeleccion(){
                 <div class="column-dely">
                   <img alt="Honey" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">
                   <p class="p-dely">Ingrese la Cantidad</p>
-                  <input class="p-dely" type="number" id=idnumber${i+1}>
+                  <input class="p-dely-input" type="number" id=idnumber${i+1} value=0>
                   <div>
-                    <button class="btn-ok">+</button>
-                    <button class="btn-ok">-</button>
-                  </div>
+                    <button class="btn-ok-dely">Agregar</button>
+                   </div>
                 </div>
                 `;  
                 }
@@ -77,193 +83,22 @@ function validarSeleccion(){
     console.log("------------------------------------------------------");
 }
 
-function seleccionarEntrega(){
-    let cad = ""
-    const tipoEntrega = selectDelivery.value
-    if (tipoEntrega === "D"){
-        const inputCodigoPostal = document.getElementById("codigoPostal");
-        const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
-        console.log(valorInputCodigoPostal)
-        if (valorInputCodigoPostal >1200 && valorInputCodigoPostal<=1800){
-            cad=` `
-            document.getElementById("IdDelivery").innerHTML=cad;  
-        }
-        else{
-            cad=`<h6></h6>No llegamos a su zona, debera traer las prendas al local</h6>`
-            document.getElementById("IdDelivery").innerHTML=cad;  
-            selectDelivery.value = "L"
-        }
-    }
-
+function fechaDisponible(fecha){
+    return !reservas.some ( (elemento) =>{
+        return elemento.fecha === fecha;
+    })
 }
 
-function leerValoresRegistracion(){
-    
-    const listadoDeUsuario = []
-    let userID = 0
-    
-    const formRegistracion = document.getElementById("formRegistracion")
-    
-    // formRegistracion.addEventListener("submit", (event) => {
-    
-    // event.preventdefault();
-    const inputNombre = document.getElementById("nombre");
-    const inputApellido = document.getElementById("apellido");
-    const inputCelular = document.getElementById("celular");
-    const inputEmail = document.getElementById("email");
+function obtenerReservas(){
+    const reservasLS = localStorage.getItem("reservas");
 
-    userID++
-    const valorInputNombre = inputNombre.value;
-    const valorInputApellido = inputApellido.value;
-    const valorInputCelular = inputCelular.value;
-    const valorInputEmail = inputEmail.value;
-
-    const inputCodigoPostal = document.getElementById("codigoPostal");
-    const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
-
-    listadoDeUsuario.push( new Usuario (parseInt(userID), valorInputNombre, valorInputApellido, parseInt(valorInputCelular), valorInputEmail, parseInt(valorInputCodigoPostal)))
-    console.log("***********************************")
-    console.log(listadoDeUsuario)
+    if (reservasLS !== null){
+        return JSON.parse(reservasLS);
+    }
+    return [];
 }
-
-function registrar(codigoPostal){
-    let ingreso=true;
-    nombre ="";
-    apellido ="";
-    celular =0;
-    email = "";
-    const listaClientes = [];
-    while (ingreso)
-    {
-        nombre = prompt("Ingrese su nombre: ");
-        apellido = prompt("Ingrese su apellido: ");
-        celular = parseInt(prompt("Ingrese su telefono o Celular: "));
-        email = prompt("Ingrese su email: ");
-        if ((nombre !=="")&&(apellido !=="")&&(celular !=="")&&(email!=="")){
-            ingreso=false
-        }
-        else{
-            alert("Debe ingresar toda la informacion solicitada")
-        }
-    }
-    listaClientes.push(new Clientes(
-        nombre,
-        apellido,
-        celular,
-        codigoPostal,
-        email)
-        );
-        listaClientes.forEach( (cliente) => {
-    
-            console.log(
-                `Cliente:
-                Celular Cliente: ${cliente.celular}
-                Nombre y Apellido: ${cliente.nombre} ${cliente.apellido}
-                Email: ${cliente.email}
-                Codigo Postal: ${cliente.codigoPostal}
-                \n------------------------------------------------------`);               
-        });
-}
-
-/********************DEFINICION DE CLASES */
-class FliaProductos {
-    constructor (fliaProducto, producto, activo) {
-
-        this.fliaProducto = fliaProducto;
-        this.producto = producto;
-        this.activo = true;
-    }
-}
-
-class Productos {
-    constructor (categoria,producto, descripcion, precio) {
-        this.categoria = categoria;
-        this.producto = producto;
-        this.descripcion = descripcion;
-        this.precio = precio;
-    }
-}
-class Pedidos {
-    constructor (numero,celular, producto, cantidad, precio, tipoEntrega) {
-        this.idPedido = numero;
-        this.celular = celular;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.tipoEntrega = tipoEntrega;
-        this.activo = true
-    }
-    verificar (celular) {
-        if((this.celular) === celular){
-            console.log(`Pedido Existente ${this.celular} ${this.producto} ${this.cantidad} $${this.precio} ${this.tipoEntrega}`);
-        } else {
-            console.log(`Pedido inexistente ${this.celular} `);
-        }
-    }
-
-    desactivar (celular) {
-        if(((this.celular) === celular)&&(this.activo)) {
-            this.activo = false;
-            console.log(`Pedido dado de baja correctamente: ${this.celular} Estado: ${this.activo}`);
-        } else {
-            console.log(`Pedido Inexistente ${this.celular}`);
-        }
-    }
-
-}
-
-
-class TipoEntregas {
-    constructor (tipoEntrega, descripcion) {
-        this.tipoEntrega = tipoEntrega;
-        this.descripcion = descripcion;
-    }
-}
-
-
-class Usuario {
-    constructor (ID, nombre, apellido, celular, email, codigoPostal)
-    {
-    this.ID = ID;
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.celular = celular;
-    this.email = email;
-    this.codigoPostal = codigoPostal;
-    }
-
-}
-
-class Clientes {
-    constructor (nombre, apellido, celular, codigoPostal,email) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.celular = celular;
-        this.codigoPostal = codigoPostal,
-        this.email = email
-        this.activo = true;
-    }
-    verificar (celular) {
-        if((this.celular) === celular){
-            console.log(`Cliente Existente ${this.nombre} ${this.apellido} ${celular}`);
-        } else {
-            console.log(`Cliente inexistente ${this.nombre} ${this.apellido} ${celular}`);
-        }
-    }
-
-    desactivar (celular) {
-        if(((this.celular) === celular)&&(this.activo)) {
-            this.activo = false;
-            console.log(`Cliente dado de baja correctamente Nombre y Apellido: ${this.nombre} ${this.apellido} Telefono/Celular ${this.celular} Email ${this.email} Estado ${this.activo}`);
-        } else {
-            console.log(`Cliente Inexistente o Inactivo ${this.nombre} ${this.apellido} Telefono/Celular ${this.celular} Email ${this.email} Estado ${this.activo}`);
-        }
-    }
-}
-
 /**************INSTANCIAR ARRAYS */
-listaTipoEntrega.push(new TipoEntregas("D","Delivery"));
-listaTipoEntrega.push(new TipoEntregas("L","Local"));
+
 listaFliaProductos.push(new FliaProductos("Tintoreria", "Desmanchado, lavado y Planchado", true));
 listaFliaProductos.push(new FliaProductos("Casa", "Lavado y Secado", true));
 listaFliaProductos.push(new FliaProductos("Planchado", "Solo Plancha de Prendas", true));
@@ -324,6 +159,9 @@ listaPedidos.push(new Pedidos(2,1147761102,"Camisa",1, 420, "L"));
 listaPedidos.push(new Pedidos(3,1144445555,"Plumon 1 Plaza",1, 2350, "D"));
 listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
 
+listaTipoEntrega.push(new TipoEntregas("D","Delivery"));
+listaTipoEntrega.push(new TipoEntregas("L","Local"));
+
 // listaPedidos[0].verificar(1134317751);
 // listaPedidos[1].verificar(1147761102);
 // listaPedidos[2].verificar(1148551238);
@@ -331,6 +169,118 @@ listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
 // listaPedidos[0].desactivar(1134317751);
 
  
+/*******************RESERVA */
+formDeReserva.addEventListener("submit", (event) => {
+
+    event.preventDefault()
+
+    idPedido++
+    /***********Obetenemos los valores del Input */
+    const nombre = inputNombre.value;
+    const apellido = inputApellido.value;
+    const celular = inputCelular.value;
+    const email = inputEmail.value;
+    const fecha = inputFecha.value;
+    const codigoPostal = parseInt(inputCodigoPostal.value);
+
+    if (fechaDisponible(fecha)){
+        if (fecha >= fechaDeHoy)
+        {
+        reservas.push({
+            idPedido : idPedido,
+            nombre : nombre,
+            apellido : apellido,
+            celular : parseInt(celular),
+            email : email,
+            codigoPostal : parseInt(codigoPostal),
+            fecha : fecha,
+        });
+        }
+        else
+        {
+            alert(`La Fecha debe ser mayor al dia de Hoy ${fecha}`)
+            inputFecha = fechaDeHoy;
+        }
+    
+        /***************Cargo la reserva al local Storage */
+    
+        localStorage.setItem("reservas", JSON.stringify(reservas));
+        alert("Se realizo la Confirmacion");
+        inputNombre.value = "";
+        inputApellido.value = "";
+        inputCelular.value = 0;
+        inputEmail.value= "";
+        inputFecha.value= "";
+        inputCodigoPostal.value= 0;
+
+    }
+    else{
+        alert(`Fecha no disponible, Ingrese otra ${fecha}`)
+    }
+
+
+
+});
+// function seleccionarEntrega(){
+//     let IdDelivery = document.getElementById("IdDelivery");
+//     let cad = ""
+//     const tipoEntrega = selectDelivery.value
+//     if (tipoEntrega === "D"){
+//         const inputCodigoPostal = document.getElementById("codigoPostal");
+//         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
+//         console.log(valorInputCodigoPostal)
+//         if (valorInputCodigoPostal >1200 && valorInputCodigoPostal<=1800){
+//             cad=` `
+//         }
+//         else{
+//             cad=`<h6></h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
+//             selectDelivery.value = "L"
+//         }
+//         IdDelivery.innerHTML=cad;  
+//     }
+
+// }
+
+
+// function registrar(codigoPostal){
+//     let ingreso=true;
+//     nombre ="";
+//     apellido ="";
+//     celular =0;
+//     email = "";
+//     const listaClientes = [];
+//     while (ingreso)
+//     {
+//         nombre = prompt("Ingrese su nombre: ");
+//         apellido = prompt("Ingrese su apellido: ");
+//         celular = parseInt(prompt("Ingrese su telefono o Celular: "));
+//         email = prompt("Ingrese su email: ");
+//         if ((nombre !=="")&&(apellido !=="")&&(celular !=="")&&(email!=="")){
+//             ingreso=false
+//         }
+//         else{
+//             alert("Debe ingresar toda la informacion solicitada")
+//         }
+//     }
+    
+//     listaClientes.push(new Clientes(
+//         nombre,
+//         apellido,
+//         celular,
+//         codigoPostal,
+//         email)
+//         );
+//         listaClientes.forEach( (cliente) => {
+    
+//             console.log(
+//                 `Cliente:
+//                 Celular Cliente: ${cliente.celular}
+//                 Nombre y Apellido: ${cliente.nombre} ${cliente.apellido}
+//                 Email: ${cliente.email}
+//                 Codigo Postal: ${cliente.codigoPostal}
+//                 \n------------------------------------------------------`);               
+//         });
+// }
 /******** LISTADOS  */
 // console.log("Lista de Productos:\n ");
 
@@ -371,3 +321,6 @@ listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
 
 // console.log(pedidosConImporteTotal)
 // ;
+
+
+

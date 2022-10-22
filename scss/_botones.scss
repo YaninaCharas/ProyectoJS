@@ -10,10 +10,24 @@
     text-decoration: none;
 }
 
+
 .btn-ok:hover{
     transition: 1s ease-in-out;
     background-color: $naranja;
     border-color: none;
+}
+
+
+.btn-ok-dely{
+    padding: 0.5rem;
+    width: 5rem;
+    background-color:$violeta5asec;
+    border-radius: 10px;
+    border: none;
+    color:$blanco;
+    letter-spacing: 0.1rem;
+    text-decoration: none;
+    text-align: center;
 }
 
 .btn-contacto{

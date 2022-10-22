@@ -19,18 +19,10 @@
   </header>
   <main>
     <h1 class="centrar-h1 text-pop-up-top">DELIVERY</h1>
-      <!-- <form id="formRegistracion" action="" submit="leerValoresRegistracion()">
-        <input type="number" name="codigoPostal" id="codigoPostal">
-        <input type="text" name="nombre" id="nombre">
-        <input type="text" name="apellido" id="apellido">
-        <input type="number" name="celular" id="celular">
-        <input type="email" name="email" id="email">
-      <button type="submit">Validar</button> 
-      </form> -->
+    <div class="container-main">
       <form class="container-delivery">
         <h4>Gestion Online Tintoreria</h4>
         <h5>Ingrese una opcion del Servicio Deseado...</h5>
-        <!-- <select id="comboFliaProductos" onchange="seleccionarFliaProductos();"> -->
         <select id="comboFliaProductos" change="validarSeleccion();">
           <option value="" disabled="" selected="">Servicio</option>
           <option value="Tintoreria">Tintoreria</option>
@@ -38,7 +30,6 @@
           <option value="Planchado">Solo Planchado</option>
           <option value="Productos">Productos</option>
         </select>
-        <!-- <select id="comboProductos" onchange="seleccionarProductos();"> -->
           <select id="comboProductos" change="validarSeleccion();">
           <option value="" disabled="" selected="">Categoria</option>
           <option value="Hombre">Hombre</option>
@@ -46,30 +37,53 @@
           <option value="Casa">Casa</option>
           <option value="Adicionales">Adicionales</option>
         </select>
-        <input type="number" name="codigoPostal" id="codigoPostal" placeholder="Codigo Postal">
-        <select id="comboEntrega" change="seleccionarEntrega ();">
-          <option value="" disabled="" selected="">Tipo de Entrega</option>
-          <option value="L">Entrega en el Local</option>
-          <option value="D">Delivery a Domicilio</option>
-        </select>
-        <span id="IdDelivery">
-
-        </span>
         <section id="IdSeleccionImagen">
           <span id="IdSeleccion">
 
           </span>
         </section>
-        <div class="centrar-boton">
+        <!-- <div class="centrar-boton">
           <button type="submit" class="btn-ok">Confirmar</button>
-        </div>
+        </div> -->
       </form>
-    <!-- </div> -->
+      <div class="container-carrito">
+        <h4>Servicios Seleccionados</h4>
+        <h5>Ingrese sus datos</h5>
+        <!-- <section id="IdSeleccionServicios">
+          <span id="IdSeleccionServicios">
+
+          </span>
+        </section> -->
+        <form id="reserva">
+          <input type="text" id="nombre" autocomplete="off" placeholder="Nombre">
+          <input type="text" id="apellido" autocomplete="off" placeholder="Apellido">
+          <input type="number" id="celular" autocomplete="off" placeholder="Celular">
+          <input type="email" id="email" autocomplete="off" placeholder="xx@xx.com">
+          <input type="number" id="codigoPostal" autocomplete="off" placeholder="Codigo Postal">
+          <input type="date" id="fecha" autocomplete="off">
+          <select id="comboEntrega" change="seleccionarEntrega ();">
+            <option value="" disabled="" selected="">Tipo de Entrega</option>
+            <option value="L">Entrega en el Local</option>
+            <option value="D">Delivery a Domicilio</option>
+          </select>
+          <span id="IdDelivery">
+
+          </span>          
+          <button type="submit">Reservar</button> 
+        </form>
+     </div>
+    </div>
   </main> 
   <footer id="idfooter" class="footer_box">
 
   </footer>
   <script src="../JS/nav.js"></script>
+
+  <script src="../JS/productos.js"></script>
+  <script src="../JS/clientes.js"></script>
+  <script src="../JS/pedidos.js"></script>
+  <script src="../JS/reservas.js"></script>
+  <script src="../JS/tipoEntregas.js"></script>
   <script src="../JS/script.js"></script>
 </body>
 </html>
