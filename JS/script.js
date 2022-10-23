@@ -1,13 +1,13 @@
 /***************VARIABLES */
 
-// localStorage.clear();
+//localStorage.clear();
 
 const listaFliaProductos = [];
 const listaProductos = [];
 const listaPedidos = [];
 const listaTipoEntrega = [];
 const reservas = obtenerReservas();
-const pedidos = obtenerPedidos();
+const pedidosItems = obtenerPedidos();
 let productoSeleccionado = [];
 let productoPedido = "";
 let categoriaPedido = "";
@@ -29,9 +29,6 @@ const inputCelular = document.getElementById("celular");
 const inputEmail = document.getElementById("email");
 const inputFecha = document.getElementById("fecha")
 const inputCodigoPostal = document.getElementById("codigoPostal");
-// const inputServicio = inputServicio.value;
-// const inputCantidad = inputCantidad.value;
-//const inputPrecio = parseInt(inputPrecio.value);
 let idPedido = 0;
 
 select1.addEventListener("change",validarSeleccion);
@@ -69,13 +66,8 @@ function validarSeleccion(){
                   cad +=`<div>`;
                   cad += `Precio Unitario $${productoSeleccionado[i].precio}`;
                   cad += `</div>
-                </div>`;  
-                //}
-        
-                //   <div>
-                //     <button class="btn-ok-dely">Agregar</button>
-                //    </div>        
-              document.getElementById("IdSeleccion").innerHTML=cad;  
+                </div>`;         
+                document.getElementById("IdSeleccion").innerHTML=cad;  
             }
         }
         else
@@ -106,7 +98,7 @@ function obtenerReservas(){
     return [];
 }
 function obtenerPedidos(){
-    const pedidosLS = localStorage.getItem("idCarrito");
+    const pedidosLS = localStorage.getItem("pedidosItems");
 
     if (pedidosLS !== null){
         return JSON.parse(pedidosLS);
@@ -117,7 +109,6 @@ function obtenerPedidos(){
 function fechaSeaMayorAHoy(fecha){
 
     const dateReserva = new Date( fecha);
-    alert(`La fecha es igual ${dateReserva} ${dateHoy}`)
 
     /*************Validar si la fecha elegida es Mayor a Hoy */
     if (dateReserva < dateHoy){
@@ -128,8 +119,153 @@ function fechaSeaMayorAHoy(fecha){
         }
     return true;
 }
-/**************INSTANCIAR ARRAYS */
+ 
+/*******************RESERVA */
+formDeReserva.addEventListener("submit", (event) => {
 
+    event.preventDefault()
+
+    idPedido++
+    /***********Obetenemos los valores del Input */
+    const nombre = inputNombre.value;
+    const apellido = inputApellido.value;
+    const celular = inputCelular.value;
+    const email = inputEmail.value;
+    const fecha = inputFecha.value;
+    const codigoPostal = parseInt(inputCodigoPostal.value);
+
+    if (fechaDisponible(fecha)){
+
+        if (fechaSeaMayorAHoy(fecha)){
+            
+            reservas.push({
+                idPedido : idPedido,
+                nombre : nombre,
+                apellido : apellido,
+                celular : parseInt(celular),
+                email : email,
+                codigoPostal : parseInt(codigoPostal),
+                fecha : fecha,
+            });
+/***************Cargo la reserva al local Storage */    
+            localStorage.setItem("reservas", JSON.stringify(reservas));
+            alert("Se realizo la Confirmacion");
+            inputNombre.value = "";
+            inputApellido.value = "";
+            inputCelular.value = 0;
+            inputEmail.value= "";
+            inputFecha.value= "";
+            inputCodigoPostal.value= 0;
+    
+        }  
+        else{
+            alert(`Esta Fecha es Menor al dia de Hoy`)
+        }
+    }
+    else{
+            
+            alert(`Fecha no disponible, Ingrese otra ${fecha}`)
+        }  
+});
+
+
+/******Cargar Items a Carrito */
+formDePedido.addEventListener("submit", (event) => {
+
+    event.preventDefault()
+    cad = "";
+    let clases = document.getElementsByClassName("p-dely-input");
+    // console.log(productoSeleccionado);
+    for (let i=0; i< clases.length; i++){
+        if (i===0){
+            cad = `
+            <section id="seleccionPedidosItems" class="row-dely">`;
+        }
+        cantidadPedido = clases[i].value;
+        if (cantidadPedido >0){
+            idPedido++;
+            categoriaPedido = productoSeleccionado[contador].categoria;
+            productoPedido = productoSeleccionado[contador].producto;
+            descripcionPedido = productoSeleccionado[contador].descripcion;
+            precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
+
+
+              /***Mostrar en Pantalla los solicitados dato */
+              cad=`
+              <div class="columnPedido">`;
+              cad +=`${productoSeleccionado[contador].descripcion}`;
+              cad+= `<img alt="Producto" class="imgPedido" src="../images/${productoPedido}${contador+1}.jpg">`;
+              cad +=`Cantidad   ${cantidadPedido}`;
+              cad +=`<div>`;
+              cad += `Precio $${precioPedido}`;
+              cad += `</div>
+              </div>`;    
+  
+             /***************Cargo la reserva En el Carrito */    
+              pedidosItems.push({
+                  idPedido : idPedido,
+                  producto : productoPedido,
+                  categoria : categoriaPedido,
+                  descripcion : descripcionPedido,
+                  cantidad : cantidadPedido,
+                  precio : parseInt(productoSeleccionado[contador]),
+              });
+  
+              document.getElementById("idCarrito").innerHTML=cad;  
+
+  /***************Cargo la reserva al local Storage */    
+              localStorage.setItem("pedidosItems", JSON.stringify(pedidosItems));
+              alert("Se realizo la carga");
+          }
+          contador++;
+      }   
+});    
+
+
+
+// function seleccionarEntrega(){
+//     let IdDelivery = document.getElementById("IdDelivery");
+//     let cad = ""
+//     const tipoEntrega = selectDelivery.value
+//     if (tipoEntrega === "D"){
+//         const inputCodigoPostal = document.getElementById("codigoPostal");
+//         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
+//         console.log(valorInputCodigoPostal)
+//         if (valorInputCodigoPostal >1200 && valorInputCodigoPostal<=1800){
+//             cad=` `
+//         }
+//         else{
+//             cad=`<h6></h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
+//             selectDelivery.value = "L"
+//         }
+//         IdDelivery.innerHTML=cad;  
+//     }
+
+// }
+
+
+// function registrar(codigoPostal){
+//     let ingreso=true;
+//     nombre ="";
+//     apellido ="";
+//     celular =0;
+//     email = "";
+//     const listaClientes = [];
+//     while (ingreso)
+//     {
+//         nombre = prompt("Ingrese su nombre: ");
+//         apellido = prompt("Ingrese su apellido: ");
+//         celular = parseInt(prompt("Ingrese su telefono o Celular: "));
+//         email = prompt("Ingrese su email: ");
+//         if ((nombre !=="")&&(apellido !=="")&&(celular !=="")&&(email!=="")){
+//             ingreso=false
+//         }
+//         else{
+//             alert("Debe ingresar toda la informacion solicitada")
+//         }
+//     }
+
+/**************INSTANCIAR ARRAYS */
 listaFliaProductos.push(new FliaProductos("Tintoreria", "Desmanchado, lavado y Planchado", true));
 listaFliaProductos.push(new FliaProductos("Casa", "Lavado y Secado", true));
 listaFliaProductos.push(new FliaProductos("Planchado", "Solo Plancha de Prendas", true));
@@ -193,228 +329,13 @@ listaProductos.push(new Productos("Productos","Adicionales", "Plancha Plus", 450
 listaProductos.push(new Productos("Productos","Adicionales", "Blanqueador", 520));
 listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 1200));
 
-listaPedidos.push(new Pedidos(1,1134317751,"Camisa",1, 450, "D"));
-listaPedidos.push(new Pedidos(1,1134317751,"Remera",1, 420, "D"));
-listaPedidos.push(new Pedidos(1,1134317751,"Campera",1, 1850, "D"));
-listaPedidos.push(new Pedidos(1,1134317751,"Vestido",2, 1300, "D"));
-listaPedidos.push(new Pedidos(2,1147761102,"Camisa",1, 420, "L"));
-listaPedidos.push(new Pedidos(3,1144445555,"Plumon 1 Plaza",1, 2350, "D"));
-listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
+// listaPedidos.push(new Pedidos(1,1134317751,"Camisa",1, 450, "D"));
+// listaPedidos.push(new Pedidos(1,1134317751,"Remera",1, 420, "D"));
+// listaPedidos.push(new Pedidos(1,1134317751,"Campera",1, 1850, "D"));
+// listaPedidos.push(new Pedidos(1,1134317751,"Vestido",2, 1300, "D"));
+// listaPedidos.push(new Pedidos(2,1147761102,"Camisa",1, 420, "L"));
+// listaPedidos.push(new Pedidos(3,1144445555,"Plumon 1 Plaza",1, 2350, "D"));
+// listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
 
 listaTipoEntrega.push(new TipoEntregas("D","Delivery"));
 listaTipoEntrega.push(new TipoEntregas("L","Local"));
- 
-/*******************RESERVA */
-formDeReserva.addEventListener("submit", (event) => {
-
-    event.preventDefault()
-
-    idPedido++
-    /***********Obetenemos los valores del Input */
-    const nombre = inputNombre.value;
-    const apellido = inputApellido.value;
-    const celular = inputCelular.value;
-    const email = inputEmail.value;
-    const fecha = inputFecha.value;
-    const codigoPostal = parseInt(inputCodigoPostal.value);
-
-    if (fechaDisponible(fecha)){
-
-        if (fechaSeaMayorAHoy(fecha)){
-            
-            reservas.push({
-                idPedido : idPedido,
-                nombre : nombre,
-                apellido : apellido,
-                celular : parseInt(celular),
-                email : email,
-                codigoPostal : parseInt(codigoPostal),
-                fecha : fecha,
-            });
-/***************Cargo la reserva al local Storage */    
-            localStorage.setItem("reservas", JSON.stringify(reservas));
-            alert("Se realizo la Confirmacion");
-            inputNombre.value = "";
-            inputApellido.value = "";
-            inputCelular.value = 0;
-            inputEmail.value= "";
-            inputFecha.value= "";
-            inputCodigoPostal.value= 0;
-    
-        }  
-        else{
-            alert(`Esta Fecha es Menor al dia de Hoy`)
-        }
-    }
-    else{
-            
-            alert(`Fecha no disponible, Ingrese otra ${fecha}`)
-        }  
-});
-
-
-/******Cargar Items a Carrito */
-formDePedido.addEventListener("submit", (event) => {
-
-    event.preventDefault()
-    cad = "";
-    let clases = document.getElementsByClassName("p-dely-input");
-    console.log(productoSeleccionado);
-
-    for (const clase of clases ){
-            /***********Obetenemos los valores del Input */
-        cantidadPedido = clase.value;
-        if (cantidadPedido >0){
-            idPedido++;
-            categoriaPedido = productoSeleccionado[contador].categoria;
-            productoPedido = productoSeleccionado[contador].producto;
-            descripcionPedido = productoSeleccionado[contador].descripcion;
-            precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
-
-              /***Mostrar en Pantalla los solicitados dato */
-            cad=`
-            <div class="columnPedido">`;
-            cad +=`${productoSeleccionado[contador].descripcion}`;
-            cad+= `<img alt="Producto" class="imgPedido" src="../images/${productoPedido}${contador+1}.jpg">`;
-            cad +=`Cantidad   ${cantidadPedido}`;
-            cad +=`<div>`;
-            cad += `Precio $${precioPedido}`;
-            cad += `</div>
-            </div>`;    
-
-
-           /***************Cargo la reserva En el Carrito */    
-            pedidosItem.push({
-                idPedido : idPedido,
-                producto : productoPedido,
-                categoria : categoriaPedido,
-                descripcion : descripcionPedido,
-                cantidad : cantidadPedido,
-                precio : parseInt(productoSeleccionado[contador]),
-            });
-
-            document.getElementById("idCarrito").innerHTML=cad;  
-            console.log(`cad ${cad}`);
-            console.log(`contador ${contador}`);
-/***************Cargo la reserva al local Storage */    
-            localStorage.setItem("pedidos", JSON.stringify(pedidos));
-            alert("Se realizo la carga");
-            // inputNombre.value = "";
-            // inputApellido.value = "";
-            // inputCelular.value = 0;
-            // inputEmail.value= "";
-            // inputFecha.value= "";
-            // inputCodigoPostal.value= 0;
-        }
-        contador++;
-    }
-console.log(`idServicio[0] ${idServicio[0]}`); 
-localStorage.setItem("pedidos", JSON.stringify(idServicio));
-
-    
-});
-
-
-
-// function seleccionarEntrega(){
-//     let IdDelivery = document.getElementById("IdDelivery");
-//     let cad = ""
-//     const tipoEntrega = selectDelivery.value
-//     if (tipoEntrega === "D"){
-//         const inputCodigoPostal = document.getElementById("codigoPostal");
-//         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
-//         console.log(valorInputCodigoPostal)
-//         if (valorInputCodigoPostal >1200 && valorInputCodigoPostal<=1800){
-//             cad=` `
-//         }
-//         else{
-//             cad=`<h6></h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
-//             selectDelivery.value = "L"
-//         }
-//         IdDelivery.innerHTML=cad;  
-//     }
-
-// }
-
-
-// function registrar(codigoPostal){
-//     let ingreso=true;
-//     nombre ="";
-//     apellido ="";
-//     celular =0;
-//     email = "";
-//     const listaClientes = [];
-//     while (ingreso)
-//     {
-//         nombre = prompt("Ingrese su nombre: ");
-//         apellido = prompt("Ingrese su apellido: ");
-//         celular = parseInt(prompt("Ingrese su telefono o Celular: "));
-//         email = prompt("Ingrese su email: ");
-//         if ((nombre !=="")&&(apellido !=="")&&(celular !=="")&&(email!=="")){
-//             ingreso=false
-//         }
-//         else{
-//             alert("Debe ingresar toda la informacion solicitada")
-//         }
-//     }
-    
-//     listaClientes.push(new Clientes(
-//         nombre,
-//         apellido,
-//         celular,
-//         codigoPostal,
-//         email)
-//         );
-//         listaClientes.forEach( (cliente) => {
-    
-//             console.log(
-//                 `Cliente:
-//                 Celular Cliente: ${cliente.celular}
-//                 Nombre y Apellido: ${cliente.nombre} ${cliente.apellido}
-//                 Email: ${cliente.email}
-//                 Codigo Postal: ${cliente.codigoPostal}
-//                 \n------------------------------------------------------`);               
-//         });
-// }
-/******** LISTADOS  */
-// console.log("Lista de Productos:\n ");
-
-// listaProductos.forEach((producto) => {
-
-//     console.log(
-//         `
-//         Nombre: ${producto.producto}
-//         Descripcion: ${producto.descripcion}
-//         Precio: $${producto.precio}
-//         \n------------------------------------------------------`);
-// });
-
-// console.log("Lista de Pedidos:\n ");
-// listaPedidos.forEach((pedidos) => {
-//             console.log(
-//                 `
-//                 IdPedido: ${pedidos.idPedido}
-//                 Celular Cliente: ${pedidos.celular}
-//                 Descripcion: ${pedidos.producto}
-//                 Cantidad: ${pedidos.cantidad}
-//                 Precio: $${pedidos.precio}
-//                 Entrega: ${pedidos.tipoEntrega}
-//                 \n------------------------------------------------------`);
-// });
-// const totalPedido = listaPedidos.reduce((acc,item) =>{
-// return acc = acc+(item.precio*item.cantidad)},0);
-
-// console.log(`El total a pagar de Todos los pedidos es: ${totalPedido}`);
-
-
-// console.log("---------Nuevo Array con Importe Total-------------------")
-// const pedidosConImporteTotal = listaPedidos.map( (pedido) => {
-//     const importeTotal = pedido.precio*pedido.cantidad;
-//     pedido.importeTotal = importeTotal;
-//     return pedido;
-// })
-
-// console.log(pedidosConImporteTotal)
-// ;
-
-
