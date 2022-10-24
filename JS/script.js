@@ -21,6 +21,7 @@ let imagenPedido = "";
 let contador = 0;
 const dateHoy = new Date();
 let cadena =""
+let primera = true;
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
@@ -40,6 +41,11 @@ select2.addEventListener("change",validarSeleccion);
 
 /****************FUNCIONES */
 function validarSeleccion(){
+    if (primera){
+        obtenerPedidos();
+        agregarCarrito();
+        primera = false;
+    }
     const valorSelect1 = select1.value;
     const valorSelect2 = select2.value;
     if(valorSelect1 && valorSelect2){
@@ -52,8 +58,7 @@ function validarSeleccion(){
             }
         });
         let cad = ""
-        console.log(productoSeleccionado)
-
+  
         if (productoSeleccionado.length>0){
 
             for (let i=0; i<= productoSeleccionado.length; i++){
@@ -105,8 +110,6 @@ function obtenerPedidos(){
     const pedidosLS = localStorage.getItem("pedidosItems");
 
     if (pedidosLS !== null){
-        // agregarCarrito(); Tengo que Inicializar el carrito con lo del Local Storage
-        console.log(pedidosLS);
         return JSON.parse(pedidosLS);
     }
     return [];
@@ -114,15 +117,14 @@ function obtenerPedidos(){
 
 function fechaSeaMayorAHoy(fecha){
 
-    const dateReserva = new Date( fecha);
+    const dateReserva = new Date(fecha);
+    console.log(dateHoy);
+    console.log(dateReserva);
 
     /*************Validar si la fecha elegida es Mayor a Hoy */
     if (dateReserva < dateHoy){
         return false;
     }
-    else if (dateReserva = dateHoy){
-            return true;
-        }
     return true;
 }
  
@@ -139,7 +141,7 @@ formDeReserva.addEventListener("submit", (event) => {
     const email = inputEmail.value;
     const fecha = inputFecha.value;
     const codigoPostal = parseInt(inputCodigoPostal.value);
-
+    seleccionarEntrega();
     if (fechaDisponible(fecha)){
 
         if (fechaSeaMayorAHoy(fecha)){
@@ -216,10 +218,12 @@ formDePedido.addEventListener("submit", (event) => {
 });
 
 function agregarCarrito(){
-
- /*****************Con Append */ 
+/************Blanqueo el Carrito si tenia en el LocalStorage */
+    
+    document.getElementById("idCarrito").innerHTML="";
+    document.getElementById("idtotalcarrito").innerHTML="";
     for (let i =0 ; i< pedidosItems.length; i++){
-
+ /*****************Con Append */ 
         cadena = document.createElement("section");
         cadena.innerHTML = `
          <div class="columnPedido">
@@ -240,25 +244,27 @@ function agregarTotalPedido(){
     document.getElementById("idtotalcarrito").innerHTML=cad;
 
 };
-// function seleccionarEntrega(){
-//     let IdDelivery = document.getElementById("IdDelivery");
-//     let cad = ""
-//     const tipoEntrega = selectDelivery.value
-//     if (tipoEntrega === "D"){
-//         const inputCodigoPostal = document.getElementById("codigoPostal");
-//         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
-//         console.log(valorInputCodigoPostal)
-//         if (valorInputCodigoPostal >1200 && valorInputCodigoPostal<=1800){
-//             cad=` `
-//         }
-//         else{
-//             cad=`<h6></h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
-//             selectDelivery.value = "L"
-//         }
-//         IdDelivery.innerHTML=cad;  
-//     }
 
-// }
+function seleccionarEntrega(){
+
+
+    let IdDelivery = document.getElementById("IdDelivery");
+    let cad = ""
+
+    const tipoEntrega = comboEntrega.value
+    if (tipoEntrega === "D"){
+        const inputCodigoPostal = document.getElementById("codigoPostal");
+        const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
+        console.log(valorInputCodigoPostal)
+        if (valorInputCodigoPostal <1200 || valorInputCodigoPostal>1800){
+            alert(`No llegamos a su zona, debera traer las prendas al local`)  
+            cad=`<h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
+            comboEntrega.value = "L"
+            IdDelivery.innerHTML=cad; 
+        } 
+    }
+
+}
 
 
 // function registrar(codigoPostal){
