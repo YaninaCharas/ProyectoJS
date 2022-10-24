@@ -182,6 +182,7 @@ formDePedido.addEventListener("submit", (event) => {
 
     event.preventDefault()
     cad = "";
+    contador = 0;
     let clases = document.getElementsByClassName("p-dely-input");
     // console.log(productoSeleccionado);
     for (let i=0; i< clases.length; i++){
