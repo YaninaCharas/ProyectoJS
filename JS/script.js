@@ -8,6 +8,7 @@ const listaPedidos = [];
 const listaTipoEntrega = [];
 const reservas = obtenerReservas();
 const pedidosItems = obtenerPedidos();
+const carrito = document.getElementById("idCarrito");
 let productoSeleccionado = [];
 let productoPedido = "";
 let categoriaPedido = "";
@@ -16,8 +17,10 @@ let precioTotalItemPedido = 0;
 let precioTotalPedido = 0;
 let descripcionPedido = "";
 let cantidadPedido = 0;
+let imagenPedido = "";
 let contador = 0;
 const dateHoy = new Date();
+let cadena =""
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
@@ -53,7 +56,7 @@ function validarSeleccion(){
 
         if (productoSeleccionado.length>0){
 
-            for (let i=0; i< productoSeleccionado.length; i++){
+            for (let i=0; i<= productoSeleccionado.length; i++){
                 if (i===0){
                     cad = `
                     <section id="seleccion-dely" class="row-dely">`;
@@ -62,7 +65,7 @@ function validarSeleccion(){
                 <div class="column-dely" id="idServicio">
                   <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">`;
                   cad += `<p class="p-dely">Ingrese la Cantidad</p>
-                  <input class="p-dely-input" type="number" id=idnumber${i+1} value=0>`
+                  <input class="p-dely-input" type="number" id=idnumber${i+1} value=0 min=0>`
                   cad +=`<div>`;
                   cad += `Precio Unitario $${productoSeleccionado[i].precio}`;
                   cad += `</div>
@@ -97,10 +100,13 @@ function obtenerReservas(){
     }
     return [];
 }
+
 function obtenerPedidos(){
     const pedidosLS = localStorage.getItem("pedidosItems");
 
     if (pedidosLS !== null){
+        // agregarCarrito(); Tengo que Inicializar el carrito con lo del Local Storage
+        console.log(pedidosLS);
         return JSON.parse(pedidosLS);
     }
     return [];
@@ -177,10 +183,6 @@ formDePedido.addEventListener("submit", (event) => {
     let clases = document.getElementsByClassName("p-dely-input");
     // console.log(productoSeleccionado);
     for (let i=0; i< clases.length; i++){
-        if (i===0){
-            cad = `
-            <section id="seleccionPedidosItems" class="row-dely">`;
-        }
         cantidadPedido = clases[i].value;
         if (cantidadPedido >0){
             idPedido++;
@@ -188,18 +190,8 @@ formDePedido.addEventListener("submit", (event) => {
             productoPedido = productoSeleccionado[contador].producto;
             descripcionPedido = productoSeleccionado[contador].descripcion;
             precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
-
-
-              /***Mostrar en Pantalla los solicitados dato */
-              cad=`
-              <div class="columnPedido">`;
-              cad +=`${productoSeleccionado[contador].descripcion}`;
-              cad+= `<img alt="Producto" class="imgPedido" src="../images/${productoPedido}${contador+1}.jpg">`;
-              cad +=`Cantidad   ${cantidadPedido}`;
-              cad +=`<div>`;
-              cad += `Precio $${precioPedido}`;
-              cad += `</div>
-              </div>`;    
+            imagenPedido = productoSeleccionado[contador].producto+(i+1);
+            console.log(`imagenPedido ${imagenPedido}`)
   
              /***************Cargo la reserva En el Carrito */    
               pedidosItems.push({
@@ -208,21 +200,46 @@ formDePedido.addEventListener("submit", (event) => {
                   categoria : categoriaPedido,
                   descripcion : descripcionPedido,
                   cantidad : cantidadPedido,
-                  precio : parseInt(productoSeleccionado[contador]),
+                  precio : precioPedido,
+                  imagen : imagenPedido,
               });
-  
-              document.getElementById("idCarrito").innerHTML=cad;  
+  /***************Cargo la reserva al local Storage */  
 
-  /***************Cargo la reserva al local Storage */    
               localStorage.setItem("pedidosItems", JSON.stringify(pedidosItems));
               alert("Se realizo la carga");
+
           }
+
           contador++;
       }   
-});    
+      agregarCarrito()
+});
 
+function agregarCarrito(){
 
+ /*****************Con Append */ 
+    for (let i =0 ; i< pedidosItems.length; i++){
 
+        cadena = document.createElement("section");
+        cadena.innerHTML = `
+         <div class="columnPedido">
+         ${pedidosItems[i].descripcion}
+         <div> <img alt="Producto" class="imgPedido" src="../images/${pedidosItems[i].imagen}.jpg"></div>
+         <div> Cantidad ${pedidosItems[i].cantidad} 
+               Precio $${pedidosItems[i].precio} </div>
+        </div> `;
+        console.log(cadena);
+        carrito.append(cadena);
+        precioTotalPedido = precioTotalPedido + (pedidosItems[i].precio);
+    }
+    agregarTotalPedido()
+};
+
+function agregarTotalPedido(){
+    let cad = `<h5>Total a Pagar $${precioTotalPedido}</h5>`
+    document.getElementById("idtotalcarrito").innerHTML=cad;
+
+};
 // function seleccionarEntrega(){
 //     let IdDelivery = document.getElementById("IdDelivery");
 //     let cad = ""
