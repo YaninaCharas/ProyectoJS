@@ -38,14 +38,14 @@ let idPedido = 0;
 select1.addEventListener("change",validarSeleccion);
 select2.addEventListener("change",validarSeleccion);
 
+if (primera){
+    obtenerPedidos();
+    agregarCarrito();
+    primera = false;
+}
 
 /****************FUNCIONES */
 function validarSeleccion(){
-    if (primera){
-        obtenerPedidos();
-        agregarCarrito();
-        primera = false;
-    }
     const valorSelect1 = select1.value;
     const valorSelect2 = select2.value;
     if(valorSelect1 && valorSelect2){
@@ -66,13 +66,14 @@ function validarSeleccion(){
                     cad = `
                     <section id="seleccion-dely" class="row-dely">`;
                 }
+                console.log(productoSeleccionado[i]?.precio)
                 cad += `
                 <div class="column-dely" id="idServicio">
                   <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">`;
                   cad += `<p class="p-dely">Ingrese la Cantidad</p>
                   <input class="p-dely-input" type="number" id=idnumber${i+1} value=0 min=0>`
                   cad +=`<div>`;
-                  cad += `Precio Unitario $${productoSeleccionado[i].precio}`;
+                  cad += `Precio Unitario $${productoSeleccionado[i]?.precio}`;
                   cad += `</div>
                 </div>`;         
                 document.getElementById("IdSeleccion").innerHTML=cad;  
@@ -118,8 +119,6 @@ function obtenerPedidos(){
 function fechaSeaMayorAHoy(fecha){
 
     const dateReserva = new Date(fecha);
-    console.log(dateHoy);
-    console.log(dateReserva);
 
     /*************Validar si la fecha elegida es Mayor a Hoy */
     if (dateReserva < dateHoy){
@@ -141,6 +140,7 @@ formDeReserva.addEventListener("submit", (event) => {
     const email = inputEmail.value;
     const fecha = inputFecha.value;
     const codigoPostal = parseInt(inputCodigoPostal.value);
+
     seleccionarEntrega();
     if (fechaDisponible(fecha)){
 
@@ -157,14 +157,20 @@ formDeReserva.addEventListener("submit", (event) => {
             });
 /***************Cargo la reserva al local Storage */    
             localStorage.setItem("reservas", JSON.stringify(reservas));
-            alert("Se realizo la Confirmacion");
             inputNombre.value = "";
             inputApellido.value = "";
             inputCelular.value = 0;
             inputEmail.value= "";
             inputFecha.value= "";
             inputCodigoPostal.value= 0;
-    
+/*********   Inicializar variables del carrito */
+            let cad = ``
+            document.getElementById("idtotalcarrito").innerHTML=cad; 
+            document.getElementById("idCarrito").innerHTML="";
+            cad=`<h6>Pedido Confirmado</h6>`  
+            IdDelivery.innerHTML=cad; 
+/*********   Inicializar parametros de busca de producto y familia de producto  */
+
         }  
         else{
             alert(`Esta Fecha es Menor al dia de Hoy`)
@@ -219,8 +225,9 @@ formDePedido.addEventListener("submit", (event) => {
 function agregarCarrito(){
 /************Blanqueo el Carrito si tenia en el LocalStorage */
     
-    document.getElementById("idCarrito").innerHTML="";
-    document.getElementById("idtotalcarrito").innerHTML="";
+    // document.getElementById("idCarrito").innerHTML="";
+    // document.getElementById("idtotalcarrito").innerHTML="";
+
     for (let i =0 ; i< pedidosItems.length; i++){
  /*****************Con Append */ 
         cadena = document.createElement("section");
@@ -251,41 +258,21 @@ function seleccionarEntrega(){
     let cad = ""
 
     const tipoEntrega = comboEntrega.value
+    if (tipoEntrega ===""){
+        cad=`<h6>Tipo Entrega No especificado, debera traer las prendas al local</h6>` 
+        IdDelivery.innerHTML=cad; 
+    }
     if (tipoEntrega === "D"){
         const inputCodigoPostal = document.getElementById("codigoPostal");
         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
         console.log(valorInputCodigoPostal)
         if (valorInputCodigoPostal <1200 || valorInputCodigoPostal>1800){
-            alert(`No llegamos a su zona, debera traer las prendas al local`)  
             cad=`<h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
             comboEntrega.value = "L"
             IdDelivery.innerHTML=cad; 
         } 
     }
-
 }
-
-
-// function registrar(codigoPostal){
-//     let ingreso=true;
-//     nombre ="";
-//     apellido ="";
-//     celular =0;
-//     email = "";
-//     const listaClientes = [];
-//     while (ingreso)
-//     {
-//         nombre = prompt("Ingrese su nombre: ");
-//         apellido = prompt("Ingrese su apellido: ");
-//         celular = parseInt(prompt("Ingrese su telefono o Celular: "));
-//         email = prompt("Ingrese su email: ");
-//         if ((nombre !=="")&&(apellido !=="")&&(celular !=="")&&(email!=="")){
-//             ingreso=false
-//         }
-//         else{
-//             alert("Debe ingresar toda la informacion solicitada")
-//         }
-//     }
 
 /**************INSTANCIAR ARRAYS */
 listaFliaProductos.push(new FliaProductos("Tintoreria", "Desmanchado, lavado y Planchado", true));
@@ -328,8 +315,6 @@ listaProductos.push(new Productos("Tintoreria","Mujer","Campera Plumas", 3320));
 listaProductos.push(new Productos("Tintoreria","Mujer","Camperon", 3020));
 listaProductos.push(new Productos("Tintoreria","Mujer", "Campera con Piel", 1250));
 
-
-
 listaProductos.push(new Productos("Planchado","Mujer", "Vestido", 1650));
 listaProductos.push(new Productos("Planchado","Mujer", "Ruana", 2650));
 listaProductos.push(new Productos("Planchado","Mujer", "Sueter", 950));
@@ -346,18 +331,10 @@ listaProductos.push(new Productos("Lavado","Casa","Plumon 1 Plaza", 2350));
 listaProductos.push(new Productos("Lavado","Casa","Plumon 2 Plazas", 2950));
 listaProductos.push(new Productos("Lavado","Casa","Plumon King Size", 3450));
 
-listaProductos.push(new Productos("Productos","Adicionales", "Sanitizante", 350));
-listaProductos.push(new Productos("Productos","Adicionales", "Plancha Plus", 450));
-listaProductos.push(new Productos("Productos","Adicionales", "Blanqueador", 520));
-listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 1200));
-
-// listaPedidos.push(new Pedidos(1,1134317751,"Camisa",1, 450, "D"));
-// listaPedidos.push(new Pedidos(1,1134317751,"Remera",1, 420, "D"));
-// listaPedidos.push(new Pedidos(1,1134317751,"Campera",1, 1850, "D"));
-// listaPedidos.push(new Pedidos(1,1134317751,"Vestido",2, 1300, "D"));
-// listaPedidos.push(new Pedidos(2,1147761102,"Camisa",1, 420, "L"));
-// listaPedidos.push(new Pedidos(3,1144445555,"Plumon 1 Plaza",1, 2350, "D"));
-// listaPedidos.push(new Pedidos(4,1148551234,"Perfumina",2, 1200, "L"));
+listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 350));
+listaProductos.push(new Productos("Productos","Adicionales", "Sanitizante", 450));
+listaProductos.push(new Productos("Productos","Adicionales", "Enjuague", 520));
+listaProductos.push(new Productos("Productos","Adicionales", "Perchas", 1200));
 
 listaTipoEntrega.push(new TipoEntregas("D","Delivery"));
 listaTipoEntrega.push(new TipoEntregas("L","Local"));
