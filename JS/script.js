@@ -209,8 +209,6 @@ formDePedido.addEventListener("submit", (event) => {
   /***************Cargo la reserva al local Storage */  
 
               localStorage.setItem("pedidosItems", JSON.stringify(pedidosItems));
-              alert("Se realizo la carga");
-
           }
 
           contador++;
