@@ -7,6 +7,7 @@ class Reservas {
     this.celular = celular;
     this.email = email;
     this.codigoPostal = codigoPostal;
+    this.precio = precio;
     this.fecha = fecha;
     }
 

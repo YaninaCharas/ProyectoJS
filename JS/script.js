@@ -7,18 +7,19 @@ const listaProductos = [];
 const listaPedidos = [];
 const listaTipoEntrega = [];
 const reservas = obtenerReservas();
-const pedidosItems = obtenerPedidos();
+const pedidos = obtenerPedidos();
 const carrito = document.getElementById("idCarrito");
 let productoSeleccionado = [];
 let productoPedido = "";
 let categoriaPedido = "";
 let precioPedido = 0;
-let precioTotalItemPedido = 0;
 let precioTotalPedido = 0;
 let descripcionPedido = "";
 let cantidadPedido = 0;
 let imagenPedido = "";
 let contador = 0;
+let idPedido = 0;
+let item = 0;
 const dateHoy = new Date();
 let cadena =""
 let primera = true;
@@ -33,7 +34,6 @@ const inputCelular = document.getElementById("celular");
 const inputEmail = document.getElementById("email");
 const inputFecha = document.getElementById("fecha")
 const inputCodigoPostal = document.getElementById("codigoPostal");
-let idPedido = 0;
 
 select1.addEventListener("change",validarSeleccion);
 select2.addEventListener("change",validarSeleccion);
@@ -50,7 +50,7 @@ function validarSeleccion(){
     const valorSelect2 = select2.value;
     if(valorSelect1 && valorSelect2){
     
-        console.log("****************Array Nuevo de seleccion*****************\n ")
+//****************   Array Nuevo de seleccion*****************
             productoSeleccionado = listaProductos.filter( (producto) => {
             if((producto.producto === valorSelect2)&&(producto.categoria === valorSelect1))
             { 
@@ -61,12 +61,11 @@ function validarSeleccion(){
   
         if (productoSeleccionado.length>0){
 
-            for (let i=0; i<= productoSeleccionado.length; i++){
+            for (let i=0; i< productoSeleccionado.length; i++){
                 if (i===0){
                     cad = `
                     <section id="seleccion-dely" class="row-dely">`;
                 }
-                console.log(productoSeleccionado[i]?.precio)
                 cad += `
                 <div class="column-dely" id="idServicio">
                   <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">`;
@@ -107,8 +106,9 @@ function obtenerReservas(){
     return [];
 }
 
+
 function obtenerPedidos(){
-    const pedidosLS = localStorage.getItem("pedidosItems");
+    const pedidosLS = localStorage.getItem("pedidos");
 
     if (pedidosLS !== null){
         return JSON.parse(pedidosLS);
@@ -132,7 +132,8 @@ formDeReserva.addEventListener("submit", (event) => {
 
     event.preventDefault()
 
-    idPedido++
+
+
     /***********Obetenemos los valores del Input */
     const nombre = inputNombre.value;
     const apellido = inputApellido.value;
@@ -140,6 +141,9 @@ formDeReserva.addEventListener("submit", (event) => {
     const email = inputEmail.value;
     const fecha = inputFecha.value;
     const codigoPostal = parseInt(inputCodigoPostal.value);
+
+    // Buscar el max de idPedido de Reservas y sumarle 1 
+    idPedido=1000;
 
     seleccionarEntrega();
     if (fechaDisponible(fecha)){
@@ -154,6 +158,7 @@ formDeReserva.addEventListener("submit", (event) => {
                 email : email,
                 codigoPostal : parseInt(codigoPostal),
                 fecha : fecha,
+                importe : precioTotalPedido,
             });
 /***************Cargo la reserva al local Storage */    
             localStorage.setItem("reservas", JSON.stringify(reservas));
@@ -164,12 +169,22 @@ formDeReserva.addEventListener("submit", (event) => {
             inputFecha.value= "";
             inputCodigoPostal.value= 0;
 /*********   Inicializar variables del carrito Cuando se cambia de pedido*/
-            // let cad = ``
-            // document.getElementById("idtotalcarrito").innerHTML=cad; 
-            // document.getElementById("idCarrito").innerHTML="";
-            // cad=`<h6>Pedido Confirmado</h6>`  
-            // IdDelivery.innerHTML=cad; 
+            let cad = ``
+            document.getElementById("idtotalcarrito").innerHTML=cad; 
+            document.getElementById("idCarrito").innerHTML="";
+//            IdDelivery.innerHTML=cad; 
 /*********   Inicializar parametros de busca de producto y familia de producto  */
+
+            cad=`<div>
+                    <h5>Muchas Gracias</h5>
+                    <h6>Pedido Confirmado</h6>
+                </div>`
+                 
+            document.getElementById("IdSeleccion").innerHTML=cad;
+
+/**********     Verificar cuando tengo que hacer el clear porque las variables fueron Enviadas a la Base de Datos   */
+//            localStorage.clear();
+
 
         }  
         else{
@@ -189,12 +204,15 @@ formDePedido.addEventListener("submit", (event) => {
     event.preventDefault()
     cad = "";
     contador = 0;
+    item = 0;
     let clases = document.getElementsByClassName("p-dely-input");
-    // console.log(productoSeleccionado);
+    // Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.
+        idPedido = 1000
     for (let i=0; i< clases.length; i++){
         cantidadPedido = clases[i].value;
         if (cantidadPedido >0){
-            idPedido++;
+//            idPedido++;
+            item++;
             categoriaPedido = productoSeleccionado[contador].categoria;
             productoPedido = productoSeleccionado[contador].producto;
             descripcionPedido = productoSeleccionado[contador].descripcion;
@@ -202,9 +220,10 @@ formDePedido.addEventListener("submit", (event) => {
             imagenPedido = productoSeleccionado[contador].producto+(i+1);
             console.log(`imagenPedido ${imagenPedido}`)
   
-             /***************Cargo la reserva En el Carrito */    
-              pedidosItems.push({
+             /***************Cargo El Pedido En el Carrito */    
+              pedidos.push({
                   idPedido : idPedido,
+                  item : item,
                   producto : productoPedido,
                   categoria : categoriaPedido,
                   descripcion : descripcionPedido,
@@ -212,9 +231,10 @@ formDePedido.addEventListener("submit", (event) => {
                   precio : precioPedido,
                   imagen : imagenPedido,
               });
-  /***************Cargo la reserva al local Storage */  
+  /***************Cargo Los Items Del Pedido al local Storage */  
 
-              localStorage.setItem("pedidosItems", JSON.stringify(pedidosItems));
+              localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
           }
 
           contador++;
@@ -228,21 +248,21 @@ function agregarCarrito(){
     document.getElementById("idCarrito").innerHTML="";
     document.getElementById("idtotalcarrito").innerHTML="";
 
-    for (let i =0 ; i< pedidosItems.length; i++){
+    for (let i =0 ; i< pedidos.length; i++){
  /*****************Con Append */ 
         cadena = document.createElement("section");
         cadena.innerHTML = `
          <div class="columnPedido">
-         ${pedidosItems[i].descripcion}
-         <div> <img alt="Producto" class="imgPedido" src="../images/${pedidosItems[i].imagen}.jpg"></div>
-         <div> Cantidad ${pedidosItems[i].cantidad} 
-               Precio $${pedidosItems[i].precio} </div>
+         ${pedidos[i].descripcion}
+         <div> <img alt="Producto" class="imgPedido" src="../images/${pedidos[i].imagen}.jpg"></div>
+         <div> Cantidad ${pedidos[i].cantidad} 
+               Precio $${pedidos[i].precio} </div>
         </div> `;
-        console.log(cadena);
         carrito.append(cadena);
-        precioTotalPedido = precioTotalPedido + (pedidosItems[i].precio);
+        precioTotalPedido = precioTotalPedido + (pedidos[i].precio);
     }
     agregarTotalPedido()
+
 };
 
 function agregarTotalPedido(){
@@ -265,7 +285,7 @@ function seleccionarEntrega(){
     if (tipoEntrega === "D"){
         const inputCodigoPostal = document.getElementById("codigoPostal");
         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
-        console.log(valorInputCodigoPostal)
+
         if (valorInputCodigoPostal <1200 || valorInputCodigoPostal>1800){
             cad=`<h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
             comboEntrega.value = "L"
@@ -290,6 +310,13 @@ listaProductos.push(new Productos("Tintoreria","Hombre","Campera Con piel", 1950
 listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon", 850));
 listaProductos.push(new Productos("Tintoreria","Hombre","Piloto", 1950));
 listaProductos.push(new Productos("Tintoreria","Hombre","Tapado", 3300));
+listaProductos.push(new Productos("Tintoreria","Hombre","Camisa Doblada", 420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Abono 10 Camisas", 420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Campera Comun", 2420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon doblado", 1420));
+listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon", 1620));
+listaProductos.push(new Productos("Tintoreria","Hombre","Ambo Medico", 2420));
+
 
 listaProductos.push(new Productos("Planchado","Hombre","Traje", 1850));
 listaProductos.push(new Productos("Planchado","Hombre","Camisa", 420));
@@ -301,9 +328,6 @@ listaProductos.push(new Productos("Planchado","Hombre","Campera Con piel", 1950)
 listaProductos.push(new Productos("Planchado","Hombre","Pantalon", 850));
 listaProductos.push(new Productos("Planchado","Hombre","Piloto", 1950));
 listaProductos.push(new Productos("Planchado","Hombre","Tapado", 3300));;
-
-listaProductos.push(new Productos("Lavado","Casa","Valet", 990));
-listaProductos.push(new Productos("Lavado","Casa","Acolchado 1 Plaza",1350));
 
 listaProductos.push(new Productos("Tintoreria","Mujer", "Vestido", 1650));
 listaProductos.push(new Productos("Tintoreria","Mujer", "Ruana", 2650));
@@ -325,11 +349,16 @@ listaProductos.push(new Productos("Planchado","Mujer","Campera Plumas", 3320));
 listaProductos.push(new Productos("Planchado","Mujer","Camperon", 3020));
 listaProductos.push(new Productos("Planchado","Mujer", "Campera con Piel", 1250));
 
-listaProductos.push(new Productos("Lavado","Casa","Acolchado 2 Plazas", 1950));
-listaProductos.push(new Productos("Lavado","Casa","Acolchado King Size", 2450));
-listaProductos.push(new Productos("Lavado","Casa","Plumon 1 Plaza", 2350));
-listaProductos.push(new Productos("Lavado","Casa","Plumon 2 Plazas", 2950));
-listaProductos.push(new Productos("Lavado","Casa","Plumon King Size", 3450));
+listaProductos.push(new Productos("Lavado","Casa","Valet", 990));
+listaProductos.push(new Productos("Lavado","Casa","Juego de Sabanas",2350));
+listaProductos.push(new Productos("Lavado","Casa","Plumon 1 plaza", 2950));
+listaProductos.push(new Productos("Lavado","Casa","Frazada 1 plaza", 2450));
+listaProductos.push(new Productos("Lavado","Casa","Mantel Grande", 1750));
+listaProductos.push(new Productos("Lavado","Casa","Servilletas", 550));
+listaProductos.push(new Productos("Lavado","Casa","Cortinas", 1450));
+listaProductos.push(new Productos("Lavado","Casa","Frazada 2 plazas", 2450));
+listaProductos.push(new Productos("Lavado","Casa","Alfombras x metro", 1350));
+
 
 listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 350));
 listaProductos.push(new Productos("Productos","Adicionales", "Sanitizante", 450));
