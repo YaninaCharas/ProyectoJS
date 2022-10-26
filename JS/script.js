@@ -163,12 +163,12 @@ formDeReserva.addEventListener("submit", (event) => {
             inputEmail.value= "";
             inputFecha.value= "";
             inputCodigoPostal.value= 0;
-/*********   Inicializar variables del carrito */
-            let cad = ``
-            document.getElementById("idtotalcarrito").innerHTML=cad; 
-            document.getElementById("idCarrito").innerHTML="";
-            cad=`<h6>Pedido Confirmado</h6>`  
-            IdDelivery.innerHTML=cad; 
+/*********   Inicializar variables del carrito Cuando se cambia de pedido*/
+            // let cad = ``
+            // document.getElementById("idtotalcarrito").innerHTML=cad; 
+            // document.getElementById("idCarrito").innerHTML="";
+            // cad=`<h6>Pedido Confirmado</h6>`  
+            // IdDelivery.innerHTML=cad; 
 /*********   Inicializar parametros de busca de producto y familia de producto  */
 
         }  
@@ -225,8 +225,8 @@ formDePedido.addEventListener("submit", (event) => {
 function agregarCarrito(){
 /************Blanqueo el Carrito si tenia en el LocalStorage */
     
-    // document.getElementById("idCarrito").innerHTML="";
-    // document.getElementById("idtotalcarrito").innerHTML="";
+    document.getElementById("idCarrito").innerHTML="";
+    document.getElementById("idtotalcarrito").innerHTML="";
 
     for (let i =0 ; i< pedidosItems.length; i++){
  /*****************Con Append */ 
