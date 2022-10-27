@@ -23,6 +23,7 @@ let item = 0;
 const dateHoy = new Date();
 let cadena =""
 let primera = true;
+let tipoEntrega = "";
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
@@ -162,12 +163,7 @@ formDeReserva.addEventListener("submit", (event) => {
             });
 /***************Cargo la reserva al local Storage */    
             localStorage.setItem("reservas", JSON.stringify(reservas));
-            inputNombre.value = "";
-            inputApellido.value = "";
-            inputCelular.value = 0;
-            inputEmail.value= "";
-            inputFecha.value= "";
-            inputCodigoPostal.value= 0;
+
 /*********   Inicializar variables del carrito Cuando se cambia de pedido*/
             let cad = ``
             document.getElementById("idtotalcarrito").innerHTML=cad; 
@@ -176,13 +172,28 @@ formDeReserva.addEventListener("submit", (event) => {
 /*********   Inicializar parametros de busca de producto y familia de producto  */
 
             cad=`<div>
-                    <h5>Muchas Gracias</h5>
-                    <h6>Pedido Confirmado</h6>
+                    <h4>Nro de Pedido: ${idPedido}</h4>
+                    <h5>${inputNombre.value} Muchas Gracias</h5>
+                    <h6>Pedido Confirmado</h6>`
+            if (tipoEntrega === "D"){
+                cad +=` <h6>Se coordinara su retiro para el dia</6>` 
+            }
+            else{
+                cad+= `<h6>Podra acercarse al local el dia</h6>`
+            }
+            cad +=` <h6> ${inputFecha.value}</h6>
                 </div>`
                  
             document.getElementById("IdSeleccion").innerHTML=cad;
 
 /**********     Verificar cuando tengo que hacer el clear porque las variables fueron Enviadas a la Base de Datos   */
+/*********      Inicializacion de Variables */
+            inputNombre.value = "";
+            inputApellido.value = "";
+            inputCelular.value = 0;
+            inputEmail.value= "";
+            inputFecha.value= "";
+            inputCodigoPostal.value= 0;
 //            localStorage.clear();
 
 
@@ -272,12 +283,10 @@ function agregarTotalPedido(){
 };
 
 function seleccionarEntrega(){
-
-
     let IdDelivery = document.getElementById("IdDelivery");
     let cad = ""
 
-    const tipoEntrega = comboEntrega.value
+    tipoEntrega = comboEntrega.value
     if (tipoEntrega ===""){
         cad=`<h6>Tipo Entrega No especificado, debera traer las prendas al local</h6>` 
         IdDelivery.innerHTML=cad; 
@@ -293,6 +302,7 @@ function seleccionarEntrega(){
         } 
     }
 }
+
 
 /**************INSTANCIAR ARRAYS */
 listaFliaProductos.push(new FliaProductos("Tintoreria", "Desmanchado, lavado y Planchado", true));
@@ -358,6 +368,7 @@ listaProductos.push(new Productos("Lavado","Casa","Servilletas", 550));
 listaProductos.push(new Productos("Lavado","Casa","Cortinas", 1450));
 listaProductos.push(new Productos("Lavado","Casa","Frazada 2 plazas", 2450));
 listaProductos.push(new Productos("Lavado","Casa","Alfombras x metro", 1350));
+listaProductos.push(new Productos("Lavado","Casa","Toallas", 990));
 
 
 listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 350));

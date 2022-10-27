@@ -1,4 +1,4 @@
-class PedidosItems {
+class Pedidos {
         constructor (numero, item,celular, producto, cantidad, precio, imagen, tipoEntrega) {
             this.idPedido = numero;
             this.idItems = item;
