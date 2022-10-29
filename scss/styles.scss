@@ -68,6 +68,12 @@
     border: 1.5px solid $violeta5asec;
     font-size: xx-small;
 }
+.container-reserva{
+    border: 1.5px solid $violeta5asec;
+    padding: 0.3rem;
+    text-align: center;
+    
+}
 .container-proceso, .container-tips{
     background-color:$color-fondo-formulario;
     border-radius: 20px;
@@ -120,16 +126,15 @@
     height: auto;
 }
 .container-delivery{
-    width: 70%;
+    width: 75%;
     margin-top: 0.2rem;
     text-align: center;
 
 }
 .container-carrito{
-    width: 30%;
+    width: 25%;
     margin-top: 0.2rem;
     text-align: center;
-
 }
 
 .navbar{

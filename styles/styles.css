@@ -190,6 +190,11 @@ main {
   border: 1.5px solid #5b1257;
   font-size: xx-small; }
 
+.container-reserva {
+  border: 1.5px solid #5b1257;
+  padding: 0.3rem;
+  text-align: center; }
+
 .container-proceso, .container-tips {
   background-color: rgba(255, 255, 255, 0.493);
   border-radius: 20px;
@@ -239,12 +244,12 @@ main {
   height: auto; }
 
 .container-delivery {
-  width: 70%;
+  width: 75%;
   margin-top: 0.2rem;
   text-align: center; }
 
 .container-carrito {
-  width: 30%;
+  width: 25%;
   margin-top: 0.2rem;
   text-align: center; }
 

@@ -24,6 +24,7 @@ const dateHoy = new Date();
 let cadena =""
 let primera = true;
 let tipoEntrega = "";
+let hayPedido = false;
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
@@ -49,6 +50,7 @@ if (primera){
 function validarSeleccion(){
     const valorSelect1 = select1.value;
     const valorSelect2 = select2.value;
+
     if(valorSelect1 && valorSelect2){
     
 //****************   Array Nuevo de seleccion*****************
@@ -121,7 +123,7 @@ function fechaSeaMayorAHoy(fecha){
 
     const dateReserva = new Date(fecha);
 
-    /*************Validar si la fecha elegida es Mayor a Hoy */
+/*************Validar si la fecha elegida es Mayor a Hoy */
     if (dateReserva < dateHoy){
         return false;
     }
@@ -132,9 +134,7 @@ function fechaSeaMayorAHoy(fecha){
 formDeReserva.addEventListener("submit", (event) => {
 
     event.preventDefault()
-
-
-
+    if (hayPedido){
     /***********Obetenemos los valores del Input */
     const nombre = inputNombre.value;
     const apellido = inputApellido.value;
@@ -147,10 +147,11 @@ formDeReserva.addEventListener("submit", (event) => {
     idPedido=1000;
 
     seleccionarEntrega();
+
     if (fechaDisponible(fecha)){
 
         if (fechaSeaMayorAHoy(fecha)){
-            
+
             reservas.push({
                 idPedido : idPedido,
                 nombre : nombre,
@@ -167,15 +168,13 @@ formDeReserva.addEventListener("submit", (event) => {
 /*********   Inicializar variables del carrito Cuando se cambia de pedido*/
             let cad = ``
             document.getElementById("idtotalcarrito").innerHTML=cad; 
-            document.getElementById("idCarrito").innerHTML="";
-//            IdDelivery.innerHTML=cad; 
-/*********   Inicializar parametros de busca de producto y familia de producto  */
 
+/*********   Inicializar parametros de busca de producto y familia de producto  */
             cad=`<div>
+                    <h6>Pedido Confirmado</h6>
                     <h4>Nro de Pedido: ${idPedido}</h4>
-                    <h5>${inputNombre.value} Muchas Gracias</h5>
-                    <h6>Pedido Confirmado</h6>`
-            if (tipoEntrega === "D"){
+                    <h5>${inputNombre.value} Muchas Gracias</h5>`
+                    if (tipoEntrega === "D"){
                 cad +=` <h6>Se coordinara su retiro para el dia</6>` 
             }
             else{
@@ -183,10 +182,27 @@ formDeReserva.addEventListener("submit", (event) => {
             }
             cad +=` <h6> ${inputFecha.value}</h6>
                 </div>`
-                 
-            document.getElementById("IdSeleccion").innerHTML=cad;
+//            cad = ""
+            // document.getElementById("IdSeleccion").innerHTML=cad;
+            // document.getElementById("idAgregarCarrito").innerHTML="";
 
-/**********     Verificar cuando tengo que hacer el clear porque las variables fueron Enviadas a la Base de Datos   */
+/**********SE VERIFICA SI SE QUIERE VACIAR EL LOCAL STORAGE */
+            Swal.fire({
+               title: `${cad}`,
+               text: "Queres Vaciar el Carrito?",
+               icon: 'success',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'SI',
+               denyButtonText: 'NO'
+             }).then((result) => {
+               if (result.isConfirmed) {
+                document.getElementById("idCarrito").innerHTML="";
+                localStorage.clear();
+                Swal.fire('Carrito Vacio!', '', 'success')
+               }
+             })
 /*********      Inicializacion de Variables */
             inputNombre.value = "";
             inputApellido.value = "";
@@ -194,18 +210,31 @@ formDeReserva.addEventListener("submit", (event) => {
             inputEmail.value= "";
             inputFecha.value= "";
             inputCodigoPostal.value= 0;
-//            localStorage.clear();
-
 
         }  
         else{
-            alert(`Esta Fecha es Menor al dia de Hoy`)
+            Swal.fire({
+                icon: 'error',
+                title: 'Elegir Otra Fecha',
+                text: 'La Fecha elegida es Menor al dia de Hoy!',
+              })
         }
     }
     else{
-            
-            alert(`Fecha no disponible, Ingrese otra ${fecha}`)
+        Swal.fire({
+            icon: 'error',
+            title: 'Elegir Otra Fecha',
+            text: `La Fecha elegida No esta disponible! ${fecha}`,
+          })
         }  
+    }
+    else{
+        Swal.fire({
+            icon: 'error',
+            title: `Carrito Vacio`,
+            text: `No hay Servicios Seleccionados aun!`,
+          })
+    }
 });
 
 
@@ -220,16 +249,15 @@ formDePedido.addEventListener("submit", (event) => {
     // Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.
         idPedido = 1000
     for (let i=0; i< clases.length; i++){
+        hayPedido = true;
         cantidadPedido = clases[i].value;
         if (cantidadPedido >0){
-//            idPedido++;
             item++;
             categoriaPedido = productoSeleccionado[contador].categoria;
             productoPedido = productoSeleccionado[contador].producto;
             descripcionPedido = productoSeleccionado[contador].descripcion;
             precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
             imagenPedido = productoSeleccionado[contador].producto+(i+1);
-            console.log(`imagenPedido ${imagenPedido}`)
   
              /***************Cargo El Pedido En el Carrito */    
               pedidos.push({
