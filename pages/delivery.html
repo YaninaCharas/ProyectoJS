@@ -58,9 +58,9 @@
           <input type="number" id="celular" autocomplete="off" placeholder="Celular" required>
           <input type="email" id="email" autocomplete="off" placeholder="xx@xx.com" required>
           <input type="number" id="codigoPostal" autocomplete="off" placeholder="Codigo Postal" required>
-          <input type="date" id="fecha" autocomplete="off">
+          <input type="date" id="fecha" autocomplete="off" required>
           <select id="comboEntrega" change="seleccionarEntrega();">
-            <option value="" disabled="" selected="">Tipo de Entrega</option>
+            <option value="L" disabled="" selected="" >Tipo de Entrega</option>
             <option value="L">Entrega en el Local</option>
             <option value="D">Delivery a Domicilio</option>
           </select>
@@ -73,6 +73,7 @@
         </form>
      </div>
     </div>
+    <div class="shop-items"></div>
   </main> 
   <footer id="idfooter" class="footer_box">
 

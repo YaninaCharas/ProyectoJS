@@ -17,7 +17,15 @@
     background-color: $naranja;
     border-color: none;
 }
-
+.btn-danger{
+    border-radius: 20px;
+    width: 0.8rem;
+    height: 0.8rem;
+    color: black;
+    font-size: 0.5rem;
+    padding: 0;
+    margin: 0 auto;
+}
 
 .btn-ok-dely{
     padding: 0.5rem;

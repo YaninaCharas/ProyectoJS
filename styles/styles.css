@@ -27,6 +27,15 @@
   background-color: #ed6c06;
   border-color: none; }
 
+.btn-danger {
+  border-radius: 20px;
+  width: 0.8rem;
+  height: 0.8rem;
+  color: black;
+  font-size: 0.5rem;
+  padding: 0;
+  margin: 0 auto; }
+
 .btn-ok-dely {
   padding: 0.5rem;
   width: 5rem;
@@ -164,6 +173,10 @@ main {
   align-items: center;
   width: 100%;
   height: auto; }
+
+.cantidadCarrito {
+  display: flex;
+  flex-direction: line; }
 
 .img-dely, .imgPedido {
   margin-top: 0.2rem;
@@ -314,6 +327,9 @@ h4 {
   text-align: center;
   width: 100%;
   height: auto; }
+
+.mensajeDelivery {
+  background-color: aqua; }
 
 .a-404 {
   background-color: rgba(0, 0, 0, 0.2);

@@ -4,7 +4,6 @@
 
 const listaFliaProductos = [];
 const listaProductos = [];
-const listaPedidos = [];
 const listaTipoEntrega = [];
 const reservas = obtenerReservas();
 const pedidos = obtenerPedidos();
@@ -21,7 +20,7 @@ let contador = 0;
 let idPedido = 0;
 let item = 0;
 const dateHoy = new Date();
-let cadena =""
+let cadena ="";
 let primera = true;
 let tipoEntrega = "";
 let hayPedido = false;
@@ -46,7 +45,22 @@ if (primera){
     primera = false;
 }
 
+
 /****************FUNCIONES */
+function clearStorage(){
+    localStorage.clear();
+}
+
+function clearPedidos(){
+    precioTotalPedido = 0;
+    for (let i =0; i<=pedidos.length;i++){
+        console.log(pedidos);
+        pedidos.shift();
+        console.log(pedidos);
+        IdDelivery.innerHTML=""; 
+    }
+}
+
 function validarSeleccion(){
     const valorSelect1 = select1.value;
     const valorSelect2 = select2.value;
@@ -135,24 +149,22 @@ formDeReserva.addEventListener("submit", (event) => {
 
     event.preventDefault()
     if (hayPedido){
-    /***********Obetenemos los valores del Input */
-    const nombre = inputNombre.value;
-    const apellido = inputApellido.value;
-    const celular = inputCelular.value;
-    const email = inputEmail.value;
-    const fecha = inputFecha.value;
-    const codigoPostal = parseInt(inputCodigoPostal.value);
+/***********Obetenemos los valores del Input */
+        const nombre = inputNombre.value;
+        const apellido = inputApellido.value;
+        const celular = inputCelular.value;
+        const email = inputEmail.value;
+        const fecha = inputFecha.value;
+        const codigoPostal = parseInt(inputCodigoPostal.value);
 
-    // Buscar el max de idPedido de Reservas y sumarle 1 
-    idPedido=1000;
+// Buscar el max de idPedido de Reservas y sumarle 1 
+        idPedido=1000;
 
-    seleccionarEntrega();
+        seleccionarEntrega();
 
-    if (fechaDisponible(fecha)){
-
-        if (fechaSeaMayorAHoy(fecha)){
-
-            reservas.push({
+        if (fechaDisponible(fecha)){
+            if (fechaSeaMayorAHoy(fecha)){
+                reservas.push({
                 idPedido : idPedido,
                 nombre : nombre,
                 apellido : apellido,
@@ -163,70 +175,60 @@ formDeReserva.addEventListener("submit", (event) => {
                 importe : precioTotalPedido,
             });
 /***************Cargo la reserva al local Storage */    
-            localStorage.setItem("reservas", JSON.stringify(reservas));
-
-/*********   Inicializar variables del carrito Cuando se cambia de pedido*/
-            let cad = ``
-            document.getElementById("idtotalcarrito").innerHTML=cad; 
-
-/*********   Inicializar parametros de busca de producto y familia de producto  */
-            cad=`<div>
+                localStorage.setItem("reservas", JSON.stringify(reservas));
+/**************Inicializar variables del carrito Cuando se cambia de pedido*/
+                let cad = ``
+                document.getElementById("idtotalcarrito").innerHTML=cad; 
+/**************Inicializar parametros de busca de producto y familia de producto  */
+                cad=`<div>
                     <h6>Pedido Confirmado</h6>
                     <h4>Nro de Pedido: ${idPedido}</h4>
                     <h5>${inputNombre.value} Muchas Gracias</h5>`
                     if (tipoEntrega === "D"){
-                cad +=` <h6>Se coordinara su retiro para el dia</6>` 
-            }
-            else{
-                cad+= `<h6>Podra acercarse al local el dia</h6>`
-            }
-            cad +=` <h6> ${inputFecha.value}</h6>
+                        cad +=` <h6>Se coordinara su retiro para el dia</6>` 
+                    }
+                    else{
+                        cad+= `<h6 class="mensajeDelivery">Tenga en Cuenta que Podra acercarse al local el dia</h6>`
+                    }
+                    cad +=` <h6> ${inputFecha.value}</h6>
                 </div>`
-//            cad = ""
-            // document.getElementById("IdSeleccion").innerHTML=cad;
-            // document.getElementById("idAgregarCarrito").innerHTML="";
-
-/**********SE VERIFICA SI SE QUIERE VACIAR EL LOCAL STORAGE */
-            Swal.fire({
-               title: `${cad}`,
-               text: "Queres Vaciar el Carrito?",
-               icon: 'success',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'SI',
-               denyButtonText: 'NO'
-             }).then((result) => {
-               if (result.isConfirmed) {
-                document.getElementById("idCarrito").innerHTML="";
-                localStorage.clear();
-                Swal.fire('Carrito Vacio!', '', 'success')
-               }
-             })
-/*********      Inicializacion de Variables */
-            inputNombre.value = "";
-            inputApellido.value = "";
-            inputCelular.value = 0;
-            inputEmail.value= "";
-            inputFecha.value= "";
-            inputCodigoPostal.value= 0;
-
-        }  
+                document.getElementById("IdSeleccion").innerHTML=cad;
+                setTimeout(() =>{
+                Swal.fire({
+                    title: `${cad}`,
+                    text: "Queres Vaciar el Carrito?",
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'SI',
+                    denyButtonText: 'NO' }).then((result) => {
+                    if (result.isConfirmed) {
+                         document.getElementById("idCarrito").innerHTML="";
+                        localStorage.clear();
+                        clearPedidos();
+                        Swal.fire('Carrito Vacio!', '', 'success')
+                    }}),5500})
+/***************Inicializacion de Variables */
+                inputNombre.value = "";
+                inputApellido.value = "";
+                inputCelular.value = 0;
+                inputEmail.value= "";
+                inputFecha.value= "";
+                inputCodigoPostal.value= 0;
+            }  
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Elegir Otra Fecha',
+                text: 'La Fecha elegida es Menor al dia de Hoy!',})
+            }}   
         else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Elegir Otra Fecha',
-                text: 'La Fecha elegida es Menor al dia de Hoy!',
-              })
-        }
-    }
-    else{
         Swal.fire({
             icon: 'error',
             title: 'Elegir Otra Fecha',
-            text: `La Fecha elegida No esta disponible! ${fecha}`,
-          })
-        }  
+            text: `La Fecha elegida No esta disponible! ${fecha}`,})
+            }
     }
     else{
         Swal.fire({
@@ -234,20 +236,17 @@ formDeReserva.addEventListener("submit", (event) => {
             title: `Carrito Vacio`,
             text: `No hay Servicios Seleccionados aun!`,
           })
-    }
+        }
 });
 
-
-/******Cargar Items a Carrito */
 formDePedido.addEventListener("submit", (event) => {
-
     event.preventDefault()
     cad = "";
     contador = 0;
     item = 0;
     let clases = document.getElementsByClassName("p-dely-input");
-    // Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.
-        idPedido = 1000
+// Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.
+    idPedido = 1000
     for (let i=0; i< clases.length; i++){
         hayPedido = true;
         cantidadPedido = clases[i].value;
@@ -258,8 +257,7 @@ formDePedido.addEventListener("submit", (event) => {
             descripcionPedido = productoSeleccionado[contador].descripcion;
             precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
             imagenPedido = productoSeleccionado[contador].producto+(i+1);
-  
-             /***************Cargo El Pedido En el Carrito */    
+            /***************Cargo El Pedido En el Carrito */    
               pedidos.push({
                   idPedido : idPedido,
                   item : item,
@@ -270,15 +268,13 @@ formDePedido.addEventListener("submit", (event) => {
                   precio : precioPedido,
                   imagen : imagenPedido,
               });
-  /***************Cargo Los Items Del Pedido al local Storage */  
-
+            /***************Cargo Los Items Del Pedido al local Storage */ 
               localStorage.setItem("pedidos", JSON.stringify(pedidos));
 
           }
-
           contador++;
       }   
-      agregarCarrito()
+      agregarCarrito()      
 });
 
 function agregarCarrito(){
@@ -288,46 +284,67 @@ function agregarCarrito(){
     document.getElementById("idtotalcarrito").innerHTML="";
 
     for (let i =0 ; i< pedidos.length; i++){
- /*****************Con Append */ 
+        hayPedido = true;
         cadena = document.createElement("section");
         cadena.innerHTML = `
          <div class="columnPedido">
          ${pedidos[i].descripcion}
          <div> <img alt="Producto" class="imgPedido" src="../images/${pedidos[i].imagen}.jpg"></div>
-         <div> Cantidad ${pedidos[i].cantidad} 
-               Precio $${pedidos[i].precio} </div>
+         <div class="cantidadCarrito">Cantidad<input type="number" value=${pedidos[i].cantidad}>
+            <buton id="delete" class="btn btn-danger">x</buton>
+            <div>Precio $${pedidos[i].precio} </div>
         </div> `;
         carrito.append(cadena);
         precioTotalPedido = precioTotalPedido + (pedidos[i].precio);
+        let newItem={
+            descripcion:` ${pedidos[i].descripcion}`,
+            imagen: `src="../images/${pedidos[i].imagen}.jpg"`,
+            cantidad : `${pedidos[i].cantidad} `,
+            precio:`${pedidos[i].precio}`
+        }
+
     }
     agregarTotalPedido()
-
+    pedidos.forEach(elemento => {
+        console.log(elemento)
+    });
 };
 
 function agregarTotalPedido(){
     let cad = `<h5>Total a Pagar $${precioTotalPedido}</h5>`
     document.getElementById("idtotalcarrito").innerHTML=cad;
-
 };
+
+function eliminarItemCarrito(e){
+    const buttonDelete =e.target;
+    console.log(`eliminar item`);
+    /*****Tengo que eliminar ese elemento del carrito */
+}
 
 function seleccionarEntrega(){
     let IdDelivery = document.getElementById("IdDelivery");
     let cad = ""
 
     tipoEntrega = comboEntrega.value
-    if (tipoEntrega ===""){
-        cad=`<h6>Tipo Entrega No especificado, debera traer las prendas al local</h6>` 
-        IdDelivery.innerHTML=cad; 
-    }
     if (tipoEntrega === "D"){
         const inputCodigoPostal = document.getElementById("codigoPostal");
         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
 
         if (valorInputCodigoPostal <1200 || valorInputCodigoPostal>1800){
-            cad=`<h6>No llegamos a su zona, debera traer las prendas al local</h6>`  
             comboEntrega.value = "L"
+            tipoEntrega = "L"
+            cad=`<h6>No llegamos a su zona, debera traer las prendas al local</h6>`
             IdDelivery.innerHTML=cad; 
+            Swal.fire({
+                icon: 'info',
+                title: `No llegamos a su zona!!`,
+                text: `Debera traer las prendas al local`,
+              })
         } 
+    }
+    else{
+        cad=`<h6>Tipo de Entrega no especificado, Debera traer las prendas al local</h6>` 
+        IdDelivery.innerHTML=cad; 
     }
 }
 
@@ -387,17 +404,24 @@ listaProductos.push(new Productos("Planchado","Mujer","Campera Plumas", 3320));
 listaProductos.push(new Productos("Planchado","Mujer","Camperon", 3020));
 listaProductos.push(new Productos("Planchado","Mujer", "Campera con Piel", 1250));
 
+
 listaProductos.push(new Productos("Lavado","Casa","Valet", 990));
 listaProductos.push(new Productos("Lavado","Casa","Juego de Sabanas",2350));
-listaProductos.push(new Productos("Lavado","Casa","Plumon 1 plaza", 2950));
-listaProductos.push(new Productos("Lavado","Casa","Frazada 1 plaza", 2450));
 listaProductos.push(new Productos("Lavado","Casa","Mantel Grande", 1750));
 listaProductos.push(new Productos("Lavado","Casa","Servilletas", 550));
 listaProductos.push(new Productos("Lavado","Casa","Cortinas", 1450));
+listaProductos.push(new Productos("Lavado","Casa","Toallas", 990));
+listaProductos.push(new Productos("Lavado","Casa","Plumon 1 plaza", 2950));
+listaProductos.push(new Productos("Lavado","Casa","Frazada 1 plaza", 2450));
 listaProductos.push(new Productos("Lavado","Casa","Frazada 2 plazas", 2450));
 listaProductos.push(new Productos("Lavado","Casa","Alfombras x metro", 1350));
-listaProductos.push(new Productos("Lavado","Casa","Toallas", 990));
 
+listaProductos.push(new Productos("Planchado","Casa","Valet", 2500));
+listaProductos.push(new Productos("Planchado","Casa","Sabanas", 2500));
+listaProductos.push(new Productos("Planchado","Casa","Mantel Grande", 1750));
+listaProductos.push(new Productos("Planchado","Casa","Servilletas", 550));
+listaProductos.push(new Productos("Planchado","Casa","Cortinas", 1450));
+listaProductos.push(new Productos("Planchado","Casa","Toallas", 990));
 
 listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 350));
 listaProductos.push(new Productos("Productos","Adicionales", "Sanitizante", 450));

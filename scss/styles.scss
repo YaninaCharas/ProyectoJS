@@ -43,6 +43,10 @@
     width: 100%;
     height: auto;
 }
+.cantidadCarrito{
+    display: flex;
+    flex-direction: line;
+}
 .img-dely, .imgPedido{
     margin-top: 0.2rem;
     border-radius: 2px;
@@ -202,6 +206,9 @@ h4{
     height: auto;
     // padding: map-get($map: $mapa, $key:M);
     // font-size: map-get($map: $mapa, $key:L)+1;
+}
+.mensajeDelivery{
+    background-color: aqua;
 }
 .a-404{
     background-color: $negro-sombra;
