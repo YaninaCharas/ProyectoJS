@@ -179,6 +179,7 @@ formDeReserva.addEventListener("submit", (event) => {
                 importe : precioTotalPedido,
             });
 /***************Cargo la reserva al local Storage */    
+                localStorage.setItem("pedidos", JSON.stringify(pedidos));
                 localStorage.setItem("reservas", JSON.stringify(reservas));
 /**************Inicializar variables del carrito Cuando se cambia de pedido*/
                 let cad = ``
@@ -274,7 +275,7 @@ formDePedido.addEventListener("submit", (event) => {
                   imagen : imagenPedido,
               });
             /***************Cargo Los Items Del Pedido al local Storage */ 
-              localStorage.setItem("pedidos", JSON.stringify(pedidos));
+//              localStorage.setItem("pedidos", JSON.stringify(pedidos));
 
           }
           contador++;
@@ -301,17 +302,10 @@ function agregarCarrito(){
         </div> `;
 
         carrito.append(cadena);
-        // precioTotalPedido = precioTotalPedido + (pedidos[i].precio);
-        // let newItem={
-        //     descripcion:` ${pedidos[i].descripcion}`,
-        //     imagen: `src="../images/${pedidos[i].imagen}.jpg"`,
-        //     cantidad : `${pedidos[i].cantidad} `,
-        //     precio:`${pedidos[i].precio}`
-        // }
-
     }
-    agregarTotalPedido()
-    updateNumberOfItems()
+    agregarTotalPedido();
+    updateNumberOfItems();
+    removeItems();
 };
 
 /************** */
@@ -335,12 +329,9 @@ function updateNumberOfItems(){
                    elemento.cantidad = itemCantidadActual;
                     agregarTotalPedido();
                 }
-
             });
-
         });
     });
-
 }
 
 /*********************** */
@@ -353,11 +344,56 @@ function agregarTotalPedido(){
     document.getElementById("idtotalcarrito").innerHTML=cad;
 };
 
-function eliminarItemCarrito(e){
-    const buttonDelete =e.target;
-    // console.log(`eliminar item`);
-    /*****Tengo que eliminar ese elemento del carrito */
+function removeItems(){
+    let contador = 0;
+    let indice = 0;
+    let removeBtns = document.querySelectorAll('.btn-danger');
+    removeBtns = [...removeBtns];
+
+    removeBtns.forEach(btn => {
+        btn.addEventListener(`click`,event =>{
+            document.getElementById("idCarrito").innerHTML="";
+            document.getElementById("idtotalcarrito").innerHTML="";
+
+            let itemActual= event.target.parentElement.childNodes[1].innerText;
+
+            pedidos.forEach(elemento => {
+
+                contador++;
+                let longItemAnterior = elemento.descripcion.length;
+                let nuevoItemActual = itemActual.substring(0,longItemAnterior);
+
+                if (elemento.descripcion !== nuevoItemActual){
+
+                        cadena = document.createElement("section");
+                        cadena.innerHTML = `
+                         <div class="columnPedido">
+                         <div>${elemento.descripcion}</div>
+                         <img alt="Producto" class="imgPedido" src="../images/${elemento.imagen}.jpg">
+                         <input class="inputCantidad" type="number" value=${elemento.cantidad} min=0>
+                         <buton id="delete" class="btn btn-danger">X</buton>
+                         <div>Precio $${elemento.precio} </div>
+                        </div> `;
+
+                        carrito.append(cadena); 
+                        removeItems();               
+           
+                }
+                else{
+                    indice = contador;
+                }
+
+            });
+            pedidos.splice(indice-1,1)
+            updateNumberOfItems();
+            agregarTotalPedido();
+        });
+
+    });
+
 }
+
+
 
 function seleccionarEntrega(){
     let IdDelivery = document.getElementById("IdDelivery");
