@@ -28,13 +28,15 @@
   border-color: none; }
 
 .btn-danger {
-  border-radius: 20px;
+  font-size: 2rem;
+  border-radius: 2px;
   width: 0.8rem;
-  height: 0.8rem;
+  height: auto;
   color: black;
-  font-size: 0.5rem;
+  font-size: 1rem;
   padding: 0;
-  margin: 0 auto; }
+  margin: 0 auto;
+  margin: 0.2rem; }
 
 .btn-ok-dely {
   padding: 0.5rem;
@@ -178,6 +180,9 @@ main {
   display: flex;
   flex-direction: line; }
 
+.inputCantidad {
+  width: 2rem; }
+
 .img-dely, .imgPedido {
   margin-top: 0.2rem;
   border-radius: 2px;
@@ -207,6 +212,16 @@ main {
   border: 1.5px solid #5b1257;
   padding: 0.3rem;
   text-align: center; }
+
+.container-reserva input {
+  width: 100%;
+  text-align: left;
+  margin: 0.01rem; }
+
+#comboEntrega {
+  width: 100%;
+  text-align: left;
+  margin: 0.01rem; }
 
 .container-proceso, .container-tips {
   background-color: rgba(255, 255, 255, 0.493);

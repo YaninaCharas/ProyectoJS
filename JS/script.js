@@ -54,9 +54,13 @@ function clearStorage(){
 function clearPedidos(){
     precioTotalPedido = 0;
     for (let i =0; i<=pedidos.length;i++){
-        console.log(pedidos);
         pedidos.shift();
-        console.log(pedidos);
+        IdDelivery.innerHTML=""; 
+    }
+}
+function clearReservas(){
+    for (let i =0; i<=reservas.length;i++){
+        reservas.shift();
         IdDelivery.innerHTML=""; 
     }
 }
@@ -207,6 +211,7 @@ formDeReserva.addEventListener("submit", (event) => {
                          document.getElementById("idCarrito").innerHTML="";
                         localStorage.clear();
                         clearPedidos();
+                        clearReservas();
                         Swal.fire('Carrito Vacio!', '', 'success')
                     }}),5500})
 /***************Inicializacion de Variables */
@@ -288,36 +293,69 @@ function agregarCarrito(){
         cadena = document.createElement("section");
         cadena.innerHTML = `
          <div class="columnPedido">
-         ${pedidos[i].descripcion}
-         <div> <img alt="Producto" class="imgPedido" src="../images/${pedidos[i].imagen}.jpg"></div>
-         <div class="cantidadCarrito">Cantidad<input type="number" value=${pedidos[i].cantidad}>
-            <buton id="delete" class="btn btn-danger">x</buton>
-            <div>Precio $${pedidos[i].precio} </div>
+         <div>${pedidos[i].descripcion}</div>
+         <img alt="Producto" class="imgPedido" src="../images/${pedidos[i].imagen}.jpg">
+         <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0>
+         <buton id="delete" class="btn btn-danger">X</buton>
+         <div>Precio $${pedidos[i].precio} </div>
         </div> `;
+
         carrito.append(cadena);
-        precioTotalPedido = precioTotalPedido + (pedidos[i].precio);
-        let newItem={
-            descripcion:` ${pedidos[i].descripcion}`,
-            imagen: `src="../images/${pedidos[i].imagen}.jpg"`,
-            cantidad : `${pedidos[i].cantidad} `,
-            precio:`${pedidos[i].precio}`
-        }
+        // precioTotalPedido = precioTotalPedido + (pedidos[i].precio);
+        // let newItem={
+        //     descripcion:` ${pedidos[i].descripcion}`,
+        //     imagen: `src="../images/${pedidos[i].imagen}.jpg"`,
+        //     cantidad : `${pedidos[i].cantidad} `,
+        //     precio:`${pedidos[i].precio}`
+        // }
 
     }
     agregarTotalPedido()
-    pedidos.forEach(elemento => {
-        console.log(elemento)
-    });
+    updateNumberOfItems()
 };
 
+/************** */
+function updateNumberOfItems(){
+    let inputNumber = document.querySelectorAll('.inputCantidad');
+    inputNumber = [...inputNumber]
+
+    inputNumber.forEach(item =>{
+        item.addEventListener('click', event=>{
+            let itemActual= event.target.parentElement.parentElement.childNodes[1].innerText;
+
+            pedidos.forEach(elemento => {
+
+                let longItemAnterior = elemento.descripcion.length;
+                let itemCantidadActual = parseInt(event.target.value);
+
+                let itemAnterior = elemento.descripcion;
+                let nuevoItemActual = itemActual.substring(0,longItemAnterior);
+
+                if (elemento.descripcion === nuevoItemActual){
+                   elemento.cantidad = itemCantidadActual;
+                    agregarTotalPedido();
+                }
+
+            });
+
+        });
+    });
+
+}
+
+/*********************** */
 function agregarTotalPedido(){
+    precioTotalPedido=0;
+    pedidos.forEach(elemento => {
+        precioTotalPedido = precioTotalPedido + (elemento.precio*elemento.cantidad);
+    });
     let cad = `<h5>Total a Pagar $${precioTotalPedido}</h5>`
     document.getElementById("idtotalcarrito").innerHTML=cad;
 };
 
 function eliminarItemCarrito(e){
     const buttonDelete =e.target;
-    console.log(`eliminar item`);
+    // console.log(`eliminar item`);
     /*****Tengo que eliminar ese elemento del carrito */
 }
 
