@@ -1,4 +1,4 @@
-.btn-ok{
+.btn-ok, .btn-info{
     margin-top: 0.2rem;
     padding: 0.5rem;
     width: 8rem;
@@ -11,14 +11,23 @@
     text-decoration: none;
 }
 
+.btn-info{
+    font-size: 0.7rem;
+    border-radius: 5px;
+    border: none;
+    width: 4rem;
+    padding: 0.15rem;
+    margin: 0 auto;
+    margin: 0.2rem;
+}
 
-.btn-ok:hover{
+.btn-ok:hover, .btn-info:hover{
     transition: 1s ease-in-out;
     background-color: $naranja;
     border-color: none;
+    color: $blanco;
 }
 .btn-danger{
-    font-size: 2rem;
     border-radius: 2px;
     width: 0.8rem;
     height: auto;

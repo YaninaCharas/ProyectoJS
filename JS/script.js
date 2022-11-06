@@ -78,6 +78,7 @@ function validarSeleccion(){
                 return ( producto )
             }
         });
+
         let cad = ""
   
         if (productoSeleccionado.length>0){
@@ -89,11 +90,11 @@ function validarSeleccion(){
                 }
                 cad += `
                 <div class="column-dely" id="idServicio">
-                  <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">`;
-                  cad += `<p class="p-dely">Ingrese la Cantidad</p>
+                  <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">${productoSeleccionado[i].descripcion}`;
+                  cad += `<p class="p-dely">Cantidad</p>
                   <input class="p-dely-input" type="number" id=idnumber${i+1} value=0 min=0>`
                   cad +=`<div>`;
-                  cad += `Precio Unitario $${productoSeleccionado[i]?.precio}`;
+                  cad += `C/U $${productoSeleccionado[i]?.precio}`;
                   cad += `</div>
                 </div>`;         
                 document.getElementById("IdSeleccion").innerHTML=cad;  
@@ -161,8 +162,7 @@ formDeReserva.addEventListener("submit", (event) => {
         const fecha = inputFecha.value;
         const codigoPostal = parseInt(inputCodigoPostal.value);
 
-// Buscar el max de idPedido de Reservas y sumarle 1 
-        idPedido=1000;
+        idPedido = 1000;
 
         seleccionarEntrega();
 
@@ -253,38 +253,47 @@ formDePedido.addEventListener("submit", (event) => {
     let clases = document.getElementsByClassName("p-dely-input");
 // Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.
     idPedido = 1000
+
     for (let i=0; i< clases.length; i++){
         hayPedido = true;
         cantidadPedido = clases[i].value;
         if (cantidadPedido >0){
+/******Ver si ya existe ese item en el carrito */
+            
+            for (let z=0;z<pedidos.length;z++){
+                if(productoSeleccionado[contador].descripcion === pedidos[z].descripcion){
+                    console.log(`cantidades ${pedidos[z].cantidad} ${cantidadPedido}`);
+                    console.log(`son iguales pedidos ${pedidos[z].descripcion} ${productoSeleccionado[contador].descripcion}`);
+                    cantidadPedido = parseInt(cantidadPedido) + pedidos[z].cantidad;
+                    pedidos.splice(z,1)
+                }
+                
+            }
             item++;
             categoriaPedido = productoSeleccionado[contador].categoria;
             productoPedido = productoSeleccionado[contador].producto;
             descripcionPedido = productoSeleccionado[contador].descripcion;
             precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
             imagenPedido = productoSeleccionado[contador].producto+(i+1);
-            /***************Cargo El Pedido En el Carrito */    
+            /***************Cargo Los Items del Pedido */    
               pedidos.push({
                   idPedido : idPedido,
                   item : item,
                   producto : productoPedido,
                   categoria : categoriaPedido,
                   descripcion : descripcionPedido,
-                  cantidad : cantidadPedido,
-                  precio : precioPedido,
+                  cantidad : parseInt(cantidadPedido),
+                  precio : parseInt(precioPedido),
                   imagen : imagenPedido,
               });
-            /***************Cargo Los Items Del Pedido al local Storage */ 
-//              localStorage.setItem("pedidos", JSON.stringify(pedidos));
 
           }
           contador++;
-      }   
+      }  
       agregarCarrito()      
 });
 
 function agregarCarrito(){
-/************Blanqueo el Carrito si tenia en el LocalStorage */
     
     document.getElementById("idCarrito").innerHTML="";
     document.getElementById("idtotalcarrito").innerHTML="";
@@ -347,6 +356,7 @@ function agregarTotalPedido(){
 function removeItems(){
     let contador = 0;
     let indice = 0;
+    let elementoABorrar = "";
     let removeBtns = document.querySelectorAll('.btn-danger');
     removeBtns = [...removeBtns];
 
@@ -366,7 +376,7 @@ function removeItems(){
                 if (elemento.descripcion !== nuevoItemActual){
 
                         cadena = document.createElement("section");
-                        cadena.innerHTML = `
+                        cad = `
                          <div class="columnPedido">
                          <div>${elemento.descripcion}</div>
                          <img alt="Producto" class="imgPedido" src="../images/${elemento.imagen}.jpg">
@@ -376,17 +386,22 @@ function removeItems(){
                         </div> `;
 
                         carrito.append(cadena); 
-                        removeItems();               
+                        removeItems();  
+                        updateNumberOfItems();
+                        agregarTotalPedido();             
            
                 }
                 else{
-                    indice = contador;
+                    indice = contador-1;
+                    elementoABorrar = pedidos[indice].descripcion;
                 }
 
             });
-            pedidos.splice(indice-1,1)
-            updateNumberOfItems();
-            agregarTotalPedido();
+            if (pedidos[indice].descripcion === elementoABorrar){
+                pedidos.splice(indice,1)
+                updateNumberOfItems();
+                agregarTotalPedido();
+            }
         });
 
     });
@@ -421,6 +436,7 @@ function seleccionarEntrega(){
         IdDelivery.innerHTML=cad; 
     }
 }
+
 
 
 /**************INSTANCIAR ARRAYS */
