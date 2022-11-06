@@ -176,7 +176,7 @@ formDeReserva.addEventListener("submit", (event) => {
                 email : email,
                 codigoPostal : parseInt(codigoPostal),
                 fecha : fecha,
-                importe : precioTotalPedido,
+                importe : parseInt(precioTotalPedido),
             });
 /***************Cargo la reserva al local Storage */    
                 localStorage.setItem("pedidos", JSON.stringify(pedidos));
@@ -262,8 +262,6 @@ formDePedido.addEventListener("submit", (event) => {
             
             for (let z=0;z<pedidos.length;z++){
                 if(productoSeleccionado[contador].descripcion === pedidos[z].descripcion){
-                    console.log(`cantidades ${pedidos[z].cantidad} ${cantidadPedido}`);
-                    console.log(`son iguales pedidos ${pedidos[z].descripcion} ${productoSeleccionado[contador].descripcion}`);
                     cantidadPedido = parseInt(cantidadPedido) + pedidos[z].cantidad;
                     pedidos.splice(z,1)
                 }
@@ -347,7 +345,8 @@ function updateNumberOfItems(){
 function agregarTotalPedido(){
     precioTotalPedido=0;
     pedidos.forEach(elemento => {
-        precioTotalPedido = precioTotalPedido + (elemento.precio*elemento.cantidad);
+        console.log(`precioTotalPedido ${elemento.descripcion} ${precioTotalPedido} ${elemento.precio} ${elemento.cantidad}`)
+        precioTotalPedido = parseInt(precioTotalPedido) + parseInt(elemento.precio);
     });
     let cad = `<h5>Total a Pagar $${precioTotalPedido}</h5>`
     document.getElementById("idtotalcarrito").innerHTML=cad;
@@ -376,7 +375,7 @@ function removeItems(){
                 if (elemento.descripcion !== nuevoItemActual){
 
                         cadena = document.createElement("section");
-                        cad = `
+                        cadena.innerHTML = `
                          <div class="columnPedido">
                          <div>${elemento.descripcion}</div>
                          <img alt="Producto" class="imgPedido" src="../images/${elemento.imagen}.jpg">
