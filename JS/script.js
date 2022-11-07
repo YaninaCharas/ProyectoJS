@@ -2,27 +2,14 @@
 
 //localStorage.clear();
 
-const listaFliaProductos = [];
-// let listaProductos = [];
-const listaTipoEntrega = [];
 const reservas = obtenerReservas();
 const pedidos = obtenerPedidos();
 const carrito = document.getElementById("idCarrito");
 let productoSeleccionado = [];
-let productoPedido = "";
-let categoriaPedido = "";
-let precioPedido = 0;
-let precioTotalPedido = 0;
-let descripcionPedido = "";
-let cantidadPedido = 0;
-let imagenPedido = "";
-let contador = 0;
-let idPedido = 0;
-let item = 0;
+let productoPedido, categoriaPedido , imagenPedido , descripcionPedido = "", cadena ="", tipoEntrega = "";
+let precioPedido, precioTotalPedido , cantidadPedido , contador , idPedido, item = 0;
 const dateHoy = new Date();
-let cadena ="";
 let primera = true;
-let tipoEntrega = "";
 let hayPedido = false;
 
 const select1 = document.getElementById(`comboFliaProductos`);
@@ -45,8 +32,6 @@ if (primera){
     primera = false;
 }
 
-
-/****************FUNCIONES */
 function clearStorage(){
     localStorage.clear();
 }
@@ -149,8 +134,6 @@ function obtenerPedidos(){
 function fechaSeaMayorAHoy(fecha){
 
     const dateReserva = new Date(fecha);
-
-/*************Validar si la fecha elegida es Mayor a Hoy */
     if (dateReserva < dateHoy){
         return false;
     }
@@ -259,21 +242,19 @@ formDePedido.addEventListener("submit", (event) => {
     contador = 0;
     item = 0;
     let clases = document.getElementsByClassName("p-dely-input");
-// Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.
+/************** Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.*/
     idPedido = 1000
 
     for (let i=0; i< clases.length; i++){
         hayPedido = true;
         cantidadPedido = clases[i].value;
         if (cantidadPedido >0){
-/******Ver si ya existe ese item en el carrito */
-            
+/******Ver si ya existe ese item en el carrito */            
             for (let z=0;z<pedidos.length;z++){
                 if(productoSeleccionado[contador].descripcion === pedidos[z].descripcion){
                     cantidadPedido = parseInt(cantidadPedido) + pedidos[z].cantidad;
                     pedidos.splice(z,1)
-                }
-                
+                }             
             }
             item++;
             categoriaPedido = productoSeleccionado[contador].categoria;
@@ -281,7 +262,7 @@ formDePedido.addEventListener("submit", (event) => {
             descripcionPedido = productoSeleccionado[contador].descripcion;
             precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
             imagenPedido = productoSeleccionado[contador].producto+(i+1);
-            /***************Cargo Los Items del Pedido */    
+/***************Cargo Los Items del Pedido */    
               pedidos.push({
                   idPedido : idPedido,
                   item : item,
@@ -322,8 +303,7 @@ function agregarCarrito(){
     updateNumberOfItems();
     removeItems();
 };
-
-/************** */
+ 
 function updateNumberOfItems(){
     let inputNumber = document.querySelectorAll('.inputCantidad');
     inputNumber = [...inputNumber]
@@ -348,8 +328,6 @@ function updateNumberOfItems(){
         });
     });
 }
-
-/*********************** */
 function agregarTotalPedido(){
     precioTotalPedido=0;
     pedidos.forEach(elemento => {
@@ -414,8 +392,6 @@ function removeItems(){
 
 }
 
-
-
 function seleccionarEntrega(){
     let IdDelivery = document.getElementById("IdDelivery");
     let cad = ""
@@ -442,104 +418,3 @@ function seleccionarEntrega(){
         IdDelivery.innerHTML=cad; 
     }
 }
-
-
-
-/**************INSTANCIAR ARRAYS */
-
-
-
-// listaFliaProductos.push(new FliaProductos("Tintoreria", "Desmanchado, lavado y Planchado", true));
-// listaFliaProductos.push(new FliaProductos("Casa", "Lavado y Secado", true));
-// listaFliaProductos.push(new FliaProductos("Planchado", "Solo Plancha de Prendas", true));
-// listaFliaProductos.push(new FliaProductos("Productos", "Adicionales", true));
-
-// listaProductos.push(new Productos("Tintoreria","Hombre","Traje", 1850));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Camisa", 420));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Corbata", 420));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Remera", 420));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Camperon", 2300));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Campera de Plumas", 3300));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Campera Con piel", 1950));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon", 850));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Piloto", 1950));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Tapado", 3300));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Camisa Doblada", 420));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Abono 10 Camisas", 420));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Campera Comun", 2420));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon doblado", 1420));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Pantalon", 1620));
-// listaProductos.push(new Productos("Tintoreria","Hombre","Ambo Medico", 2420));
-
-
-// listaProductos.push(new Productos("Planchado","Hombre","Traje", 1850));
-// listaProductos.push(new Productos("Planchado","Hombre","Camisa", 420));
-// listaProductos.push(new Productos("Planchado","Hombre","Corbata", 420));
-// listaProductos.push(new Productos("Planchado","Hombre","Remera", 420));
-// listaProductos.push(new Productos("Planchado","Hombre","Camperon", 2300));
-// listaProductos.push(new Productos("Planchado","Hombre","Campera de Plumas", 3300));
-// listaProductos.push(new Productos("Planchado","Hombre","Campera Con piel", 1950));
-// listaProductos.push(new Productos("Planchado","Hombre","Pantalon", 850));
-// listaProductos.push(new Productos("Planchado","Hombre","Piloto", 1950));
-// listaProductos.push(new Productos("Planchado","Hombre","Tapado", 3300));;
-
-// listaProductos.push(new Productos("Tintoreria","Mujer", "Vestido", 1650));
-// listaProductos.push(new Productos("Tintoreria","Mujer", "Ruana", 2650));
-// listaProductos.push(new Productos("Tintoreria","Mujer", "Sueter", 950));
-// listaProductos.push(new Productos("Tintoreria","Mujer", "Zapatillas", 1650));
-// listaProductos.push(new Productos("Tintoreria","Mujer", "Ambo Medico", 2250));
-// listaProductos.push(new Productos("Tintoreria","Mujer", "Blusa", 1050));
-// listaProductos.push(new Productos("Tintoreria","Mujer","Campera Plumas", 3320));
-// listaProductos.push(new Productos("Tintoreria","Mujer","Camperon", 3020));
-// listaProductos.push(new Productos("Tintoreria","Mujer", "Campera con Piel", 1250));
-
-// listaProductos.push(new Productos("Planchado","Mujer", "Vestido", 1650));
-// listaProductos.push(new Productos("Planchado","Mujer", "Ruana", 2650));
-// listaProductos.push(new Productos("Planchado","Mujer", "Sueter", 950));
-// listaProductos.push(new Productos("Planchado","Mujer", "Zapatillas", 1650));
-// listaProductos.push(new Productos("Planchado","Mujer", "Ambo Medico", 2250));
-// listaProductos.push(new Productos("Planchado","Mujer", "Blusa", 1050));
-// listaProductos.push(new Productos("Planchado","Mujer","Campera Plumas", 3320));
-// listaProductos.push(new Productos("Planchado","Mujer","Camperon", 3020));
-// listaProductos.push(new Productos("Planchado","Mujer", "Campera con Piel", 1250));
-
-
-// listaProductos.push(new Productos("Lavado","Casa","Valet", 990));
-// listaProductos.push(new Productos("Lavado","Casa","Juego de Sabanas",2350));
-// listaProductos.push(new Productos("Lavado","Casa","Mantel Grande", 1750));
-// listaProductos.push(new Productos("Lavado","Casa","Servilletas", 550));
-// listaProductos.push(new Productos("Lavado","Casa","Cortinas", 1450));
-// listaProductos.push(new Productos("Lavado","Casa","Toallas", 990));
-// listaProductos.push(new Productos("Lavado","Casa","Plumon 1 plaza", 2950));
-// listaProductos.push(new Productos("Lavado","Casa","Frazada 1 plaza", 2450));
-// listaProductos.push(new Productos("Lavado","Casa","Frazada 2 plazas", 2450));
-// listaProductos.push(new Productos("Lavado","Casa","Alfombras x metro", 1350));
-
-// listaProductos.push(new Productos("Planchado","Casa","Valet", 2500));
-// listaProductos.push(new Productos("Planchado","Casa","Sabanas", 2500));
-// listaProductos.push(new Productos("Planchado","Casa","Mantel Grande", 1750));
-// listaProductos.push(new Productos("Planchado","Casa","Servilletas", 550));
-// listaProductos.push(new Productos("Planchado","Casa","Cortinas", 1450));
-// listaProductos.push(new Productos("Planchado","Casa","Toallas", 990));
-
-// listaProductos.push(new Productos("Productos","Adicionales", "Perfumina", 350));
-// listaProductos.push(new Productos("Productos","Adicionales", "Sanitizante", 450));
-// listaProductos.push(new Productos("Productos","Adicionales", "Enjuague", 520));
-// listaProductos.push(new Productos("Productos","Adicionales", "Perchas", 1200));
-
-// listaTipoEntrega.push(new TipoEntregas("D","Delivery"));
-// listaTipoEntrega.push(new TipoEntregas("L","Local"));
-
-// fetch(`../json/tipoEntregas.json`)
-//     .then((response)=>{
-//         return(response).json();
-//     }).then ((listaTipoEntrega) => {
-//         console.log(listaTipoEntrega);
-// });
-
-// fetch('../json/fliaProductos.json')
-//     .then((response)=>{
-//         return(response).json();
-//     }).then ((listaFliaProductos) => {
-//         console.log(listaFliaProductos);
-// });
