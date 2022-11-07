@@ -59,15 +59,12 @@ function validarSeleccion(){
             .then((response)=>{
             return(response).json();
          }).then ((listaProductos) => {
-            console.log(listaProductos);
             productoSeleccionado = listaProductos.filter( (producto) => {
             if((producto.producto === valorSelect2)&&(producto.categoria === valorSelect1))
             { 
-                console.log(producto);
                 return ( producto );
             }
             });
-
 
         let cad = ""
   
@@ -176,6 +173,11 @@ formDeReserva.addEventListener("submit", (event) => {
                 let cad = ``
                 document.getElementById("idtotalcarrito").innerHTML=cad; 
 /**************Inicializar parametros de busca de producto y familia de producto  */
+/**************Ver Fechas */
+                let fechaAux =  new Date(fecha);
+                let fechaDia= fechaAux.getDate()+1;
+                let fechaMes= fechaAux.getMonth()+1;
+                let fechaAnio=fechaAux.getFullYear();
                 cad=`<div>
                     <h6>Pedido Confirmado</h6>
                     <h4>Nro de Pedido: ${idPedido}</h4>
@@ -184,9 +186,9 @@ formDeReserva.addEventListener("submit", (event) => {
                         cad +=` <h6>Se coordinara su retiro para el dia</6>` 
                     }
                     else{
-                        cad+= `<h6 class="mensajeDelivery">Tenga en Cuenta que Podra acercarse al local el dia</h6>`
+                        cad+= `<h6 class="mensajeDelivery">Tenga en Cuenta que Podra acercarse al local</h6>`
                     }
-                    cad +=` <h6> ${inputFecha.value}</h6>
+                    cad +=` <h6> El dia:${fechaDia} del mes: ${fechaMes} del año: ${fechaAnio}</h6>
                 </div>`
                 document.getElementById("IdSeleccion").innerHTML=cad;
                 setTimeout(() =>{
