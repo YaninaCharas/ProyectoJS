@@ -1,0 +1,360 @@
+[
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Traje",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Camisa",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Corbata",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Remera",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Camperon",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Campera de Plumas",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Campera Con Piel",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Pantalon",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Piloto",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Tapado",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Camisa Doblada",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Abono 10 Camisas",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Campera Comun",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Pantalon Doblado",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Hombre",
+        "descripcion":"Ambo Medico",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Traje",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Camisa",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Corbata",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Remera",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Camperon",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Campera de Plumas",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Campera Con Piel",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Pantalon",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Piloto",
+        "precio":1850
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Hombre",
+        "descripcion":"Tapado",
+        "precio":1850
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Vestido",
+        "precio":1650
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Ruana",
+        "precio":1650
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Sueter",
+        "precio":1000
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Zapatillas",
+        "precio":1650
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Ambo Medico",
+        "precio":2250
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Blusa",
+        "precio":1450
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Campera de Plumas",
+        "precio":3200
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Camperon",
+        "precio":2950
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Vestido",
+        "precio":1650
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Ruana",
+        "precio":1650
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Sueter",
+        "precio":1000
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Zapatillas",
+        "precio":1650
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Ambo Medico",
+        "precio":2250
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Blusa",
+        "precio":1450
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Campera de Plumas",
+        "precio":3200
+    },
+    {
+    "categoria": "Planchado",
+    "producto": "Mujer",
+    "descripcion":"Camperon",
+    "precio":2950
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Campera con Piel",
+        "precio":1780
+    },
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Valet", 
+        "precio": 990},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Juego de Sabanas",
+        "precio":2350},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Mantel Grande",
+        "precio": 1750},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Servilletas", 
+        "precio":550},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Cortinas", 
+        "precio":1450},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Toallas", 
+        "precio":990},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Plumon 1 plaza", 
+        "precio":2950},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Frazada 1 plaza", 
+        "precio":2450},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Frazada 2 plazas", 
+        "precio":2450},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Alfombras x metro", 
+        "precio":1350},
+    {
+        "categoria":"Planchado",
+        "producto":"Casa",
+        "descripcion":"Valet",
+        "precio": 2500},
+    {
+
+        "categoria":"Planchado",
+        "producto":"Casa",
+        "descripcion":"Sabanas",
+        "precio": 2500},
+    {
+
+        "categoria":"Planchado",
+        "producto":"Casa",
+        "descripcion":"Mantel Grande", 
+        "precio":1750},
+    {
+
+        "categoria":"Planchado",
+        "producto":"Casa",
+        "descripcion":"Servilletas",
+        "precio": 550},
+    {
+
+        "categoria":"Planchado",
+        "producto":"Casa",
+        "descripcion":"Cortinas",
+        "precio": 1450},
+    {
+
+        "categoria":"Planchado",
+        "producto":"Casa",
+        "descripcion":"Toallas",
+        "precio": 990},
+    {
+        "categoria":"Productos",
+        "producto":"Adicionales",
+        "descripcion":"Perfumina","precio": 350},
+    {
+
+        "categoria":"Productos",
+        "producto":"Adicionales",
+        "descripcion":"Sanitizante","precio": 450},
+    {
+
+        "categoria":"Productos",
+        "producto":"Adicionales",
+        "descripcion": "Enjuague", 
+        "precio":520},
+    {
+
+        "categoria":"Productos",
+        "producto":"Adicionales",
+        "descripcion": "Perchas",
+        "precio": 1200}
+]
