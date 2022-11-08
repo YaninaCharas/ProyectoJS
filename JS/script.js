@@ -257,7 +257,7 @@ formDePedido.addEventListener("submit", (event) => {
             categoriaPedido = productoSeleccionado[contador].categoria;
             productoPedido = productoSeleccionado[contador].producto;
             descripcionPedido = productoSeleccionado[contador].descripcion;
-            precioPedido = parseInt(productoSeleccionado[contador].precio*cantidadPedido);
+            precioPedido = parseInt(productoSeleccionado[contador].precio);
             imagenPedido = productoSeleccionado[contador].producto+(i+1);
 /***************Cargo Los Items del Pedido */    
               pedidos.push({
@@ -290,7 +290,7 @@ function agregarCarrito(){
          <div class="descripcion">${pedidos[i].descripcion}</div>
          <img alt="Producto" class="imgPedido" src="../images/${pedidos[i].imagen}.jpg">
          <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0>
-         <div class="precio">  Precio $${pedidos[i].precio} </div>
+         <div class="precio">Precio c/u $${pedidos[i].precio} </div>
          <buton id="delete" class="btn btn-danger"></buton>
         </div> `;
 
@@ -328,7 +328,7 @@ function updateNumberOfItems(){
 function agregarTotalPedido(){
     precioTotalPedido=0;
     pedidos.forEach(elemento => {
-        precioTotalPedido = parseInt(precioTotalPedido) + parseInt(elemento.precio);
+        precioTotalPedido = parseInt(precioTotalPedido) + parseInt(elemento.precio)*parseInt(elemento.cantidad);
     });
     let cad = `<h5>Total a Pagar $${precioTotalPedido}</h5>`
     document.getElementById("idtotalcarrito").innerHTML=cad;
@@ -362,7 +362,7 @@ function removeItems(){
                          <div class="descripcion">${elemento.descripcion}</div>
                          <img alt="Producto" class="imgPedido" src="../images/${elemento.imagen}.jpg">
                          <input class="inputCantidad" type="number" value=${elemento.cantidad} min=0>
-                         <div class="precio">Precio $${elemento.precio} </div>
+                         <div class="precio">Precio c/u $${elemento.precio} </div>
                          <buton id="delete" class="btn btn-danger"></buton>
                         </div> `;
 
