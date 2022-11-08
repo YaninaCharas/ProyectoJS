@@ -34,6 +34,15 @@
     width: 15%;
     height: auto;
 }
+.descripcion{
+    min-width: 3rem;
+    padding-left: 0.1rem;
+    text-align: left;
+}
+.precio{    
+        min-width: 5rem;
+        text-align: right;
+    }
 .columnPedido{
     background-color: white;
     border-bottom: 1px solid $violeta5asec;
@@ -53,6 +62,7 @@
 .img-dely, .imgPedido{
     margin-top: 0.2rem;
     border-radius: 2px;
+    text-align: left;
     width: 90%;
     height: auto; 
 }

@@ -8,7 +8,7 @@ const carrito = document.getElementById("idCarrito");
 let productoSeleccionado = [];
 let productoPedido, categoriaPedido , imagenPedido , descripcionPedido = "", cadena ="", tipoEntrega = "";
 let precioPedido, precioTotalPedido , cantidadPedido , contador , idPedido, item = 0;
-const dateHoy = new Date();
+const dateHoy = luxon.DateTime.now();
 let primera = true;
 let hayPedido = false;
 
@@ -131,6 +131,7 @@ function obtenerPedidos(){
 function fechaSeaMayorAHoy(fecha){
 
     const dateReserva = new Date(fecha);
+
     if (dateReserva < dateHoy){
         return false;
     }
@@ -169,15 +170,9 @@ formDeReserva.addEventListener("submit", (event) => {
 /***************Cargo la reserva al local Storage */    
                 localStorage.setItem("pedidos", JSON.stringify(pedidos));
                 localStorage.setItem("reservas", JSON.stringify(reservas));
-/**************Inicializar variables del carrito Cuando se cambia de pedido*/
+
                 let cad = ``
                 document.getElementById("idtotalcarrito").innerHTML=cad; 
-/**************Inicializar parametros de busca de producto y familia de producto  */
-/**************Ver Fechas */
-                let fechaAux =  new Date(fecha);
-                let fechaDia= fechaAux.getDate()+1;
-                let fechaMes= fechaAux.getMonth()+1;
-                let fechaAnio=fechaAux.getFullYear();
                 cad=`<div>
                     <h6>Pedido Confirmado</h6>
                     <h4>Nro de Pedido: ${idPedido}</h4>
@@ -186,9 +181,9 @@ formDeReserva.addEventListener("submit", (event) => {
                         cad +=` <h6>Se coordinara su retiro para el dia</6>` 
                     }
                     else{
-                        cad+= `<h6 class="mensajeDelivery">Tenga en Cuenta que Podra acercarse al local</h6>`
+                        cad+= `<h6 class="mensajeDelivery">Tenga en Cuenta que Podra acercarse al local el dia</h6>`
                     }
-                    cad +=` <h6> El dia:${fechaDia} del mes: ${fechaMes} del año: ${fechaAnio}</h6>
+                    cad +=` <h6> ${fecha}</h6>
                 </div>`
                 document.getElementById("IdSeleccion").innerHTML=cad;
                 setTimeout(() =>{
@@ -292,11 +287,11 @@ function agregarCarrito(){
         cadena = document.createElement("section");
         cadena.innerHTML = `
          <div class="columnPedido">
-         <div>${pedidos[i].descripcion}</div>
+         <div class="descripcion">${pedidos[i].descripcion}</div>
          <img alt="Producto" class="imgPedido" src="../images/${pedidos[i].imagen}.jpg">
          <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0>
-         <buton id="delete" class="btn btn-danger">X</buton>
-         <div>Precio $${pedidos[i].precio} </div>
+         <div class="precio">  Precio $${pedidos[i].precio} </div>
+         <buton id="delete" class="btn btn-danger"></buton>
         </div> `;
 
         carrito.append(cadena);
@@ -364,11 +359,11 @@ function removeItems(){
                         cadena = document.createElement("section");
                         cadena.innerHTML = `
                          <div class="columnPedido">
-                         <div>${elemento.descripcion}</div>
+                         <div class="descripcion">${elemento.descripcion}</div>
                          <img alt="Producto" class="imgPedido" src="../images/${elemento.imagen}.jpg">
                          <input class="inputCantidad" type="number" value=${elemento.cantidad} min=0>
-                         <buton id="delete" class="btn btn-danger">X</buton>
-                         <div>Precio $${elemento.precio} </div>
+                         <div class="precio">Precio $${elemento.precio} </div>
+                         <buton id="delete" class="btn btn-danger"></buton>
                         </div> `;
 
                         carrito.append(cadena); 
@@ -420,3 +415,6 @@ function seleccionarEntrega(){
         IdDelivery.innerHTML=cad; 
     }
 }
+
+
+
