@@ -28,14 +28,17 @@
     color: $blanco;
 }
 .btn-danger{
+    background-color: transparent;
     margin-left: 1rem;
     border:none;
-    width: 2rem;
-    height: 3rem;
-    background-image: url(../images/iconos/tachito2.png);
+    width: 1rem;
+    height: 1.7rem;
+    background-image: url(../images/iconos/tachito.png);
     
 }
-
+.btn-danger:hover{
+    background-color: transparent;
+}
 .btn-ok-dely{
     padding: 0.5rem;
     width: 5rem;

@@ -53,13 +53,13 @@
 
         </section>
         <form id="reserva" class="container-reserva">
-          <input type="text" id="nombre" autocomplete="off" placeholder="Nombre" required>
-          <input type="text" id="apellido" autocomplete="off" placeholder="Apellido">
-          <input type="number" id="celular" autocomplete="off" placeholder="Celular" required>
-          <input type="email" id="email" autocomplete="off" placeholder="xx@xx.com" required>
-          <input type="number" id="codigoPostal" autocomplete="off" placeholder="Codigo Postal" required>
-          <input type="date" id="fecha" autocomplete="off" required>
-          <select id="comboEntrega" change="seleccionarEntrega();">
+          <input type="text" id="nombre" autocomplete="off" placeholder="Nombre" required class="info-reserva">
+          <input type="text" id="apellido" autocomplete="off" placeholder="Apellido" class="info-reserva">
+          <input type="text" id="celular" autocomplete="off" placeholder="Celular solos numeros ej:011xxxxxxxx" required class="info-reserva">
+          <input type="email" id="email" autocomplete="off" placeholder="xx@xx.com" required class="info-reserva">
+          <input type="number" id="codigoPostal" autocomplete="off" placeholder="Codigo Postal" required class="info-reserva">
+          <input type="date" id="fecha" autocomplete="off" required class="info-reserva">
+          <select id="comboEntrega" change="seleccionarEntrega();" class="info-reserva">
             <option value="L" disabled="" selected="" >Tipo de Entrega</option>
             <option value="L">Entrega en el Local</option>
             <option value="D">Delivery a Domicilio</option>
@@ -80,8 +80,8 @@
   </footer>
   <!-- Libreria Sweet Alert  -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Libreria Sweet Alert  -->
   <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
-  <!-- Api Fotos del Universo  -->
   <!-- <script src="../api/api.js"></script> -->
   <!--  -->
   <script src="../JS/nav.js"></script>

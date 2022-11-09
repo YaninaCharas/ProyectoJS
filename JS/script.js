@@ -1,7 +1,5 @@
-/***************VARIABLES */
-
 //localStorage.clear();
-
+/***************VARIABLES */
 const reservas = obtenerReservas();
 const pedidos = obtenerPedidos();
 const carrito = document.getElementById("idCarrito");
@@ -26,6 +24,8 @@ const inputCodigoPostal = document.getElementById("codigoPostal");
 select1.addEventListener("change",validarSeleccion);
 select2.addEventListener("change",validarSeleccion);
 
+
+/****Inicializacion del Carrito si es que hay info en el Local Storage, y lo hace solo 1 vez al inicio */
 if (primera){
     obtenerPedidos();
     agregarCarrito();
@@ -49,7 +49,7 @@ function clearReservas(){
         IdDelivery.innerHTML=""; 
     }
 }
-
+/********Validacion de la seleccion del Servicio y de la categoria seleccionados */
 function validarSeleccion(){
     const valorSelect1 = select1.value;
     const valorSelect2 = select2.value;
@@ -103,12 +103,7 @@ function validarSeleccion(){
     
 }
 
-function fechaDisponible(fecha){
-    return !reservas.some ( (elemento) =>{
-        return elemento.fecha === fecha;
-    })
-}
-
+/*******Inicializacion del LocalStorage */
 function obtenerReservas(){
     const reservasLS = localStorage.getItem("reservas");
 
@@ -128,9 +123,20 @@ function obtenerPedidos(){
     return [];
 }
 
+/******Verificaciones de verificacion de fecha habilitada para solicitar un servicio */
+function fechaDisponible(fecha){
+    return !reservas.some ( (elemento) =>{
+        return elemento.fecha === fecha;
+    })
+}
+
 function fechaSeaMayorAHoy(fecha){
 
     const dateReserva = new Date(fecha);
+    dateReserva.setMinutes(dateReserva.getMinutes() + dateReserva.getTimezoneOffset());
+    console.log(`dateReserva ${dateReserva}`);
+    console.log(`fecha ${fecha}`);
+    console.log(`dateHoy ${dateHoy}`);
 
     if (dateReserva < dateHoy){
         return false;
@@ -138,36 +144,51 @@ function fechaSeaMayorAHoy(fecha){
     return true;
 }
  
-/*******************RESERVA */
+/*******Fromatear Celular */
+const miCelular = document.getElementById("celular");
+miCelular.addEventListener("input",() =>{
+    const numeroCelular = miCelular.value;
+    const numeroCelularLength = numeroCelular.length;
+    
+    if(numeroCelularLength>10){
+        return miCelular.value = `(${numeroCelular.slice(0,3)}) ${numeroCelular.slice(3,7,)}-${numeroCelular.slice(7,11)}`;
+    }
+});
+
+/******************* Formulario de RESERVA */
 formDeReserva.addEventListener("submit", (event) => {
 
     event.preventDefault()
     if (hayPedido){
-/***********Obetenemos los valores del Input */
-        const nombre = inputNombre.value;
-        const apellido = inputApellido.value;
-        const celular = inputCelular.value;
-        const email = inputEmail.value;
-        const fecha = inputFecha.value;
-        const codigoPostal = parseInt(inputCodigoPostal.value);
 
-        idPedido = 1000;
+        console.log(precioTotalPedido)
 
-        seleccionarEntrega();
+        if (precioTotalPedido>10000){
 
-        if (fechaDisponible(fecha)){
-            if (fechaSeaMayorAHoy(fecha)){
-                reservas.push({
-                idPedido : idPedido,
-                nombre : nombre,
-                apellido : apellido,
-                celular : parseInt(celular),
-                email : email,
-                codigoPostal : parseInt(codigoPostal),
-                fecha : fecha,
-                importe : parseInt(precioTotalPedido),
-            });
-/***************Cargo la reserva al local Storage */    
+           /***********Obetenemos los valores del Input */
+            const nombre = inputNombre.value;
+            const apellido = inputApellido.value;
+            const celular = inputCelular.value;
+            const email = inputEmail.value;
+            const fecha = inputFecha.value;
+            const codigoPostal = parseInt(inputCodigoPostal.value);
+
+            idPedido = 1000;
+            seleccionarEntrega();
+
+            if (fechaDisponible(fecha)){
+                if (fechaSeaMayorAHoy(fecha)){
+                    reservas.push({
+                    idPedido : idPedido,
+                    nombre : nombre,
+                    apellido : apellido,
+                    celular : parseInt(celular),
+                    email : email,
+                    codigoPostal : parseInt(codigoPostal),
+                    fecha : fecha,
+                    importe : parseInt(precioTotalPedido),
+                });
+            /************Cargo la reserva al local Storage */    
                 localStorage.setItem("pedidos", JSON.stringify(pedidos));
                 localStorage.setItem("reservas", JSON.stringify(reservas));
 
@@ -184,7 +205,7 @@ formDeReserva.addEventListener("submit", (event) => {
                         cad+= `<h6 class="mensajeDelivery">Tenga en Cuenta que Podra acercarse al local el dia</h6>`
                     }
                     cad +=` <h6> ${fecha}</h6>
-                </div>`
+                    </div>`
                 document.getElementById("IdSeleccion").innerHTML=cad;
                 setTimeout(() =>{
                 Swal.fire({
@@ -203,36 +224,45 @@ formDeReserva.addEventListener("submit", (event) => {
                         clearReservas();
                         Swal.fire('Carrito Vacio!', '', 'success')
                     }}),5500})
-/***************Inicializacion de Variables */
-                inputNombre.value = "";
-                inputApellido.value = "";
-                inputCelular.value = 0;
-                inputEmail.value= "";
-                inputFecha.value= "";
-                inputCodigoPostal.value= 0;
-            }  
-            else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Elegir Otra Fecha',
-                text: 'La Fecha elegida es Menor al dia de Hoy!',})
-            }}   
+        /***************Inicializacion de Variables luego del push*/
+                        inputNombre.value = "";
+                        inputApellido.value = "";
+                        inputCelular.value = 0;
+                        inputEmail.value= "";
+                        inputFecha.value= "";
+                        inputCodigoPostal.value= 0;
+                    }  
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Elegir Otra Fecha',
+                        text: 'La Fecha elegida debe ser Mayor al dia de Hoy!',})
+                    }}   
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Elegir Otra Fecha',
+                        text: `La Fecha elegida No esta disponible! ${fecha}`,})
+                        }
+        }
         else{
-        Swal.fire({
-            icon: 'error',
-            title: 'Elegir Otra Fecha',
-            text: `La Fecha elegida No esta disponible! ${fecha}`,})
-            }
+            Swal.fire({
+                icon: 'error',
+                title: `Importe menor a $10.000`,
+                text: `Agregar mas servicios a su Seleccion`,
+              })
+        }
     }
     else{
         Swal.fire({
             icon: 'error',
             title: `Carrito Vacio`,
-            text: `No hay Servicios Seleccionados aun!`,
+            text: `Debe seleccionar algun servicio`,
           })
         }
 });
 
+/*************Agrega los Items al carrito luego que selecciona el agregar al carrito del contenedor de servicios a seleccionar */
 formDePedido.addEventListener("submit", (event) => {
     event.preventDefault()
     cad = "";
@@ -277,6 +307,7 @@ formDePedido.addEventListener("submit", (event) => {
       agregarCarrito()      
 });
 
+/*******Agrega los items seleccionados al carrito */
 function agregarCarrito(){
     
     document.getElementById("idCarrito").innerHTML="";
@@ -288,7 +319,7 @@ function agregarCarrito(){
         cadena.innerHTML = `
          <div class="columnPedido">
          <div class="descripcion">${pedidos[i].descripcion}</div>
-         <img alt="Producto" class="imgPedido" src="../images/${pedidos[i].imagen}.jpg">
+         <img alt="Producto" class="img-pedido" src="../images/${pedidos[i].imagen}.jpg">
          <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0>
          <div class="precio">Precio c/u $${pedidos[i].precio} </div>
          <buton id="delete" class="btn btn-danger"></buton>
@@ -301,6 +332,7 @@ function agregarCarrito(){
     removeItems();
 };
  
+/*********Si se agrego algun item a la seleccion inicial actualiza los items que tiene en el carrito y re calculo el total del pedido */
 function updateNumberOfItems(){
     let inputNumber = document.querySelectorAll('.inputCantidad');
     inputNumber = [...inputNumber]
@@ -325,15 +357,23 @@ function updateNumberOfItems(){
         });
     });
 }
+
+/*********Agrega el total del Pedido al final del contenedor de los items seleccionados en el carrito */
 function agregarTotalPedido(){
     precioTotalPedido=0;
     pedidos.forEach(elemento => {
         precioTotalPedido = parseInt(precioTotalPedido) + parseInt(elemento.precio)*parseInt(elemento.cantidad);
     });
     let cad = `<h5>Total a Pagar $${precioTotalPedido}</h5>`
+    if (precioTotalPedido<10000){
+        cad += `<h6 class="h6-reserva">Le faltan $${10000-precioTotalPedido} Para Solicitar el servicio</h6>`
+        cad += `<h6 class="h6-reserva">Valor minimo de $10.000</h6>`
+    }
     document.getElementById("idtotalcarrito").innerHTML=cad;
 };
 
+
+/**********elimina los items del carrito que se desean */
 function removeItems(){
     let contador = 0;
     let indice = 0;
@@ -360,7 +400,7 @@ function removeItems(){
                         cadena.innerHTML = `
                          <div class="columnPedido">
                          <div class="descripcion">${elemento.descripcion}</div>
-                         <img alt="Producto" class="imgPedido" src="../images/${elemento.imagen}.jpg">
+                         <img alt="Producto" class="img-pedido" src="../images/${elemento.imagen}.jpg">
                          <input class="inputCantidad" type="number" value=${elemento.cantidad} min=0>
                          <div class="precio">Precio c/u $${elemento.precio} </div>
                          <buton id="delete" class="btn btn-danger"></buton>
@@ -388,7 +428,7 @@ function removeItems(){
     });
 
 }
-
+/************Selecciona el tipo de entrega y verifica si llega con el Delivery a esa Zona */
 function seleccionarEntrega(){
     let IdDelivery = document.getElementById("IdDelivery");
     let cad = ""
@@ -415,6 +455,3 @@ function seleccionarEntrega(){
         IdDelivery.innerHTML=cad; 
     }
 }
-
-
-
