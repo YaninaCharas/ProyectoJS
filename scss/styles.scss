@@ -93,7 +93,7 @@
 }
 .descproducto{
     font-size: x-small;
-    min-height: 1rem;
+    min-height: 2rem;
 }
 .p-dely{
     font-family: 'Josefin Sans', sans-serif;
@@ -516,29 +516,30 @@ h4{
 }
 /*********  MEDIA QUERY  992 ******/
 @media screen and (max-width: 991px) {
-    .navbar-nav {
-        margin-top:-1rem;
-        margin-left: -1rem;
-        width: 32%;
-    }
-    .card-text{
-        padding-bottom: map-get($map: $mapa, $key:XS);
-        margin: 0;
-        &:first-child{
-            font-size: map-get($map: $mapa, $key:S);
-        }
-    }
-    .container-carrito{
-        width: 45%;
-    }
-    .titulocantidad{
-        margin-left: 5rem;
-    }
-    .precio, .preciototal {
-        margin-left: 1.6rem;
-        max-width: 1.6rem;
-        min-width: 1.6rem;
+.navbar-nav {
+    margin-top:-1rem;
+    margin-left: -1rem;
+    width: 32%;
 }
+.card-text{
+    padding-bottom: map-get($map: $mapa, $key:XS);
+    margin: 0;
+    &:first-child{
+        font-size: map-get($map: $mapa, $key:S);
+    }
+}
+.container-carrito{
+    width: 45%;
+    }
+.titulocantidad{
+    margin-left: 5rem;
+}
+.precio, .preciototal {
+    margin-left: 1.6rem;
+    max-width: 1.6rem;
+    min-width: 1.6rem;
+}
+
 }
 /*********  MEDIA QUERY  900 ******/
 @media screen and (max-width: 900px) {
@@ -553,6 +554,16 @@ h4{
     .form-check, .form-floating {
         font-size: map-get($map: $mapa, $key:XS);
     }
+    .precio, .preciototal {
+        margin-left: 1rem;
+    }
+    .tituloprecio{
+        margin-left: 1rem;
+    }
+    .btn-danger{
+        margin-left: 0;
+    }
+
 }
 /*********  MEDIA QUERY  780******/
 @media screen and (max-width: 780px) {
@@ -563,28 +574,13 @@ h4{
         width: 80%;
         margin-bottom: map-get($map: $mapa, $key:S);
     }
-}
-/*********  MEDIA QUERY  610- Surface Duo******/
-@media screen and (max-width: 610px) {
-    .nav-link:hover{
-        color: $violeta5asec;
-    }
-    .footer_box{
-        font-size: map-get($map: $mapa, $key: XS);
-        padding: 0.1rem;
-        padding-top: map-get($map: $mapa, $key:XS);
-        padding-bottom: map-get($map: $mapa, $key:XS);
-    }
-    .container-tips, .container-proceso{
-        width: 80%;
-    }   
-    .container-main{
-        display: flex;
-        flex-direction: column;
-    }
     .container-delivery, .container-carrito{
         width: 100%;
         margin:0;
+    }
+    .container-main{
+        display: flex;
+        flex-direction: column;
     }
     .container-carrito{
         margin-top: 0.5rem;
@@ -608,6 +604,22 @@ h4{
     .descripcion{
         margin-left: 0;
     }
+
+}
+/*********  MEDIA QUERY  610- Surface Duo******/
+@media screen and (max-width: 610px) {
+    .nav-link:hover{
+        color: $violeta5asec;
+    }
+    .footer_box{
+        font-size: map-get($map: $mapa, $key: XS);
+        padding: 0.1rem;
+        padding-top: map-get($map: $mapa, $key:XS);
+        padding-bottom: map-get($map: $mapa, $key:XS);
+    }
+    .container-tips, .container-proceso{
+        width: 80%;
+    }   
     
 }
 /*****************************/

@@ -138,9 +138,6 @@ function fechaSeaMayorAHoy(fecha){
 
     const dateReserva = new Date(fecha);
     dateReserva.setMinutes(dateReserva.getMinutes() + dateReserva.getTimezoneOffset());
-    console.log(`dateReserva ${dateReserva}`);
-    console.log(`fecha ${fecha}`);
-    console.log(`dateHoy ${dateHoy}`);
 
     if (dateReserva < dateHoy){
         return false;
@@ -148,7 +145,7 @@ function fechaSeaMayorAHoy(fecha){
     return true;
 }
  
-/*******Fomatear Celular */
+/*******formatear celular */
 const miCelular = document.getElementById("celular");
 miCelular.addEventListener("input",() =>{
     const numeroCelular = miCelular.value;
@@ -164,8 +161,6 @@ formDeReserva.addEventListener("submit", (event) => {
 
     event.preventDefault()
     if (hayPedido){
-
-        console.log(precioTotalPedido)
 
         if (precioTotalPedido>importeMinimo){
 
@@ -332,22 +327,46 @@ function agregarCarrito(){
 
             carrito.append(cadena);
         }
-        hayPedido = true;
-        auxtotal= pedidos[i].precio*pedidos[i].cantidad;
-        cadena = document.createElement("section");
-        cadena.innerHTML = `
-         <div class="columnPedido">
-         <div class="descripcion">${pedidos[i].categoria}</div>
-         <div class="descripcion">${pedidos[i].descripcion}</div>
-         <img alt="Producto" class="img-pedido" src="../images/${pedidos[i].imagen}.jpg">
-         <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0 max=10>
-         <div class="precio">$${pedidos[i].precio} </div>
-         <div class="preciototal">$${auxtotal} </div>
-         <buton id="delete" class="btn btn-danger"></buton>
-        </div> `;
+        if (pedidos[i].cantidad <=10){
+            hayPedido = true;
+            auxtotal= pedidos[i].precio*pedidos[i].cantidad;
+            cadena = document.createElement("section");
+            cadena.innerHTML = `
+             <div class="columnPedido">
+             <div class="descripcion">${pedidos[i].descripcion}</div>
+             <div class="descripcion">${pedidos[i].categoria}</div>
+             <img alt="Producto" class="img-pedido" src="../images/${pedidos[i].imagen}.jpg">
+             <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0 max=10>
+             <div class="precio">$${pedidos[i].precio} </div>
+             <div class="preciototal">$${auxtotal} </div>
+             <buton id="delete" class="btn btn-danger"></buton>
+            </div> `;
+            carrito.append(cadena);
+        }
+        else{
+            pedidos[i].cantidad = 10;
+            Swal.fire({
+                icon: 'info',
+                title: `Cuidado, cambiamos la cantidad!!!`,
+                text: `Maximo permitido 10 unidades`,
+              })
+              hayPedido = true;
+              auxtotal= pedidos[i].precio*pedidos[i].cantidad;
+              cadena = document.createElement("section");
+              cadena.innerHTML = `
+               <div class="columnPedido">
+               <div class="descripcion">${pedidos[i].descripcion}</div>
+               <div class="descripcion">${pedidos[i].categoria}</div>
+               <img alt="Producto" class="img-pedido" src="../images/${pedidos[i].imagen}.jpg">
+               <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0 max=10>
+               <div class="precio">$${pedidos[i].precio} </div>
+               <div class="preciototal">$${auxtotal} </div>
+               <buton id="delete" class="btn btn-danger"></buton>
+              </div> `;
+              carrito.append(cadena);
+        }
+        }
 
-        carrito.append(cadena);
-    }
     agregarTotalPedido();
     updateNumberOfItems();
     removeItems();
@@ -355,11 +374,13 @@ function agregarCarrito(){
  
 /*********Si se agrego algun item a la seleccion inicial actualiza los items que tiene en el carrito y re calculo el total del pedido */
 function updateNumberOfItems(){
+    
     let inputNumber = document.querySelectorAll('.inputCantidad');
     inputNumber = [...inputNumber]
 
     inputNumber.forEach(item =>{
         item.addEventListener('click', event=>{
+            
             let itemActual= event.target.parentElement.parentElement.childNodes[1].innerText;
 
             pedidos.forEach(elemento => {
@@ -371,8 +392,8 @@ function updateNumberOfItems(){
                 let nuevoItemActual = itemActual.substring(0,longItemAnterior);
 
                 if (elemento.descripcion === nuevoItemActual){
-                   elemento.cantidad = itemCantidadActual;
-                    agregarTotalPedido();
+                        elemento.cantidad = itemCantidadActual;
+                        agregarTotalPedido();
                 }
             });
         });
@@ -412,25 +433,27 @@ function removeItems(){
             pedidos.forEach(elemento => {
 
                 contador++;
+                let auxtotal = 0;
                 let longItemAnterior = elemento.descripcion.length;
                 let nuevoItemActual = itemActual.substring(0,longItemAnterior);
 
                 if (elemento.descripcion !== nuevoItemActual){
-
-                        cadena = document.createElement("section");
-                        cadena.innerHTML = `
+                    auxtotal= elemento.precio*elemento.cantidad;
+                    cadena = document.createElement("section");
+                    cadena.innerHTML = `
                          <div class="columnPedido">
                          <div class="descripcion">${elemento.descripcion}</div>
+                         <div class="descripcion">${elemento.categoria}</div>
                          <img alt="Producto" class="img-pedido" src="../images/${elemento.imagen}.jpg">
                          <input class="inputCantidad" type="number" value=${elemento.cantidad} min=0 max=10>
                          <div class="precio">$${elemento.precio} </div>
+                         <div class="preciototal">$${auxtotal} </div>
                          <buton id="delete" class="btn btn-danger"></buton>
                         </div> `;
-
-                        carrito.append(cadena); 
-                        removeItems();  
-                        updateNumberOfItems();
-                        agregarTotalPedido();             
+                    carrito.append(cadena); 
+                    removeItems();  
+                    updateNumberOfItems();
+                    agregarTotalPedido();             
            
                 }
                 else{
@@ -447,8 +470,8 @@ function removeItems(){
         });
 
     });
-
 }
+
 /************Selecciona el tipo de entrega y verifica si llega con el Delivery a esa Zona */
 function seleccionarEntrega(){
     let IdDelivery = document.getElementById("IdDelivery");

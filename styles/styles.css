@@ -237,7 +237,7 @@ main {
 
 .descproducto {
   font-size: x-small;
-  min-height: 1rem; }
+  min-height: 2rem; }
 
 .p-dely {
   font-family: 'Josefin Sans', sans-serif;
@@ -650,7 +650,13 @@ h4 {
     font-size: 1rem;
     padding-left: 0.5rem; }
   .form-check, .form-floating {
-    font-size: 0.5rem; } }
+    font-size: 0.5rem; }
+  .precio, .preciototal {
+    margin-left: 1rem; }
+  .tituloprecio {
+    margin-left: 1rem; }
+  .btn-danger {
+    margin-left: 0; } }
 
 /*********  MEDIA QUERY  780******/
 @media screen and (max-width: 780px) {
@@ -658,25 +664,13 @@ h4 {
     margin-left: 3rem; }
   .container-contact, .container-mapa {
     width: 80%;
-    margin-bottom: 1rem; } }
-
-/*********  MEDIA QUERY  610- Surface Duo******/
-@media screen and (max-width: 610px) {
-  .nav-link:hover {
-    color: #5b1257; }
-  .footer_box {
-    font-size: 0.5rem;
-    padding: 0.1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem; }
-  .container-tips, .container-proceso {
-    width: 80%; }
-  .container-main {
-    display: flex;
-    flex-direction: column; }
+    margin-bottom: 1rem; }
   .container-delivery, .container-carrito {
     width: 100%;
     margin: 0; }
+  .container-main {
+    display: flex;
+    flex-direction: column; }
   .container-carrito {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem; }
@@ -692,6 +686,18 @@ h4 {
     margin-left: 5rem; }
   .descripcion {
     margin-left: 0; } }
+
+/*********  MEDIA QUERY  610- Surface Duo******/
+@media screen and (max-width: 610px) {
+  .nav-link:hover {
+    color: #5b1257; }
+  .footer_box {
+    font-size: 0.5rem;
+    padding: 0.1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem; }
+  .container-tips, .container-proceso {
+    width: 80%; } }
 
 /*****************************/
 @media screen and (max-width: 490px) {

@@ -11,7 +11,6 @@ let cad=`
       <a class="nav-link" href="./servicios.html">SERVICIOS</a>
       <a class="nav-link" href="./procesos.html">PROCESOS</a>
       <a class="nav-link" href="./tips.html">TIPS</a>
-      <a class="nav-link" href="./delivery.html">DELIVERY</a>
       <a class="nav-link" href="./contacto.html">CONTACTO</a>
     </div>
   </div>
