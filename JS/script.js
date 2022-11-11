@@ -1,4 +1,3 @@
-//localStorage.clear();
 /***************VARIABLES */
 const reservas = obtenerReservas();
 const pedidos = obtenerPedidos();
@@ -9,6 +8,8 @@ let precioPedido, precioTotalPedido , cantidadPedido , contador , idPedido, item
 const dateHoy = luxon.DateTime.now();
 let primera = true;
 let hayPedido = false;
+/******Variable que permite parametrizar el Importe Minimo de la compra */
+let importeMinimo = 10000;
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
@@ -77,10 +78,13 @@ function validarSeleccion(){
                 }
                 cad += `
                 <div class="column-dely" id="idServicio">
-                  <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">${productoSeleccionado[i].descripcion}`;
+                  <img alt="Producto" class="img-dely" src="../images/${valorSelect2}${i+1}.jpg">
+                  <div class="descproducto">
+                    ${productoSeleccionado[i].descripcion}
+                  </div>`;
                   cad += `<p class="p-dely">Cantidad</p>
                   <input class="p-dely-input" type="number" id=idnumber${i+1} value=0 min=0>`
-                  cad +=`<div>`;
+                  cad +=`<div class="descproducto">`;
                   cad += `C/U $${productoSeleccionado[i]?.precio}`;
                   cad += `</div>
                 </div>`;         
@@ -163,7 +167,7 @@ formDeReserva.addEventListener("submit", (event) => {
 
         console.log(precioTotalPedido)
 
-        if (precioTotalPedido>10000){
+        if (precioTotalPedido>importeMinimo){
 
            /***********Obetenemos los valores del Input */
             const nombre = inputNombre.value;
@@ -202,7 +206,7 @@ formDeReserva.addEventListener("submit", (event) => {
                         cad +=` <h6>Se coordinara su retiro para el dia</6>` 
                     }
                     else{
-                        cad+= `<h6 class="mensajeDelivery">Tenga en Cuenta que Podra acercarse al local el dia</h6>`
+                        cad+= `<h6 class="mensajeDelivery">Podra traer sus prendas al local el dia</h6>`
                     }
                     cad +=` <h6> ${fecha}</h6>
                     </div>`
@@ -212,13 +216,13 @@ formDeReserva.addEventListener("submit", (event) => {
                     title: `${cad}`,
                     text: "Queres Vaciar el Carrito?",
                     icon: 'success',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    showDenyButton: true,
+                    showCancelButton: false,
                     confirmButtonText: 'SI',
-                    denyButtonText: 'NO' }).then((result) => {
+                    denyButtonText: `NO`,
+                    }).then((result) => {
                     if (result.isConfirmed) {
-                         document.getElementById("idCarrito").innerHTML="";
+                        document.getElementById("idCarrito").innerHTML="";
                         localStorage.clear();
                         clearPedidos();
                         clearReservas();
@@ -365,9 +369,9 @@ function agregarTotalPedido(){
         precioTotalPedido = parseInt(precioTotalPedido) + parseInt(elemento.precio)*parseInt(elemento.cantidad);
     });
     let cad = `<h5>Total a Pagar $${precioTotalPedido}</h5>`
-    if (precioTotalPedido<10000){
-        cad += `<h6 class="h6-reserva">Le faltan $${10000-precioTotalPedido} Para Solicitar el servicio</h6>`
-        cad += `<h6 class="h6-reserva">Valor minimo de $10.000</h6>`
+    if (precioTotalPedido<importeMinimo){
+        cad += `<h6 class="h6-reserva">Le faltan $${importeMinimo-precioTotalPedido} Para Solicitar el servicio</h6>`
+        cad += `<h6 class="h6-reserva">Valor minimo de $${importeMinimo}</h6>`
     }
     document.getElementById("idtotalcarrito").innerHTML=cad;
 };

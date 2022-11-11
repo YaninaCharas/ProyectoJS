@@ -8,7 +8,9 @@
 
 .footer_box span{
     color: $blanco;
-    margin-left: 22px;
+    // margin-left: 22px;
+    justify-content: space-between;
+    text-align: right;
 }
 
 .footer_box a{
@@ -17,9 +19,9 @@
 
 .btn-mail{
     text-decoration: none;
+    margin-left: 30%;
 }
 .bi-facebook, .bi-instagram, .bi-whatsapp {
-    padding-left: 1rem;
     text-decoration: none;
     color:$violeta5asec;
 }
