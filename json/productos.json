@@ -26,7 +26,7 @@
     {
         "categoria": "Tintoreria",
         "producto": "Hombre",
-        "descripcion":"Camperon",
+        "descripcion":"Pantalon",
         "precio":1850
     },
     {
@@ -44,7 +44,7 @@
     {
         "categoria": "Tintoreria",
         "producto": "Hombre",
-        "descripcion":"Pantalon",
+        "descripcion":"Camperon",
         "precio":1850
     },
     {
@@ -116,40 +116,10 @@
     {
         "categoria": "Planchado",
         "producto": "Hombre",
-        "descripcion":"Camperon",
-        "precio":1850
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Hombre",
-        "descripcion":"Campera de Plumas",
-        "precio":1850
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Hombre",
-        "descripcion":"Campera Con Piel",
-        "precio":1850
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Hombre",
         "descripcion":"Pantalon",
         "precio":1850
     },
     {
-        "categoria": "Planchado",
-        "producto": "Hombre",
-        "descripcion":"Piloto",
-        "precio":1850
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Hombre",
-        "descripcion":"Tapado",
-        "precio":1850
-    },
-    {
         "categoria": "Tintoreria",
         "producto": "Mujer",
         "descripcion":"Vestido",
@@ -170,8 +140,8 @@
     {
         "categoria": "Tintoreria",
         "producto": "Mujer",
-        "descripcion":"Zapatillas",
-        "precio":1650
+        "descripcion":"Traje",
+        "precio":2650
     },
     {
         "categoria": "Tintoreria",
@@ -188,68 +158,110 @@
     {
         "categoria": "Tintoreria",
         "producto": "Mujer",
-        "descripcion":"Campera de Plumas",
+        "descripcion":"Pantalon de Lino",
         "precio":3200
     },
     {
         "categoria": "Tintoreria",
         "producto": "Mujer",
-        "descripcion":"Camperon",
+        "descripcion":"Camisa",
         "precio":2950
     },
     {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Pollera Plisada",
+        "precio":2200
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Campera Larga",
+        "precio":2200
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Impermeable",
+        "precio":2200
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Vestido de Fiesta",
+        "precio":2200
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Vestido de Novia",
+        "precio":2200
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Tapado de Cuero",
+        "precio":1200
+    },
+    {
+        "categoria": "Tintoreria",
+        "producto": "Mujer",
+        "descripcion":"Remera",
+        "precio":520
+    },
+    {
         "categoria": "Planchado",
         "producto": "Mujer",
         "descripcion":"Vestido",
-        "precio":1650
+        "precio":2200
     },
     {
         "categoria": "Planchado",
         "producto": "Mujer",
         "descripcion":"Ruana",
-        "precio":1650
+        "precio":2200
     },
     {
         "categoria": "Planchado",
         "producto": "Mujer",
         "descripcion":"Sueter",
-        "precio":1000
+        "precio":2200
     },
     {
         "categoria": "Planchado",
         "producto": "Mujer",
-        "descripcion":"Zapatillas",
+        "descripcion":"Traje",
+        "precio":2200
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Ambo",
         "precio":1650
     },
     {
         "categoria": "Planchado",
         "producto": "Mujer",
-        "descripcion":"Ambo Medico",
-        "precio":2250
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Mujer",
         "descripcion":"Blusa",
+        "precio":1650
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Pantalon de Lino",
+        "precio":1000
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Camisa",
+        "precio":1650
+    },
+    {
+        "categoria": "Planchado",
+        "producto": "Mujer",
+        "descripcion":"Pollera plisada",
         "precio":1450
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Mujer",
-        "descripcion":"Campera de Plumas",
-        "precio":3200
-    },
-    {
-    "categoria": "Planchado",
-    "producto": "Mujer",
-    "descripcion":"Camperon",
-    "precio":2950
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Mujer",
-        "descripcion":"Campera con Piel",
-        "precio":1780
     },
     {
         "categoria":"Lavado",
@@ -269,7 +281,7 @@
     {
         "categoria":"Lavado",
         "producto":"Casa",
-        "descripcion":"Servilletas", 
+        "descripcion":"Pañuelos", 
         "precio":550},
     {
         "categoria":"Lavado",
@@ -301,6 +313,11 @@
         "producto":"Casa",
         "descripcion":"Alfombras x metro", 
         "precio":1350},
+        {
+            "categoria":"Lavado",
+            "producto":"Casa",
+            "descripcion":"Zapatillas", 
+            "precio":2200},
     {
         "categoria":"Planchado",
         "producto":"Casa",

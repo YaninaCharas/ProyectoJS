@@ -40,7 +40,7 @@
 
 .btn-danger {
   background-color: transparent;
-  margin-left: 1rem;
+  margin-left: 0.1rem;
   border: none;
   width: 1rem;
   height: 1.7rem;
@@ -179,27 +179,23 @@ main {
   width: 15%;
   height: auto; }
 
-.descripcion {
-  max-width: 3rem;
+.titulodescripcion, .descripcion {
+  max-width: 2rem;
   min-width: 3rem;
   padding-left: 0.1rem;
-  text-align: left;
+  text-align: left; }
+
+.descripcion {
   font-weight: 400; }
 
 .precio, .preciototal {
-  margin-left: 1rem;
+  margin-left: 2rem;
   max-width: 2rem;
   min-width: 2rem;
   text-align: left; }
 
-.preciototal {
-  text-align: left;
-  margin-left: 1rem;
-  max-width: 2rem;
-  min-width: 2rem; }
-
 .tituloprecio {
-  margin-left: 1.5rem;
+  margin-left: 2rem;
   max-width: 2rem;
   min-width: 2rem;
   text-align: left; }
@@ -221,10 +217,11 @@ main {
   max-width: 2rem;
   min-width: 2rem;
   text-align: right;
-  margin-left: 0.1rem; }
+  margin-left: 0.1rem;
+  font-size: xx-small; }
 
 .titulocantidad {
-  margin-left: 2rem;
+  margin-left: 7rem;
   max-width: 2rem;
   min-width: 1rem;
   text-align: right; }
@@ -337,14 +334,14 @@ main {
   height: auto; }
 
 .container-delivery {
-  width: 75%;
+  width: 65%;
   margin-right: 0.5rem;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.8);
   height: 100%; }
 
 .container-carrito {
-  width: 25%;
+  width: 35%;
   margin-left: 0.5rem;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.8);

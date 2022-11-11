@@ -323,7 +323,7 @@ function agregarCarrito(){
             cadena = document.createElement("span");
             cadena.innerHTML = `
             <div class="columnPedido">
-            <div class="descripcion">Producto</div>
+            <div class="titulodesccripcion">Producto</div>
             <div class="titulocantidad">Cantidad</div>
             <div class="tituloprecio">Precio</div>
             <div class="tituloprecio">Total</div>
