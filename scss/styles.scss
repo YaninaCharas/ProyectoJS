@@ -35,14 +35,30 @@
     height: auto;
 }
 .descripcion{
+    max-width: 3rem;
     min-width: 3rem;
     padding-left: 0.1rem;
     text-align: left;
+    font-weight: 400;
 }
-.precio{    
-        min-width: 5rem;
-        text-align: right;
-    }
+.precio, .preciototal{    
+        margin-left: 1rem;
+        max-width: 2rem;
+        min-width: 2rem;
+        text-align: left;
+}
+.preciototal{
+    text-align: left;
+    margin-left: 1rem;
+    max-width: 2rem;
+    min-width: 2rem;
+}
+.tituloprecio{
+    margin-left: 1.5rem;
+    max-width: 2rem;
+    min-width: 2rem;
+    text-align: left;   
+}
 .columnPedido{
     background-color: white;
     border-bottom: 1px solid $violeta5asec;
@@ -57,7 +73,15 @@
     flex-direction: line;
 }
 .inputCantidad{
-    min-width: 0.3rem;
+    max-width: 2rem;
+    min-width: 2rem;
+    text-align: right;
+    margin-left: 0.1rem;
+}
+.titulocantidad{
+    margin-left:2rem;
+    max-width: 2rem;
+    min-width: 1rem;
     text-align: right;
 }
 .img-dely, .imgPedido{
@@ -448,6 +472,17 @@ h4{
     .container-tips{
         width: 80%;
     }
+    .btn-danger{
+        margin-left: 0.5rem;
+        margin-bottom: 0.1rem;
+        width: 0.8rem;
+    }
+    .container-carrito{
+        width: 35%;
+    }
+    .carrito{
+        font-size: x-small;
+    }
 }
 /*********  MEDIA QUERY  1024 ******/
 @media screen and (max-width: 1024px) {
@@ -485,6 +520,9 @@ h4{
         &:first-child{
             font-size: map-get($map: $mapa, $key:S);
         }
+    }
+    .container-carrito{
+        width: 45%;
     }
 }
 /*********  MEDIA QUERY  900 ******/
@@ -525,6 +563,43 @@ h4{
     .container-tips, .container-proceso{
         width: 80%;
     }   
+    .container-main{
+        display: flex;
+        flex-direction: column;
+    }
+    .container-delivery, .container-carrito{
+        width: 100%;
+        margin:0;
+    }
+    .container-carrito{
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .column-dely{
+        width: 40%;
+    }
+    .container-reserva input, .info-reserva{
+        font-size: medium;
+    }
+    .precio, .preciototal {
+        margin-left: 2rem;
+    }
+    .titulocantidad{
+        margin-left: 6rem;
+    }
+    .tituloprecio{
+        margin-left: 2rem;
+    }
+    .inputCantidad{
+        margin-left: 2rem;
+    }
+    .btn-danger{
+        margin-left: 5rem;
+    }
+    .descripcion{
+        margin-left: 0;
+    }
+    
 }
 /*****************************/
 @media screen and (max-width: 490px) {
@@ -547,6 +622,21 @@ h4{
             transform:scale(1.3)
             }
         }
+    }
+    .precio, .preciototal {
+        margin-left: 0.5rem;
+    }
+    .titulocantidad{
+        margin-left: 4rem;
+    }
+    .tituloprecio{
+        margin-left: 1rem;
+    }
+    .inputCantidad{
+        margin-left: 0.5rem;
+    }
+    .btn-danger{
+        margin-left: 0.2rem;
     }
 }
 /*********MEDIA QUERY - 481 *******/
@@ -646,6 +736,24 @@ h4{
         padding:map-get($map: $mapa, $key:XS);
         font-size: map-get($map: $mapa, $key:S);
     }
+    .precio, .preciototal {
+        margin-left: 0.2rem;
+        font-size: xx-small;
+    }
+    .titulocantidad{
+        margin-left: 1.5rem;
+    }
+    .tituloprecio{
+        margin-left: 1rem;
+    }
+    .inputCantidad{
+        margin-left: 0.2rem;
+        font-size: xx-small;
+    }
+    .btn-danger{
+        margin-left: 0.2rem;
+    }
+
     @keyframes contacto-animado{
         100%{
             width: 50%;

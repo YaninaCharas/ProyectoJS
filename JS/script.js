@@ -83,7 +83,7 @@ function validarSeleccion(){
                     ${productoSeleccionado[i].descripcion}
                   </div>`;
                   cad += `<p class="p-dely">Cantidad</p>
-                  <input class="p-dely-input" type="number" id=idnumber${i+1} value=0 min=0>`
+                  <input class="p-dely-input" type="number" id=idnumber${i+1} value=0 min=0 max=10>`
                   cad +=`<div class="descproducto">`;
                   cad += `C/U $${productoSeleccionado[i]?.precio}`;
                   cad += `</div>
@@ -313,19 +313,36 @@ formDePedido.addEventListener("submit", (event) => {
 
 /*******Agrega los items seleccionados al carrito */
 function agregarCarrito(){
-    
+    let auxtotal=0;
     document.getElementById("idCarrito").innerHTML="";
     document.getElementById("idtotalcarrito").innerHTML="";
 
+
     for (let i =0 ; i< pedidos.length; i++){
+        if (i===0){
+            cadena = document.createElement("span");
+            cadena.innerHTML = `
+            <div class="columnPedido">
+            <div class="descripcion">Producto</div>
+            <div class="titulocantidad">Cantidad</div>
+            <div class="tituloprecio">Precio</div>
+            <div class="tituloprecio">Total</div>
+           </div> `;
+
+
+            carrito.append(cadena);
+        }
         hayPedido = true;
+        auxtotal= pedidos[i].precio*pedidos[i].cantidad;
         cadena = document.createElement("section");
         cadena.innerHTML = `
          <div class="columnPedido">
+         <div class="descripcion">${pedidos[i].categoria}</div>
          <div class="descripcion">${pedidos[i].descripcion}</div>
          <img alt="Producto" class="img-pedido" src="../images/${pedidos[i].imagen}.jpg">
-         <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0>
-         <div class="precio">Precio c/u $${pedidos[i].precio} </div>
+         <input class="inputCantidad" type="number" value=${pedidos[i].cantidad} min=0 max=10>
+         <div class="precio">$${pedidos[i].precio} </div>
+         <div class="preciototal">$${auxtotal} </div>
          <buton id="delete" class="btn btn-danger"></buton>
         </div> `;
 
@@ -405,8 +422,8 @@ function removeItems(){
                          <div class="columnPedido">
                          <div class="descripcion">${elemento.descripcion}</div>
                          <img alt="Producto" class="img-pedido" src="../images/${elemento.imagen}.jpg">
-                         <input class="inputCantidad" type="number" value=${elemento.cantidad} min=0>
-                         <div class="precio">Precio c/u $${elemento.precio} </div>
+                         <input class="inputCantidad" type="number" value=${elemento.cantidad} min=0 max=10>
+                         <div class="precio">$${elemento.precio} </div>
                          <buton id="delete" class="btn btn-danger"></buton>
                         </div> `;
 
