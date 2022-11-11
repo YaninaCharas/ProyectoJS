@@ -313,11 +313,11 @@
         "producto":"Casa",
         "descripcion":"Alfombras x metro", 
         "precio":1350},
-        {
-            "categoria":"Lavado",
-            "producto":"Casa",
-            "descripcion":"Zapatillas", 
-            "precio":2200},
+    {
+        "categoria":"Lavado",
+        "producto":"Casa",
+        "descripcion":"Zapatillas", 
+        "precio":2200},
     {
         "categoria":"Planchado",
         "producto":"Casa",
