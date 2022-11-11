@@ -51,7 +51,7 @@
 }
 
 .tituloprecio{
-    margin-left: 2rem;
+    margin-left: 1rem;
     max-width: 2rem;
     min-width: 2rem;
     text-align: left;   
@@ -73,11 +73,10 @@
     max-width: 2rem;
     min-width: 2rem;
     text-align: right;
-    margin-left: 0.1rem;
     font-size: xx-small;
 }
 .titulocantidad{
-    margin-left:7rem;
+    margin-left:6rem;
     max-width: 2rem;
     min-width: 1rem;
     text-align: right;
@@ -467,6 +466,16 @@ h4{
             transform:scale(1.30)
         }
     }
+    .img-pedido{
+        width: 10%;
+        padding: 0;
+        margin: 0;
+    }
+    .precio, .preciototal {
+        margin-left: 1.5rem;
+        max-width: 1.5rem;
+        min-width: 1.5rem;
+    }
     .container-tips{
         width: 80%;
     }
@@ -522,6 +531,14 @@ h4{
     .container-carrito{
         width: 45%;
     }
+    .titulocantidad{
+        margin-left: 5rem;
+    }
+    .precio, .preciototal {
+        margin-left: 1.6rem;
+        max-width: 1.6rem;
+        min-width: 1.6rem;
+}
 }
 /*********  MEDIA QUERY  900 ******/
 @media screen and (max-width: 900px) {
@@ -582,13 +599,7 @@ h4{
     .precio, .preciototal {
         margin-left: 2rem;
     }
-    .titulocantidad{
-        margin-left: 6rem;
-    }
     .tituloprecio{
-        margin-left: 2rem;
-    }
-    .inputCantidad{
         margin-left: 2rem;
     }
     .btn-danger{
@@ -630,9 +641,7 @@ h4{
     .tituloprecio{
         margin-left: 1rem;
     }
-    .inputCantidad{
-        margin-left: 0.5rem;
-    }
+
     .btn-danger{
         margin-left: 0.2rem;
     }
@@ -745,7 +754,6 @@ h4{
         margin-left: 1rem;
     }
     .inputCantidad{
-        margin-left: 0.2rem;
         font-size: xx-small;
     }
     .btn-danger{

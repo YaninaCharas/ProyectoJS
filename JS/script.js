@@ -148,7 +148,7 @@ function fechaSeaMayorAHoy(fecha){
     return true;
 }
  
-/*******Fromatear Celular */
+/*******Fomatear Celular */
 const miCelular = document.getElementById("celular");
 miCelular.addEventListener("input",() =>{
     const numeroCelular = miCelular.value;
