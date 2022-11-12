@@ -72,24 +72,6 @@
         "precio":1850
     },
     {
-        "categoria": "Tintoreria",
-        "producto": "Hombre",
-        "descripcion":"Campera Comun",
-        "precio":1850
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Hombre",
-        "descripcion":"Pantalon Doblado",
-        "precio":1850
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Hombre",
-        "descripcion":"Ambo Medico",
-        "precio":1850
-    },
-    {
         "categoria": "Planchado",
         "producto": "Hombre",
         "descripcion":"Traje",
@@ -146,12 +128,6 @@
     {
         "categoria": "Tintoreria",
         "producto": "Mujer",
-        "descripcion":"Ambo Medico",
-        "precio":2250
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Mujer",
         "descripcion":"Blusa",
         "precio":1450
     },
@@ -172,36 +148,6 @@
         "producto": "Mujer",
         "descripcion":"Pollera Plisada",
         "precio":2200
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Mujer",
-        "descripcion":"Campera Larga",
-        "precio":2200
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Mujer",
-        "descripcion":"Impermeable",
-        "precio":2200
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Mujer",
-        "descripcion":"Vestido de Fiesta",
-        "precio":2200
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Mujer",
-        "descripcion":"Vestido de Novia",
-        "precio":2200
-    },
-    {
-        "categoria": "Tintoreria",
-        "producto": "Mujer",
-        "descripcion":"Tapado de Cuero",
-        "precio":1200
     },
     {
         "categoria": "Tintoreria",
@@ -236,32 +182,14 @@
     {
         "categoria": "Planchado",
         "producto": "Mujer",
-        "descripcion":"Ambo",
-        "precio":1650
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Mujer",
         "descripcion":"Blusa",
-        "precio":1650
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Mujer",
-        "descripcion":"Pantalon de Lino",
         "precio":1000
     },
     {
         "categoria": "Planchado",
         "producto": "Mujer",
-        "descripcion":"Camisa",
+        "descripcion":"Pantalon de Lino",
         "precio":1650
-    },
-    {
-        "categoria": "Planchado",
-        "producto": "Mujer",
-        "descripcion":"Pollera plisada",
-        "precio":1450
     },
     {
         "categoria":"Lavado",
