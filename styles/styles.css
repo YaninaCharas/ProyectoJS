@@ -12,7 +12,6 @@
 
 .btn-ok, .btn-info {
   font-size: small;
-  margin-top: 0.2rem;
   padding: 0.2rem;
   width: 8rem;
   background-color: #5b1257;
@@ -40,11 +39,12 @@
 
 .btn-danger {
   background-color: transparent;
-  margin-left: 0.1rem;
+  margin-left: 1rem;
   border: none;
   width: 1rem;
   height: 1.7rem;
-  background-image: url(../images/iconos/tachito.png); }
+  background-image: url(../images/iconos/tachito.png);
+  background-repeat: no-repeat; }
 
 .btn-danger:hover {
   background-color: transparent; }
@@ -437,7 +437,6 @@ h4 {
 
 .centrar-boton {
   margin: 0 auto;
-  margin-top: 2rem;
   text-align: center; }
 
 .centrar-h2 {
@@ -593,8 +592,7 @@ h4 {
   .container-tips {
     width: 80%; }
   .btn-danger {
-    margin-left: 0.5rem;
-    margin-bottom: 0.1rem;
+    margin-left: 1rem;
     width: 0.8rem; }
   .container-carrito {
     width: 35%; }
@@ -653,7 +651,7 @@ h4 {
   .tituloprecio {
     margin-left: 1rem; }
   .btn-danger {
-    margin-left: 0; } }
+    margin-left: 1rem; } }
 
 /*********  MEDIA QUERY  780******/
 @media screen and (max-width: 780px) {
@@ -714,13 +712,13 @@ h4 {
         transition: 0.5s;
         transform: scale(1.3); }
   .precio, .preciototal {
-    margin-left: 0.5rem; }
+    margin-left: 1rem; }
   .titulocantidad {
     margin-left: 4rem; }
   .tituloprecio {
     margin-left: 1rem; }
   .btn-danger {
-    margin-left: 0.2rem; } }
+    margin-left: 0.5rem; } }
 
 /*********MEDIA QUERY - 481 *******/
 @media screen and (max-width: 484px) {

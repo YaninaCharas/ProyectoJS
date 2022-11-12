@@ -304,7 +304,6 @@ h4{
 }
 .centrar-boton{
     margin: 0 auto;
-    margin-top: 2rem;
     text-align: center;
 }
 .centrar-h2{
@@ -477,8 +476,7 @@ h4{
         width: 80%;
     }
     .btn-danger{
-        margin-left: 0.5rem;
-        margin-bottom: 0.1rem;
+        margin-left: 1rem;
         width: 0.8rem;
     }
     .container-carrito{
@@ -558,7 +556,7 @@ h4{
         margin-left: 1rem;
     }
     .btn-danger{
-        margin-left: 0;
+        margin-left: 1rem;
     }
 
 }
@@ -642,7 +640,7 @@ h4{
         }
     }
     .precio, .preciototal {
-        margin-left: 0.5rem;
+        margin-left: 1rem;
     }
     .titulocantidad{
         margin-left: 4rem;
@@ -652,7 +650,7 @@ h4{
     }
 
     .btn-danger{
-        margin-left: 0.2rem;
+        margin-left: 0.5rem;
     }
 }
 /*********MEDIA QUERY - 481 *******/

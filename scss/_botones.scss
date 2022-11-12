@@ -1,6 +1,5 @@
 .btn-ok, .btn-info{
     font-size: small;
-    margin-top: 0.2rem;
     padding: 0.2rem;
     width: 8rem;
     background-color:$violeta5asec;
@@ -30,12 +29,12 @@
 }
 .btn-danger{
     background-color: transparent;
-    margin-left: 0.1rem;
+    margin-left: 1rem;
     border:none;
     width: 1rem;
     height: 1.7rem;
     background-image: url(../images/iconos/tachito.png);
-    
+    background-repeat: no-repeat;    
 }
 .btn-danger:hover{
     background-color: transparent;

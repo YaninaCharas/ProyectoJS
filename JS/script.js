@@ -152,7 +152,7 @@ miCelular.addEventListener("change",() =>{
             miCelular.value = `(${numeroCelular.slice(0,3)}) ${numeroCelular.slice(3,7,)}-${numeroCelular.slice(7,11)}`;
             break;
         case 10:
-            miCelular.value = `(${numeroCelular.slice(0,2)}) ${numeroCelular.slice(2,6,)}-${numeroCelular.slice(6,10)}`;
+            miCelular.value = `(${numeroCelular.slice(0,2)}) ${numeroCelular.slice(2,6,)}-${numeroCelular.slice(6,1)}`;
             break;
         case 8:
             miCelular.value = `${numeroCelular.slice(0,4)}-${numeroCelular.slice(4,8,)}`;
