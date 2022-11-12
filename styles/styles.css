@@ -179,6 +179,9 @@ main {
   width: 15%;
   height: auto; }
 
+.flexReserva {
+  display: flex; }
+
 .titulodescripcion, .descripcion {
   max-width: 2rem;
   min-width: 3rem;

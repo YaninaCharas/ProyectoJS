@@ -148,8 +148,11 @@ miCelular.addEventListener("change",() =>{
     const numeroCelularLength = numeroCelular.length;
     
     switch (numeroCelularLength){
-        case 10:
+        case 11:
             miCelular.value = `(${numeroCelular.slice(0,3)}) ${numeroCelular.slice(3,7,)}-${numeroCelular.slice(7,11)}`;
+            break;
+        case 10:
+            miCelular.value = `(${numeroCelular.slice(0,2)}) ${numeroCelular.slice(2,6,)}-${numeroCelular.slice(6,10)}`;
             break;
         case 8:
             miCelular.value = `${numeroCelular.slice(0,4)}-${numeroCelular.slice(4,8,)}`;
@@ -157,7 +160,7 @@ miCelular.addEventListener("change",() =>{
         case 7:
             miCelular.value = `${numeroCelular.slice(0,3)}-${numeroCelular.slice(3,7,)}`;
             break;
-        defaul:
+        default:
             break;
     return miCelular.value;
     }
