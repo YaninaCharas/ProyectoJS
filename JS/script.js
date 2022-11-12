@@ -4,12 +4,15 @@ const pedidos = obtenerPedidos();
 const carrito = document.getElementById("idCarrito");
 let productoSeleccionado = [];
 let productoPedido, categoriaPedido , imagenPedido , descripcionPedido = "", cadena ="", tipoEntrega = "";
-let precioPedido, precioTotalPedido , cantidadPedido , contador , idPedido, item = 0;
+let precioPedido, precioTotalPedido , cantidadPedido , contador , idPedido, errorZona, item = 0;
 const dateHoy = luxon.DateTime.now();
 let primera = true;
 let hayPedido = false;
-/******Variable que permite parametrizar el Importe Minimo de la compra */
-let importeMinimo = 10000;
+
+/******Variables que permite parametrizar el Importe Minimo de la compra y la zona de Delivery Habilitada*/
+const importeMinimo = 10000;
+const cpDesde = 1000;
+const cpHasta = 2000;
 
 const select1 = document.getElementById(`comboFliaProductos`);
 const select2 = document.getElementById(`comboProductos`);
@@ -183,8 +186,9 @@ formDeReserva.addEventListener("submit", (event) => {
             const codigoPostal = parseInt(inputCodigoPostal.value);
 
             idPedido = 1000;
+            
             seleccionarEntrega();
-
+            
             if (fechaDisponible(fecha)){
                 if (fechaSeaMayorAHoy(fecha)){
                     reservas.push({
@@ -211,7 +215,16 @@ formDeReserva.addEventListener("submit", (event) => {
                         cad +=` <h6>Se coordinara su retiro para el dia</6>` 
                     }
                     else{
-                        cad+= `<h6 class="mensajeDelivery">Podra traer sus prendas al local el dia</h6>`
+                        if (errorZona==1){
+                            cad+=`<h6 class="mensajeDelivery">No llegamos a su zona, debera traer las prendas al local el dia</h6>`
+                        }
+                        else if (errorZona==2){
+                            cad+= `<h6 class="mensajeDelivery">Tipo de Entrega no especificado, Debera traer las prendas al local el dia</h6>`
+                        }
+                        else{
+                            cad+= `<h6 class="mensajeDelivery">Podra traer sus prendas al local el dia</h6>`
+                        }
+
                     }
                     cad +=` <h6> ${fecha}</h6>
                     </div>`
@@ -233,13 +246,13 @@ formDeReserva.addEventListener("submit", (event) => {
                         clearReservas();
                         Swal.fire('Carrito Vacio!', '', 'success')
                     }}),5500})
-        /***************Inicializacion de Variables luego del push*/
+        /**************Inicializacion de Variables luego del push*/
                         inputNombre.value = "";
                         inputApellido.value = "";
-                        inputCelular.value = 0;
+                        inputCelular.value = "";
                         inputEmail.value= "";
                         inputFecha.value= "";
-                        inputCodigoPostal.value= 0;
+                        inputCodigoPostal.value= "";
                     }  
                     else{
                         Swal.fire({
@@ -277,9 +290,8 @@ formDePedido.addEventListener("submit", (event) => {
     cad = "";
     contador = 0;
     item = 0;
-    let clases = document.getElementsByClassName("p-dely-input");
-/************** Obtener el numero de idPedidos, tengo que buscar al max numero asignado a reservas Id y sumarle uno.*/
     idPedido = 1000
+    let clases = document.getElementsByClassName("p-dely-input");
 
     for (let i=0; i< clases.length; i++){
         hayPedido = true;
@@ -333,7 +345,6 @@ function agregarCarrito(){
             <div class="tituloprecio">Precio</div>
             <div class="tituloprecio">Total</div>
            </div> `;
-
 
             carrito.append(cadena);
         }
@@ -492,20 +503,17 @@ function seleccionarEntrega(){
         const inputCodigoPostal = document.getElementById("codigoPostal");
         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
 
-        if ((valorInputCodigoPostal <1200) || (valorInputCodigoPostal>1800)){
+        if ((valorInputCodigoPostal <cpDesde) || (valorInputCodigoPostal>cpHasta)){
             comboEntrega.value = "L"
             tipoEntrega = "L"
             cad=`<h6>No llegamos a su zona, debera traer las prendas al local</h6>`
             IdDelivery.innerHTML=cad; 
-            Swal.fire({
-                icon: 'info',
-                title: `No llegamos a su zona!!`,
-                text: `Debera traer las prendas al local`,
-              })
+            errorZona = 1;
         } 
     }
-    else{
+    else if  (tipoEntrega !== "L"){
         cad=`<h6>Tipo de Entrega no especificado, Debera traer las prendas al local</h6>` 
         IdDelivery.innerHTML=cad; 
+        errorZona = 2;
     }
 }
