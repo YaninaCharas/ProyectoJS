@@ -355,7 +355,7 @@ function agregarCarrito(){
             Swal.fire({
                 icon: 'info',
                 title: `Cuidado, cambiamos la cantidad!!!`,
-                text: `Maximo permitido 10 unidades`,
+                text: `Maximo permitido 10 unidades por servicio`,
               })
               hayPedido = true;
               auxtotal= pedidos[i].precio*pedidos[i].cantidad;
