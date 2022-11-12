@@ -376,7 +376,6 @@ main {
   .navbar-toggler:hover {
     border: 2px solid #ed6c06; }
 
-/* estilos de titulos h1---h3*/
 h1 {
   color: #ed6c06;
   font-weight: bold;
@@ -443,7 +442,6 @@ h4 {
   padding-top: 0.5rem;
   font-size: 1.5rem;
   color: #4b4747;
-  /*******/
   text-align: center; }
 
 .form-control {
@@ -539,11 +537,6 @@ h4 {
 .text-pop-up-top {
   -webkit-animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
-
-/*****************  ANIMACION CONTACTO ********************************/
-@keyframes contacto-animado {
-  100% {
-    width: 20%; } }
 
 /*****************  ANIMACION slide-in-elliptic-top-fwd *****************/
 @-webkit-keyframes slide-in-elliptic-top-fwd {
@@ -755,10 +748,7 @@ h4 {
     margin-bottom: 1rem;
     width: 90%; }
   .bi-facebook, .bi-instagram, .bi-whatsapp {
-    padding-left: 0.2rem; }
-  @keyframes contacto-animado {
-    100% {
-      width: 35%; } } }
+    padding-left: 0.2rem; } }
 
 /*****************MOBIL Galaxy Fold- SMALL ONE*/
 @media screen and (max-width: 281px) {
@@ -806,7 +796,4 @@ h4 {
   .inputCantidad {
     font-size: xx-small; }
   .btn-danger {
-    margin-left: 0.2rem; }
-  @keyframes contacto-animado {
-    100% {
-      width: 50%; } } }
+    margin-left: 0.2rem; } }

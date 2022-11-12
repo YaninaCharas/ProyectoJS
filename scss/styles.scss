@@ -14,7 +14,6 @@
 .row-dely{
     background-color: $fondo-formulario-contacto;
     font-weight: bold;
-    // padding: map-get($map: $mapa, $key:XS);
     border-radius: 20px;
     border: 1px solid $violeta5asec;
     color: $violeta5asec;
@@ -44,10 +43,10 @@
     font-weight: 400;
 }
 .precio, .preciototal{    
-        margin-left: 2rem;
-        max-width: 2rem;
-        min-width: 2rem;
-        text-align: left;
+    margin-left: 2rem;
+    max-width: 2rem;
+    min-width: 2rem;
+    text-align: left;
 }
 
 .tituloprecio{
@@ -240,7 +239,7 @@
         border:2px solid $naranja;
     }
 }
-/* estilos de titulos h1---h3*/
+
 h1{
     color: $naranja;
     font-weight: bold;
@@ -309,7 +308,6 @@ h4{
     padding-top: map-get($map: $mapa, $key:XS);
     font-size: map-get($map: $mapa, $key:XL)/2;
     color: $gris;
-    /*******/
     text-align: center;
 }
 .form-control{
@@ -412,12 +410,6 @@ h4{
 	        animation: text-pop-up-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
-/*****************  ANIMACION CONTACTO ********************************/
-@keyframes contacto-animado{
-    100%{
-        width: 20%;
-    }
-}
 /*****************  ANIMACION slide-in-elliptic-top-fwd *****************/
 @-webkit-keyframes slide-in-elliptic-top-fwd {
     0% {
@@ -700,12 +692,7 @@ h4{
     }   
     .bi-facebook, .bi-instagram, .bi-whatsapp {
         padding-left: 0.2rem;
-    }
-    @keyframes contacto-animado{
-        100%{
-            width: 35%;
-        }
-    }   
+    }  
 }
 /*****************MOBIL Galaxy Fold- SMALL ONE*/
 @media screen and (max-width: 281px) {
@@ -771,10 +758,4 @@ h4{
     .btn-danger{
         margin-left: 0.2rem;
     }
-
-    @keyframes contacto-animado{
-        100%{
-            width: 50%;
-        }
-    } 
 }

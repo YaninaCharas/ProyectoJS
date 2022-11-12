@@ -33,10 +33,6 @@ if (primera){
     primera = false;
 }
 
-function clearStorage(){
-    localStorage.clear();
-}
-
 function clearPedidos(){
     precioTotalPedido = 0;
     for (let i =0; i<=pedidos.length;i++){
@@ -127,7 +123,7 @@ function obtenerPedidos(){
     return [];
 }
 
-/******Verificaciones de verificacion de fecha habilitada para solicitar un servicio */
+/******validaciones de la fecha solicitada para el servicio */
 function fechaDisponible(fecha){
     return !reservas.some ( (elemento) =>{
         return elemento.fecha === fecha;
@@ -147,12 +143,23 @@ function fechaSeaMayorAHoy(fecha){
  
 /*******formatear celular */
 const miCelular = document.getElementById("celular");
-miCelular.addEventListener("input",() =>{
+miCelular.addEventListener("change",() =>{
     const numeroCelular = miCelular.value;
     const numeroCelularLength = numeroCelular.length;
     
-    if(numeroCelularLength>10){
-        return miCelular.value = `(${numeroCelular.slice(0,3)}) ${numeroCelular.slice(3,7,)}-${numeroCelular.slice(7,11)}`;
+    switch (numeroCelularLength){
+        case 10:
+            miCelular.value = `(${numeroCelular.slice(0,3)}) ${numeroCelular.slice(3,7,)}-${numeroCelular.slice(7,11)}`;
+            break;
+        case 8:
+            miCelular.value = `${numeroCelular.slice(0,4)}-${numeroCelular.slice(4,8,)}`;
+            break;
+        case 7:
+            miCelular.value = `${numeroCelular.slice(0,3)}-${numeroCelular.slice(3,7,)}`;
+            break;
+        defaul:
+            break;
+    return miCelular.value;
     }
 });
 
@@ -482,7 +489,7 @@ function seleccionarEntrega(){
         const inputCodigoPostal = document.getElementById("codigoPostal");
         const valorInputCodigoPostal = parseInt(inputCodigoPostal.value);
 
-        if (valorInputCodigoPostal <1200 || valorInputCodigoPostal>1800){
+        if ((valorInputCodigoPostal <1200) || (valorInputCodigoPostal>1800)){
             comboEntrega.value = "L"
             tipoEntrega = "L"
             cad=`<h6>No llegamos a su zona, debera traer las prendas al local</h6>`
