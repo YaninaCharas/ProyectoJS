@@ -1,4 +1,5 @@
-let cad=`
+let cad ="";
+cad=`
 <nav class="navbar navbar-expand-lg bg-pink navbar-transparent fixed-top">
 <div class="container-fluid">
   <a class="navbar-brand" href="../index.html"><img src="../images/iconos/logo_largo.png" alt="Logo 5asec" class="img_logo"/></a>

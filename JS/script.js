@@ -2,6 +2,7 @@
 const reservas = obtenerReservas();
 const pedidos = obtenerPedidos();
 const carrito = document.getElementById("idCarrito");
+let IdDelivery = document.getElementById("IdDelivery");
 let productoSeleccionado = [];
 let productoPedido, categoriaPedido , imagenPedido , descripcionPedido = "", cadena ="", tipoEntrega = "";
 let precioPedido, precioTotalPedido , cantidadPedido , contador , idPedido, errorZona, item = 0;
@@ -149,13 +150,13 @@ const miCelular = document.getElementById("celular");
 miCelular.addEventListener("change",() =>{
     const numeroCelular = miCelular.value;
     const numeroCelularLength = numeroCelular.length;
-    
+      
     switch (numeroCelularLength){
         case 11:
-            miCelular.value = `(${numeroCelular.slice(0,3)}) ${numeroCelular.slice(3,7,)}-${numeroCelular.slice(7,11)}`;
+            miCelular.value = `(${numeroCelular.slice(0,3)}) ${numeroCelular.slice(3,7)}-${numeroCelular.slice(7,11)}`;
             break;
         case 10:
-            miCelular.value = `(${numeroCelular.slice(0,2)}) ${numeroCelular.slice(2,6,)}-${numeroCelular.slice(6,1)}`;
+            miCelular.value = `(${numeroCelular.slice(0,2)}) ${numeroCelular.slice(2,6,)}-${numeroCelular.slice(6,10,)}`;
             break;
         case 8:
             miCelular.value = `${numeroCelular.slice(0,4)}-${numeroCelular.slice(4,8,)}`;
@@ -165,8 +166,8 @@ miCelular.addEventListener("change",() =>{
             break;
         default:
             break;
-    return miCelular.value;
     }
+    return miCelular.value;
 });
 
 /******************* Formulario de RESERVA */
@@ -215,10 +216,10 @@ formDeReserva.addEventListener("submit", (event) => {
                         cad +=` <h6>Se coordinara su retiro para el dia</6>` 
                     }
                     else{
-                        if (errorZona==1){
+                        if (errorZona===1){
                             cad+=`<h6 class="mensajeDelivery">No llegamos a su zona, debera traer las prendas al local el dia</h6>`
                         }
-                        else if (errorZona==2){
+                        else if (errorZona===2){
                             cad+= `<h6 class="mensajeDelivery">Tipo de Entrega no especificado, Debera traer las prendas al local el dia</h6>`
                         }
                         else{
@@ -495,7 +496,6 @@ function removeItems(){
 
 /************Selecciona el tipo de entrega y verifica si llega con el Delivery a esa Zona */
 function seleccionarEntrega(){
-    let IdDelivery = document.getElementById("IdDelivery");
     let cad = ""
 
     tipoEntrega = comboEntrega.value
